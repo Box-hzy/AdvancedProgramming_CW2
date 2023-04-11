@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GameManagement : MonoBehaviour
 {
-    bool FireAlarm = false;
+    public bool FireAlarm = false;
     // Start is called before the first frame update
     void Start()
     {

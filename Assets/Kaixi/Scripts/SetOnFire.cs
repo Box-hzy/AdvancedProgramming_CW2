@@ -51,6 +51,7 @@ public class SetOnFire : MonoBehaviour
 
             closetHouse.GetComponentInChildren<Renderer>().material = BurningMaterial;
             HouseManager.setHouseState(closetHouse, 1);
+            gameManagement.setFireAlarm(true);
         }
        
      

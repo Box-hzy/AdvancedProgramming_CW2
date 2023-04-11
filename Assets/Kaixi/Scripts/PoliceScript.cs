@@ -12,8 +12,6 @@ public class PoliceScript : MonoBehaviour
     public NavMeshAgent agent;
 
     public float interactDistance;
-
-    bool chase = false;
     float distance;
 
     public float maxPatrolDistance;
