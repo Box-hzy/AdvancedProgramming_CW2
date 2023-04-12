@@ -10,7 +10,11 @@ public class HouseManager : MonoBehaviour
     public float minDistance;
     public Dictionary<GameObject,int> HouseState = new Dictionary<GameObject,int>(); //Housename,house state(0 for nothing, 1 for burning,2 for fire get extinguished)
     public GameObject testObject;
+    GameObject currentBuringHouse;
 
+    public Material burningMaterial;
+    public Material ruinMaterial;
+    
     GameManagement gameManagement;
 
     private void Start()
@@ -97,5 +101,21 @@ public class HouseManager : MonoBehaviour
         ClosestHouseWithState(gameObject, state);
 
         return minDistance;
+    }
+
+    public void setCurrentBurningHouse(GameObject thisGamObject) {
+        currentBuringHouse = thisGamObject;
+    }
+
+    public GameObject getCurrentBurningHouse() {
+        return currentBuringHouse;
+    }
+
+    public Material BurningMaterial(){
+        return burningMaterial;
+    }
+
+    public Material RuinMaterial() {
+        return ruinMaterial; 
     }
 }

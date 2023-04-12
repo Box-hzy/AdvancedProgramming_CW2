@@ -10,6 +10,8 @@ public class SetOnFire : MonoBehaviour
     public float InteractDistance;
     GameManagement gameManagement;
 
+    public bool canBeBurn = true;
+
     public float interactTime = 0.0f;
     public float interactThreshold = 3.0f;
     // Start is called before the first frame update
@@ -22,7 +24,7 @@ public class SetOnFire : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        closestHouse = HouseManager.getClosestHouse(this.gameObject);
+        closestHouse = HouseManager.getClosestHouseWithState(this.gameObject,0);
         
         //Debug.Log(this.gameObject);
         if (Input.GetKey(KeyCode.E))
@@ -30,11 +32,15 @@ public class SetOnFire : MonoBehaviour
             interactTime += Time.deltaTime;
             if (interactTime >= interactThreshold)
             {
-                burnHouse();
+                if (canBeBurn) {
+                    burnHouse();
+                    canBeBurn = false;
+                } 
             }
         }
         else { 
             interactTime= 0.0f;
+            canBeBurn = true;
         }
 
        // Debug.Log(HouseManager.getMinDistance(this.gameObject));
@@ -49,9 +55,10 @@ public class SetOnFire : MonoBehaviour
             GameObject closetHouse = HouseManager.getClosestHouse(this.gameObject);
           
 
-            closetHouse.GetComponentInChildren<Renderer>().material = BurningMaterial;
+            closetHouse.GetComponentInChildren<Renderer>().material = HouseManager.BurningMaterial();
             HouseManager.setHouseState(closetHouse, 1);
             gameManagement.setFireAlarm(true);
+            HouseManager.setCurrentBurningHouse(closetHouse);
         }
        
      

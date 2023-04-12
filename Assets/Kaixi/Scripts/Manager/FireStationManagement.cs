@@ -9,10 +9,17 @@ public class FireStationManagement : MonoBehaviour
     Dictionary<GameObject,GameObject> FireEngineAppear = new Dictionary<GameObject,GameObject>();
     
     public GameObject FireEngine;
+
+    
     GameObject firehouse;
 
     public List<GameObject> FireEngineList= new List<GameObject>();
 
+    public bool dispatch = false;
+
+    public float truckStoppingDistance = 3.0f;
+
+    
     GameManagement gameManagement;
     HouseManager houseManager;
     // Start is called before the first frame update
@@ -30,20 +37,35 @@ public class FireStationManagement : MonoBehaviour
     void Update()
     {
         if (gameManagement.getFireAlarm()) {
-            firehouse = houseManager.getClosestHouseWithState(this.gameObject, 1);
+            gameManagement.setFireAlarm(false);
+            firehouse = houseManager.getCurrentBurningHouse();
             Debug.Log(firehouse);
             GameObject firestation = GetClosestFireStation(firehouse);
-            DispatchFireEngines(firestation,firehouse);  
+            DispatchFireEngines(firestation, firehouse);
+            
+
         }
     }
 
     void DispatchFireEngines(GameObject firestation,GameObject firehouse) { //instantiate a fire engine which will drive to the burning house
+
+
+        //GameObject thisFireEngine = FireEngineAppear[firestation];
+
+        //thisFireEngine.SetActive(true);
+
+        GameObject thisFireEngine = Instantiate(FireEngine, FireEngineAppear[firestation].transform.position, Quaternion.identity);
+        FireEngine fireEngineScript = thisFireEngine.GetComponent<FireEngine>();
         
-        GameObject thisFireEngine = FireEngineAppear[firestation];
-        //GameObject thisFireEngine = Instantiate(FireEngine, FireEngineAppear[firestation].transform);
-        thisFireEngine.SetActive(true);
-        NavMeshAgent agent = thisFireEngine.GetComponent<NavMeshAgent>();
-        agent.SetDestination(firehouse.transform.position);
+        
+        
+        //Caculate the parking point near the burning house
+        Vector3 truckDirection = (firehouse.transform.position - thisFireEngine.transform.position).normalized;
+        Vector3 truckStopPosition = firehouse.transform.position - truckDirection * truckStoppingDistance;
+
+        fireEngineScript.setFirehouseDestination(truckStopPosition);
+        fireEngineScript.setFireStationDestination(FireEngineAppear[firestation].transform.position);
+        fireEngineScript.firehouse = firehouse;
     }
 
     GameObject GetClosestFireStation(GameObject firehouse) {
