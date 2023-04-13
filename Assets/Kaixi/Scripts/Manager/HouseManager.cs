@@ -5,22 +5,16 @@ using UnityEngine;
 
 public class HouseManager : MonoBehaviour
 {
-    public GameObject closestHouse;
+    GameObject closestHouse;
     //public GameObject[] buildings;
 
     public House[] houses;
 
-    public float minDistance;
+    float minDistance;
     
     //public Dictionary<GameObject,int> HouseState = new Dictionary<GameObject,int>(); //Housename,house state(0 for nothing, 1 for burning,2 for fire get extinguished)
-    
-    public GameObject testObject;
+
     GameObject currentBuringHouse;
-
-    public Material burningMaterial;
-    public Material ruinMaterial;
-
-    public Transform LargeHouses;
     GameManagement gameManagement;
 
     private void Start()
@@ -114,13 +108,6 @@ public class HouseManager : MonoBehaviour
         return currentBuringHouse;
     }
 
-    public Material BurningMaterial(){
-        return burningMaterial;
-    }
-
-    public Material RuinMaterial() {
-        return ruinMaterial; 
-    }
 
  
     

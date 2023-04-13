@@ -67,7 +67,7 @@ public class FiremanScript : MonoBehaviour
     {
         yield return new WaitForSeconds(3f);
 
-        ClosestFireHouse.GetComponentInChildren<Renderer>().material = houseManager.RuinMaterial();
+       
         houseManager.setHouseState(ClosestFireHouse, 2); //set house state into ruin.
         state = 2;
     }

@@ -8,12 +8,12 @@ public class FireStationManagement : MonoBehaviour
     public List<GameObject> FireStationList = new List<GameObject>();
     Dictionary<GameObject,GameObject> FireEngineAppear = new Dictionary<GameObject,GameObject>();
     
-    public GameObject FireEngine;
+    public GameObject FireEngine;//need add
 
     
     GameObject firehouse;
 
-    public List<GameObject> FireEngineList= new List<GameObject>();
+    List<GameObject> FireEngineList= new List<GameObject>();
 
     public bool dispatch = false;
 
