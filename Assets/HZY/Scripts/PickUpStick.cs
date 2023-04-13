@@ -8,7 +8,7 @@ public class PickUpStick : MonoBehaviour
     public bool isHoldingStick;
     public GameObject stick;
 
-    public float ActiveTime;
+    public float ActiveDuration = 20;
     [SerializeField]float timer;
 
 
@@ -24,7 +24,7 @@ public class PickUpStick : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.E))
             {
                 stick.SetActive(true);
-                timer = ActiveTime;
+                timer = ActiveDuration;
             }
         }
 

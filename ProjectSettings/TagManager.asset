@@ -7,6 +7,8 @@ TagManager:
   - Roads
   - Buildings
   - Wood
+  - SmallHouse
+  - BigHouse
   layers:
   - Default
   - TransparentFX
