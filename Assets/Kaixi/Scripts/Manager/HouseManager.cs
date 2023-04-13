@@ -6,26 +6,30 @@ using UnityEngine;
 public class HouseManager : MonoBehaviour
 {
     public GameObject closestHouse;
-    public GameObject[] buildings;
+    //public GameObject[] buildings;
+
+    public House[] houses;
+
     public float minDistance;
-    public Dictionary<GameObject,int> HouseState = new Dictionary<GameObject,int>(); //Housename,house state(0 for nothing, 1 for burning,2 for fire get extinguished)
+    
+    //public Dictionary<GameObject,int> HouseState = new Dictionary<GameObject,int>(); //Housename,house state(0 for nothing, 1 for burning,2 for fire get extinguished)
+    
     public GameObject testObject;
     GameObject currentBuringHouse;
 
     public Material burningMaterial;
     public Material ruinMaterial;
-    
+
+    public Transform LargeHouses;
     GameManagement gameManagement;
 
     private void Start()
     {
+        
         gameManagement = GameObject.Find("GameManagement").GetComponent<GameManagement>();
         
         //buildings = GameObject.FindGameObjectsWithTag("Buildings");
         
-        foreach (GameObject building in buildings) { 
-            HouseState.Add(building, 0); 
-        }
 
     }
 
@@ -35,12 +39,12 @@ public class HouseManager : MonoBehaviour
 
         
 
-        foreach (GameObject building in buildings)
+        foreach (House house in houses)
         {
-            float distance = Vector3.Distance(gameObject.transform.position, building.transform.position);
+            float distance = Vector3.Distance(gameObject.transform.position, house.gameObject.transform.position);
             if (distance < minDistance)
             {
-                closestHouse = building;
+                closestHouse = house.gameObject;
                 minDistance = distance;
 
             }
@@ -60,12 +64,11 @@ public class HouseManager : MonoBehaviour
         return minDistance;
     }
 
-    public int getHouseState(GameObject house) { 
-        return HouseState[house];
-    }
+
 
     public void setHouseState(GameObject house,int stateNum) {
-        HouseState[house] = stateNum;
+        house.GetComponent<House>().setState(stateNum);
+        
     }
 
 
@@ -75,12 +78,12 @@ public class HouseManager : MonoBehaviour
         closestHouse = null;
 
 
-        foreach (GameObject building in buildings)
+        foreach (House house in houses)
         {
-            float distance = Vector3.Distance(gameObject.transform.position, building.transform.position);
-            if (distance < minDistance && getHouseState(building) == state)
+            float distance = Vector3.Distance(gameObject.transform.position, house.gameObject.transform.position);
+            if (distance < minDistance && house.getState() == state)
             {
-                closestHouse = building;
+                closestHouse = house.gameObject;
                 minDistance = distance;
 
             }
@@ -118,4 +121,7 @@ public class HouseManager : MonoBehaviour
     public Material RuinMaterial() {
         return ruinMaterial; 
     }
+
+ 
+    
 }

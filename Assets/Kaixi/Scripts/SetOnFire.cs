@@ -11,12 +11,13 @@ public class SetOnFire : MonoBehaviour
     GameManagement gameManagement;
 
     public bool canBeBurn = true;
-
+    PickUpStick pickUpStick;
     public float interactTime = 0.0f;
     public float interactThreshold = 3.0f;
     // Start is called before the first frame update
     void Start()
     {
+        pickUpStick= GetComponent<PickUpStick>();
         HouseManager = GameObject.Find("HouseManager").GetComponent<HouseManager>();
         gameManagement = GameObject.Find("GameManagement").GetComponent<GameManagement>();
     }
@@ -27,7 +28,7 @@ public class SetOnFire : MonoBehaviour
         closestHouse = HouseManager.getClosestHouseWithState(this.gameObject,0);
         
         //Debug.Log(this.gameObject);
-        if (Input.GetKey(KeyCode.E))
+        if (Input.GetKey(KeyCode.E) && pickUpStick.isHoldingStick)
         { //player press E
             interactTime += Time.deltaTime;
             if (interactTime >= interactThreshold)
