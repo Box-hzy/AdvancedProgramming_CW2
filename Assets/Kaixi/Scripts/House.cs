@@ -5,17 +5,23 @@ using UnityEngine;
 public class House : MonoBehaviour
 {
     public int houseState;
+    public List<House> neighbourHouses= new List<House>();
     public int score;
     
     // Start is called before the first frame update
     void Start()
     {
-        houseState = 0;  
+        houseState = 0;
+        AddNeighbour();
     }
 
     // Update is called once per frame
     void Update()
     {
+        
+    }
+
+    void AddNeighbour() { 
         
     }
 
