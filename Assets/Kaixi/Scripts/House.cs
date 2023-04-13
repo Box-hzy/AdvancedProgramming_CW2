@@ -4,16 +4,23 @@ using UnityEngine;
 
 public class House : MonoBehaviour
 {
+    
+    
     public int houseState;
     public List<House> neighbourHouses= new List<House>();
     public int score;
-
+    public Material defaultMaterial;
+    public Material burningMaterial;
+    public Material destroiedMaterial;
+    
     public float radius = 5;
     Collider[] results = new Collider[10];
 
     // Start is called before the first frame update
     void Start()
     {
+        
+        
         houseState = 0;
         AddNeighbour();
     }
@@ -21,7 +28,20 @@ public class House : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        Material nowMaterial = GetComponentInChildren<Renderer>().material;
+        switch (houseState)
+        {
+            case 0:
+                nowMaterial = defaultMaterial; break;
+            case 1:
+                nowMaterial = burningMaterial; break;
+            case 2:
+                nowMaterial = destroiedMaterial; break;
+        }
+            
+
+
+
     }
 
  
