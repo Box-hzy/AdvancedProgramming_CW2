@@ -7,7 +7,10 @@ public class House : MonoBehaviour
     public int houseState;
     public List<House> neighbourHouses= new List<House>();
     public int score;
-    
+
+    public float radius = 5;
+    Collider[] results = new Collider[10];
+
     // Start is called before the first frame update
     void Start()
     {
@@ -21,8 +24,20 @@ public class House : MonoBehaviour
         
     }
 
-    void AddNeighbour() { 
-        
+ 
+    private void AddNeighbour()
+    {
+        int hits = Physics.OverlapSphereNonAlloc(transform.position, radius, results);
+        for (int i = 0; i < hits; i++)
+        {
+            if (results[i].TryGetComponent<House>(out House house))
+            {
+                if(house != this)
+                neighbourHouses.Add(house);
+            }
+        }
+
+
     }
 
     public int getState() {
@@ -38,5 +53,11 @@ public class House : MonoBehaviour
     }
     public int getScore() {
         return score;
+    }
+
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawWireSphere(transform.position, radius);
     }
 }
