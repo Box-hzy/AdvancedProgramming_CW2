@@ -21,9 +21,10 @@ public class HouseManager : MonoBehaviour
     {
         
         gameManagement = GameObject.Find("GameManagement").GetComponent<GameManagement>();
-        
+
         //buildings = GameObject.FindGameObjectsWithTag("Buildings");
-        
+        AddHouses();
+
 
     }
 
@@ -109,6 +110,14 @@ public class HouseManager : MonoBehaviour
     }
 
 
- 
+    void AddHouses()    //add houses to the list
+    {
+        GameObject[] goArray = GameObject.FindGameObjectsWithTag("Buildings");
+        houses = new House[goArray.Length];
+        for (int i = 0; i < goArray.Length; i++)
+        {
+            houses[i] = goArray[i].GetComponent<House>();
+        }
+    }
     
 }
