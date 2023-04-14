@@ -44,7 +44,7 @@ public class SetOnFire : MonoBehaviour
             canBeBurn = true;
         }
 
-       // Debug.Log(HouseManager.getMinDistance(this.gameObject));
+       Debug.Log(HouseManager.getMinDistance(this.gameObject));
     }
 
 
@@ -53,11 +53,12 @@ public class SetOnFire : MonoBehaviour
         
         if (HouseManager.getMinDistance(this.gameObject) <= InteractDistance)
         {
+            Debug.Log("Yeah!");
             GameObject closetHouse = HouseManager.getClosestHouse(this.gameObject);
-          
+
 
             //closetHouse.GetComponentInChildren<Renderer>().material = HouseManager.BurningMaterial();
-            HouseManager.setHouseState(closetHouse, 1);
+            closestHouse.GetComponent<House>().setState(1);
             gameManagement.setFireAlarm(true);
             HouseManager.setCurrentBurningHouse(closetHouse);
         }

@@ -71,15 +71,17 @@ public class House : MonoBehaviour
     {
         houseState = thisState;
 
-        Material nowMaterial = GetComponentInChildren<Renderer>().material;
         switch (houseState)
         {
             case 0:
-                nowMaterial = defaultMaterial; break;
+
+                GetComponent<Renderer>().material = defaultMaterial; break;
             case 1:
-                nowMaterial = burningMaterial; break;
+
+                GetComponent<Renderer>().material = burningMaterial; break;
             case 2:
-                nowMaterial = destroiedMaterial;
+
+                GetComponent<Renderer>().material = destroiedMaterial;
                 timer = RecoverTime;
                 break;
         }
