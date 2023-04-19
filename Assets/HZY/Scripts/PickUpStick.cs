@@ -48,4 +48,8 @@ public class PickUpStick : MonoBehaviour
         canPickUp = !canPickUp;
     }
 
+    //public void getWeather(){
+    //  
+    //}
+
 }

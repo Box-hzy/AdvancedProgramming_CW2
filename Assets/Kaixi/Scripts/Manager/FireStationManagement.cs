@@ -9,7 +9,6 @@ public class FireStationManagement : MonoBehaviour
     Dictionary<GameObject,GameObject> FireEngineAppear = new Dictionary<GameObject,GameObject>();
     
     public GameObject FireEngine;//need add
-
     
     GameObject firehouse;
 

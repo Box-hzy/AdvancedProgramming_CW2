@@ -6,7 +6,6 @@ using UnityEngine.UI;
 
 public class FireEngine : MonoBehaviour
 {
-    FireStationManagement fireStationManagement;
     GameObject Fireman;
     public  NavMeshAgent navMeshAgent;
     FiremanScript firemanScript;
@@ -20,7 +19,6 @@ public class FireEngine : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        fireStationManagement = GameObject.Find("FireStationManagement").GetComponent<FireStationManagement>();
         
         Fireman = transform.GetChild(0).gameObject;
         
@@ -36,15 +34,16 @@ public class FireEngine : MonoBehaviour
         {
             case 0:
                 navMeshAgent.SetDestination(firehouseDestination);
-                if(Vector3.Distance(transform.position,firehouseDestination) <= stopDistance){
-                   
-                    navMeshAgent.isStopped= true;
+                if (Vector3.Distance(transform.position, firehouseDestination) <= stopDistance)
+                {
+
+                    navMeshAgent.isStopped = true;
                     Fireman.SetActive(true);
                     Fireman.transform.SetParent(null);
                     firemanScript.SetFireEnginePostion(transform.position);
                     changeState(1);
                 }
-                
+
                 break;
             case 1:
                 break;
@@ -54,13 +53,13 @@ public class FireEngine : MonoBehaviour
                 if (Vector3.Distance(transform.position, fireStationDestination) <= 1.0f)
                 {
                     Destroy(this.gameObject);
-                }               
+                }
                 break;
         }
     }
 
     public void changeState(int thisState) { 
-        state = thisState;
+        state = thisState; 
     }
 
     public void setFirehouseDestination(Vector3 thisFirehouse) {
@@ -70,4 +69,6 @@ public class FireEngine : MonoBehaviour
     {
         fireStationDestination = thisFireStation;
     }
+
+    
 }

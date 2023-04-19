@@ -88,4 +88,6 @@ public class FiremanScript : MonoBehaviour
         FirefighterOriginPostion = postion;
 
     }
+
+    
 }
