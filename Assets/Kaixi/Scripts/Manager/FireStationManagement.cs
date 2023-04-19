@@ -13,7 +13,7 @@ public class FireStationManagement : MonoBehaviour
     
     GameObject firehouse;
 
-    List<GameObject> FireEngineList= new List<GameObject>();
+    public List<GameObject> FireEngineGenerationList= new List<GameObject>();
 
     public bool dispatch = false;
 
@@ -27,8 +27,8 @@ public class FireStationManagement : MonoBehaviour
     {
         gameManagement = GameObject.Find("GameManagement").GetComponent<GameManagement>();
         houseManager = GameObject.Find("HouseManager").GetComponent<HouseManager>();
-        for (int i = 0; i < FireEngineList.Count; i++) {
-            FireEngineAppear.Add(FireStationList[i], FireEngineList[i]);
+        for (int i = 0; i < FireEngineGenerationList.Count; i++) {
+            FireEngineAppear.Add(FireStationList[i], FireEngineGenerationList[i]);
         }
         
     }
@@ -37,7 +37,7 @@ public class FireStationManagement : MonoBehaviour
     void Update()
     {
         if (gameManagement.getFireAlarm()) {
-            gameManagement.setFireAlarm(false);
+            
             firehouse = houseManager.getCurrentBurningHouse();
             Debug.Log(firehouse);
             GameObject firestation = GetClosestFireStation(firehouse);
@@ -47,8 +47,8 @@ public class FireStationManagement : MonoBehaviour
         }
     }
 
-    void DispatchFireEngines(GameObject firestation,GameObject firehouse) { //instantiate a fire engine which will drive to the burning house
-
+    void DispatchFireEngines(GameObject firestation, GameObject firehouse) { //instantiate a fire engine which will drive to the burning house
+        Debug.Log("dispatch");
 
         //GameObject thisFireEngine = FireEngineAppear[firestation];
 
@@ -66,6 +66,8 @@ public class FireStationManagement : MonoBehaviour
         fireEngineScript.setFirehouseDestination(truckStopPosition);
         fireEngineScript.setFireStationDestination(FireEngineAppear[firestation].transform.position);
         fireEngineScript.firehouse = firehouse;
+
+        gameManagement.setFireAlarm(false);
     }
 
     GameObject GetClosestFireStation(GameObject firehouse) {

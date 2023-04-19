@@ -44,7 +44,7 @@ public class SetOnFire : MonoBehaviour
             canBeBurn = true;
         }
 
-       Debug.Log(HouseManager.getMinDistance(this.gameObject));
+       //Debug.Log(HouseManager.getMinDistance(this.gameObject));
     }
 
 
