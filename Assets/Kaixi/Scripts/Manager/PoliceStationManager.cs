@@ -67,6 +67,7 @@ public class PoliceStationManager : MonoBehaviour
         PoliceEngineScript.setPoliceStationDestination(PoliceEngineAppear[Policestation].transform.position);
         PoliceEngineScript.firehouse = firehouse;
 
+
         gameManagement.setFireAlarm(false);
     }
 
