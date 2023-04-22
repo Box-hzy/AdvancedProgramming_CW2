@@ -46,6 +46,7 @@ public class FiremanScript : MonoBehaviour
                 if (Vector3.Distance(transform.position, ClosestFireHouse.transform.position) < 3f) {
                     
                     state = 1;
+                    houseManager.setHouseState(ClosestFireHouse, 2);
                 }
                 break;
             case 1:
@@ -68,7 +69,7 @@ public class FiremanScript : MonoBehaviour
         yield return new WaitForSeconds(3f);
 
        
-        houseManager.setHouseState(ClosestFireHouse, 2); //set house state into ruin.
+        houseManager.setHouseState(ClosestFireHouse, 3); //set house state into ruin.
         state = 2;
     }
 

@@ -32,7 +32,7 @@ public class House : MonoBehaviour
     void Update()
     {
 
-        if (houseState == 2)
+        if (houseState == 3)
         {
             timer -= Time.deltaTime;
             if (timer <= 0)
@@ -73,14 +73,15 @@ public class House : MonoBehaviour
 
         switch (houseState)
         {
-            case 0:
-
-                GetComponent<Renderer>().material = defaultMaterial; break;
-            case 1:
-
-                GetComponent<Renderer>().material = burningMaterial; break;
-            case 2:
-
+            case 0://original state
+                GetComponent<Renderer>().material = defaultMaterial; 
+                break;
+            case 1://fire is burning
+                GetComponent<Renderer>().material = burningMaterial; 
+                break;
+            case 2:// fireman is putting off the fire
+                break;
+            case 3://house into ruin
                 GetComponent<Renderer>().material = destroiedMaterial;
                 timer = RecoverTime;
                 break;
