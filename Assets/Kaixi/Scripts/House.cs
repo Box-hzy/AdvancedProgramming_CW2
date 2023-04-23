@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class House : MonoBehaviour
 {
@@ -26,6 +27,7 @@ public class House : MonoBehaviour
         AddNeighbour();
 
         defaultMaterial = GetComponent<MeshRenderer>().material;
+        gameObject.AddComponent<NavMeshObstacle>();
     }
 
     // Update is called once per frame

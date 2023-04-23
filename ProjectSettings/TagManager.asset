@@ -9,6 +9,8 @@ TagManager:
   - Wood
   - SmallHouse
   - BigHouse
+  - Villager
+  - EscapePoint
   layers:
   - Default
   - TransparentFX
@@ -21,8 +23,8 @@ TagManager:
   - CrossWalk
   - GrassWalk
   - Houses
-  - 
-  - 
+  - Villager
+  - Police
   - 
   - 
   - 

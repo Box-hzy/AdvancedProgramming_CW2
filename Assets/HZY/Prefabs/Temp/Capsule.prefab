@@ -130,7 +130,7 @@ NavMeshAgent:
   m_AutoRepath: 1
   m_Height: 2
   m_BaseOffset: 1
-  m_WalkableMask: 4294967295
+  m_WalkableMask: 8
   m_ObstacleAvoidanceType: 4
 --- !u!208 &136342855348350710
 NavMeshObstacle:
@@ -168,7 +168,7 @@ MonoBehaviour:
   isBeingInvestigate: 0
   detectableLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 7168
   currentState: 0
   targetHouse: {fileID: 0}
   distanceFromFiredHouse: 0
