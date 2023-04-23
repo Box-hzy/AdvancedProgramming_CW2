@@ -14,9 +14,9 @@ public class House : MonoBehaviour
     public Material burningMaterial;
     public Material destroiedMaterial;
 
-    public float radius = 5;    //raycast radius
+    public float radius = 10;    //raycast radius
     Collider[] results = new Collider[10];
-
+    LayerMask layerMask;
     float RecoverTime = 180;
     float timer;
 
@@ -25,7 +25,7 @@ public class House : MonoBehaviour
     {
         houseState = 0;
         AddNeighbour();
-
+        layerMask = 1 << 10;
         defaultMaterial = GetComponent<MeshRenderer>().material;
         gameObject.AddComponent<NavMeshObstacle>();
     }
@@ -51,7 +51,7 @@ public class House : MonoBehaviour
 
     private void AddNeighbour()
     {
-        int hits = Physics.OverlapSphereNonAlloc(transform.position, radius, results);
+        int hits = Physics.OverlapSphereNonAlloc(transform.position, radius, results, layerMask);
         for (int i = 0; i < hits; i++)
         {
             if (results[i].TryGetComponent<House>(out House house))

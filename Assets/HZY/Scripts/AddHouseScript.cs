@@ -16,9 +16,12 @@ public class AddHouseScript : MonoBehaviour
 
         for (int i = 0; i < childCout; i++)
         {
+            if (transform.GetChild(i).GetComponent<MeshRenderer>() == null) return; //ignore EscapePoint empty obj
+
             var house = transform.GetChild(i).AddComponent<House>();
             house.burningMaterial = burningMat;
             house.destroiedMaterial = destoryMat;
+            house.tag = "Buildings";
 
             if (transform.CompareTag("BigHouse"))
             {
