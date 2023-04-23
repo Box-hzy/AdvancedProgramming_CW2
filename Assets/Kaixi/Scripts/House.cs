@@ -25,11 +25,11 @@ public class House : MonoBehaviour
     void Start()
     {
         houseState = 0;
-        AddNeighbour();
         layerMask = 1 << 10;
         defaultMaterial = GetComponent<MeshRenderer>().material;
         gameObject.AddComponent<NavMeshObstacle>();
         centrePoint = GetComponent<MeshRenderer>().bounds.center;
+        AddNeighbour();
     }
 
     // Update is called once per frame
@@ -56,8 +56,10 @@ public class House : MonoBehaviour
         int hits = Physics.OverlapSphereNonAlloc(centrePoint, radius, results, layerMask);
         for (int i = 0; i < hits; i++)
         {
+            Debug.Log("111");
             if (results[i].TryGetComponent<House>(out House house))
             {
+               
                 if (house != this)
                     neighbourHouses.Add(house);
             }
