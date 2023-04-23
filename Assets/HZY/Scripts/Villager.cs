@@ -20,6 +20,7 @@ public class Villager : MonoBehaviour
 
     NavMeshAgent agent;
     HouseManager houseManager;
+    Animator animator;
 
     //basic property
     public float speed = 5;
@@ -46,6 +47,7 @@ public class Villager : MonoBehaviour
 
     private void Start()
     {
+        animator = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
         houseManager = GameObject.FindObjectOfType<HouseManager>();
         //detectedCollider = new Collider[30];
@@ -153,10 +155,12 @@ public class Villager : MonoBehaviour
             case State.Walk:
                 Debug.Log("Villager Walking");
                 SetRandomDestination();
+                animator.SetBool("Walk",true);
                 break;
             case State.Escape:
                 Debug.Log("Villager Escape");
                 SetEscapePointAndEscape();
+                animator.SetBool("Run", true);
                 break;
             case State.Onlook:
                 SetOnLookPoint();
@@ -184,14 +188,16 @@ public class Villager : MonoBehaviour
                 {
                     LookAtFirePoint(firedHouse.transform);
                 }
+                animator.SetBool("Walk", false);
                 break;
             case State.Escape:
+                animator.SetBool("Run", false);
                 break;
             case State.Onlook:
                 agent.isStopped = false;
                 break;
             case State.Investigate:
-
+                animator.SetBool("Talk", false);
                 break;
             default:
                 break;

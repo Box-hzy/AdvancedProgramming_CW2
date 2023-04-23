@@ -146,6 +146,8 @@ MonoBehaviour:
   ClosestFireHouse: {fileID: 0}
   FirefighterAgent: {fileID: 0}
   FirefighterOriginPostion: {x: 0, y: 0, z: 0}
+  fireEngineScript: {fileID: 0}
+  fireEngine: {fileID: 0}
   state: 0
 --- !u!1 &8677378200677962659
 GameObject:
