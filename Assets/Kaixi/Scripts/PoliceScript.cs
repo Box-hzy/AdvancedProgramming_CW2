@@ -21,7 +21,7 @@ public class PoliceScript : MonoBehaviour
 
     public List<Collider>targetsInViewRadius = new List<Collider>();
     public MeshFilter meshFilter;
-    private Mesh mesh;
+    public Mesh mesh;
     // Start is called before the first frame update
     void Start()
     {
@@ -96,7 +96,7 @@ public class PoliceScript : MonoBehaviour
         yield return new WaitForSeconds(seconds);
         agent.isStopped = false;
         
-}
+    }
 
 
     private Mesh CreateMesh()
