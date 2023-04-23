@@ -16,9 +16,10 @@ public class House : MonoBehaviour
 
     public float radius = 10;    //raycast radius
     Collider[] results = new Collider[10];
-    LayerMask layerMask;
+    [SerializeField]LayerMask layerMask;
     float RecoverTime = 180;
     float timer;
+    Vector3 centrePoint; //transform.position is based on Pivot point, however the pivot point of the model is too faraway
 
     // Start is called before the first frame update
     void Start()
@@ -28,6 +29,7 @@ public class House : MonoBehaviour
         layerMask = 1 << 10;
         defaultMaterial = GetComponent<MeshRenderer>().material;
         gameObject.AddComponent<NavMeshObstacle>();
+        centrePoint = GetComponent<MeshRenderer>().bounds.center;
     }
 
     // Update is called once per frame
@@ -51,7 +53,7 @@ public class House : MonoBehaviour
 
     private void AddNeighbour()
     {
-        int hits = Physics.OverlapSphereNonAlloc(transform.position, radius, results, layerMask);
+        int hits = Physics.OverlapSphereNonAlloc(centrePoint, radius, results, layerMask);
         for (int i = 0; i < hits; i++)
         {
             if (results[i].TryGetComponent<House>(out House house))
@@ -102,6 +104,6 @@ public class House : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        Gizmos.DrawWireSphere(transform.position, radius);
+        Gizmos.DrawWireSphere(centrePoint, radius);
     }
 }
