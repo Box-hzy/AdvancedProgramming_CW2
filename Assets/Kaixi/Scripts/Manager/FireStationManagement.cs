@@ -54,7 +54,7 @@ public class FireStationManagement : MonoBehaviour
     }
 
     void DispatchFireEngines(GameObject firestation, GameObject firehouse) { //instantiate a fire engine which will drive to the burning house
-        Debug.Log("dispatch");
+        //Debug.Log("dispatch");
 
         //GameObject thisFireEngine = FireEngineAppear[firestation];
 
