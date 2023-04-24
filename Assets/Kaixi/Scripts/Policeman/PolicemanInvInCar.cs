@@ -2,26 +2,29 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using static UnityEngine.GraphicsBuffer;
 
 public class PolicemanInvInCar : MonoBehaviour
 {
-    enum State { 
+    enum State
+    {
         FindVillager,
         Investigate,
         Chase,
         BackToCar
     }
-    
-    Vector3 PolicecarVector3;
 
+    Vector3 PolicecarVector3;
+    LayerMask villagerMask;
     [SerializeField] State policeState;
     public NavMeshAgent agent;
     public bool backToCar = false;
+    public float findRadius = 10;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        villagerMask = 1 << 11;
     }
 
     private void Awake()
@@ -31,7 +34,8 @@ public class PolicemanInvInCar : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        switch (policeState) {
+        switch (policeState)
+        {
             case State.FindVillager:
                 break;
             case State.Investigate:
@@ -46,7 +50,7 @@ public class PolicemanInvInCar : MonoBehaviour
                     gameObject.SetActive(false);
                 }
                 break;
-        
+
         }
     }
 
@@ -60,9 +64,20 @@ public class PolicemanInvInCar : MonoBehaviour
         return backToCar;
     }
 
-    Vector3 getClosetInvVillager() { 
-         Vector3 thisVec = Vector3.zero;
-        return thisVec;
-    
+    GameObject getClosetInvVillager()
+    {
+        Collider[] villagers = new Collider[20];
+        int hits = Physics.OverlapSphereNonAlloc(transform.position, findRadius, villagers, villagerMask);
+        GameObject target = villagers[0].gameObject;
+        for (int i = 1; i < hits; i++)
+        {
+            if (Vector3.Distance(transform.position, target.transform.position) > Vector3.Distance(transform.position, villagers[i].transform.position))
+            {
+                target = villagers[i].gameObject;
+            }
+
+        }
+        return target;
     }
+
 }
