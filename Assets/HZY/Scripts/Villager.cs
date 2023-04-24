@@ -110,7 +110,7 @@ public class Villager : MonoBehaviour
             if (firedHouse.GetComponent<House>().getState() != 1 && firedHouse.GetComponent<House>().getState() != 2)
             {
                 firedHouse = null;
-                Debug.Log("house is not on fire");
+                //Debug.Log("house is not on fire");
                 return;
             }
             distanceFromFiredHouse = Vector3.Distance(transform.position, firedHouse.transform.position);
@@ -196,7 +196,7 @@ public class Villager : MonoBehaviour
                 //Debug.Log("Villager Escape");
                 animator.SetBool("Run", true);
                 agent.speed = runSpeed;
-                SetEscapePointAndEscape();
+                StartCoroutine(SetEscapePointAndEscape());
                 break;
             case State.Onlook:
                 SetOnLookPoint();
@@ -228,6 +228,7 @@ public class Villager : MonoBehaviour
                 break;
             case State.Escape:
                 animator.SetBool("Run", false);
+                StopCoroutine(SetEscapePointAndEscape());
                 break;
             case State.Onlook:
                 agent.isStopped = false;
@@ -255,6 +256,7 @@ public class Villager : MonoBehaviour
     private void LookAtFirePoint(Transform firedHouse)
     {
         StartCoroutine(RotateToTargetPoint(firedHouse));
+        //Debug.Log("look");
     }
 
     IEnumerator RotateToTargetPoint(Transform target)
@@ -307,9 +309,9 @@ public class Villager : MonoBehaviour
             {
                 if (house.getState() == 1)
                 {
-                    Debug.Log("house state = 1!");
+                    //Debug.Log("house state = 1!");
                     firedHouse = house;
-                    Debug.Log(firedHouse.name);
+                    //Debug.Log(firedHouse.name);
                     ChangeStateAndEnter(State.Escape);
                     break;
                 }
@@ -353,16 +355,21 @@ public class Villager : MonoBehaviour
     #endregion
     #region Escape
     //OnEnter
-    void SetEscapePointAndEscape()
+    IEnumerator SetEscapePointAndEscape()
     {
-        //Vector3 direction = (firedHouse.transform.position - transform.position).normalized;
-        float randomRange = Random.Range(runawayRange.x, runawayRange.y);
-        //Vector3 destination = VillagerManager.Instance.SamplePositionOnNavMesh(direction * randomRange,20);
-        //Instantiate(testPrefab, destination, Quaternion.identity);
-        //Debug.Log(destination);
+        while (CheckIfReachDestination(firedHouse.transform.position, 80))
+        {
+            //Vector3 direction = (firedHouse.transform.position - transform.position).normalized;
+            float randomRange = Random.Range(runawayRange.x, runawayRange.y);
+            //Vector3 destination = VillagerManager.Instance.SamplePositionOnNavMesh(direction * randomRange,20);
+            //Instantiate(testPrefab, destination, Quaternion.identity);
+            //Debug.Log(destination);
 
-        Vector3 randomRun = RandomNavmeshLocation(firedHouse.transform.position, randomRange);
-        agent.SetDestination(randomRun);
+            Vector3 randomRun = RandomNavmeshLocation(firedHouse.transform.position, randomRange);
+            agent.SetDestination(randomRun);
+            //Debug.Log("Set run destination");
+            yield return new WaitForSeconds(5);
+        }
 
     }
 
