@@ -8,37 +8,41 @@ public class PoliceCar : MonoBehaviour
     public Vector3 firehouseDestination;
     public Vector3 PoliceStationDestination;
     public GameObject firehouse;
-    float stopDistance = 3.0f;
+    public float stopDistance = 15f;
     GameObject TalkingPoliceman;
     GameObject PatrolPoliceman;
     public int state = 0;
     public NavMeshAgent navMeshAgent;
-    PolicemanInvInCar policemanInv;
-    PolicemanPatrolInCar policemanPatrol;
+    public PolicemanInvInCar policemanInv;
+    public PolicemanPatrolInCar policemanPatrol;
+    public GameObject policemanInv_GO;
+    public GameObject policemanPatrol_GO;
     // Start is called before the first frame update
     void Start()
     {
-        policemanInv = GetComponentInChildren<PolicemanInvInCar>();
-        policemanPatrol = GetComponentInChildren<PolicemanPatrolInCar>();
+        //policemanInv = GetComponentInChildren<PolicemanInvInCar>();
+        //policemanPatrol = GetComponentInChildren<PolicemanPatrolInCar>();
         policemanPatrol.setPolicemanInv(policemanInv);
+        navMeshAgent= GetComponent<NavMeshAgent>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        //Debug.Log(Vector3.Distance(transform.position, firehouseDestination));
         switch (state) {
             case 0:
                 navMeshAgent.SetDestination(firehouseDestination);
                 if (Vector3.Distance(transform.position, firehouseDestination) <= stopDistance)
                 {
-
+                    Debug.Log("2323");
                     navMeshAgent.isStopped = true;
-                    
-                    policemanPatrol.gameObject.SetActive(true);
-                    policemanPatrol.SetPoliceCar(transform.position);
-                    
 
-                    policemanInv.gameObject.SetActive(true);
+                    policemanPatrol_GO.SetActive(true);
+                    policemanPatrol.SetPoliceCar(transform.position);
+
+
+                    policemanInv_GO.SetActive(true);
                     policemanInv.SetPoliceCar(transform.position);
                     changeState(1);
                 }

@@ -28,25 +28,32 @@ public class PolicemanPatrolInCar : MonoBehaviour
 
     PolicemanInvInCar policemanInv;
     public bool backToCar = false;
+
+    public float PoliceTime = 180.0f;
+    float thisTime;
     // Start is called before the first frame update
     void Start()
     {
         player = GameObject.FindWithTag("Player");
         mesh = CreateMesh();
         meshFilter.mesh = mesh;
-
+        agent = GetComponent<NavMeshAgent>();
 
 
     }
     private void Awake()
     {
         backToCar = false;
+        thisTime = PoliceTime;
     }
     // Update is called once per frame
     void Update()
     {
         targetsInViewRadius = new List<Collider>(Physics.OverlapSphere(transform.position, viewDistance));
-        
+        thisTime -= Time.deltaTime;
+      
+
+
         switch (policeState)
         {
             case State.Patrol:
@@ -73,12 +80,22 @@ public class PolicemanPatrolInCar : MonoBehaviour
                 if (Vector3.Angle(transform.forward, dirToTarget) < viewAngle / 2f)
                 {
                     policeState = State.Chase;
+
                     //Debug.Log("Player is in view!");
                 }
-                else
+                else if (thisTime <= 0)
                 {
+                    policeState = State.BackToCar;
+
+                }
+                else {
                     policeState = State.Patrol;
                 }
+            }
+            else if (thisTime <= 0)
+            {
+                policeState = State.BackToCar;
+
             }
             else
             {

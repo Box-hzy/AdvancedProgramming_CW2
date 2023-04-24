@@ -24,6 +24,7 @@ public class PoliceStationManager : MonoBehaviour
     void Start()
     {
         gameManagement = GameObject.Find("GameManagement").GetComponent<GameManagement>();
+        
         houseManager = GameObject.Find("HouseManager").GetComponent<HouseManager>();
         for (int i = 0; i < PoliceEngineGenerationList.Count; i++)
         {
@@ -35,9 +36,10 @@ public class PoliceStationManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (gameManagement.getFireAlarm())
+        
+        if (gameManagement.getPoliceAlarm())
         {
-
+            //Debug.Log("333");
             firehouse = houseManager.getCurrentBurningHouse();
             Debug.Log(firehouse);
             GameObject Policestation = GetClosestPoliceStation(firehouse);
@@ -69,7 +71,7 @@ public class PoliceStationManager : MonoBehaviour
         PoliceEngineScript.firehouse = firehouse;
 
 
-        gameManagement.setFireAlarm(false);
+        gameManagement.setPoliceAlarm(false);
     }
 
     GameObject GetClosestPoliceStation(GameObject firehouse)

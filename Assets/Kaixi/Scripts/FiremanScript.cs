@@ -38,7 +38,7 @@ public class FiremanScript : MonoBehaviour
     void Update()
     {
         
-        Debug.Log(Vector3.Distance(transform.position, FirefighterOriginPostion));
+        //Debug.Log(Vector3.Distance(transform.position, FirefighterOriginPostion));
         switch (state) {
             case 0:
                 
@@ -50,11 +50,11 @@ public class FiremanScript : MonoBehaviour
                 }
                 break;
             case 1:
-                Debug.Log("put off fire");
+                //Debug.Log("put off fire");
                 StartCoroutine(putoffFire());
                 break;
             case 2:
-                Debug.Log("Go Back");
+                //Debug.Log("Go Back");
                 GoBackToFireEngine();
                 break;
         }

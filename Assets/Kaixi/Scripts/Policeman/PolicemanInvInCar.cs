@@ -23,28 +23,44 @@ public class PolicemanInvInCar : MonoBehaviour
     public float findRadius = 10;
     Vector3 villagerVector3;
 
+    public float policeTime = 180f;
+    float thisTime;
+
 
     // Start is called before the first frame update
     void Start()
     {
         villagerMask = 1 << 11;
         player = GameObject.FindWithTag("Player");
+        agent = GetComponent<NavMeshAgent>();
+        
     }
 
     private void Awake()
     {
         backToCar = false;
         villagerVector3 = getClosetInvVillager().transform.position;
+        thisTime = policeTime;
     }
     // Update is called once per frame
     void Update()
     {
+        thisTime -= Time.deltaTime;
+        if (thisTime <= 0) {
+            setState(State.BackToCar);
+        }
+        
         switch (policeState)
         {
             case State.FindVillager:
                 agent.SetDestination(villagerVector3);
+                if (Vector3.Distance(transform.position, villagerVector3) <= 2.0f) { 
+                    setState(State.Investigate);
+
+                }
                 break;
             case State.Investigate:
+
                 break;
             case State.BackToCar:
                 agent.SetDestination(PolicecarVector3);
