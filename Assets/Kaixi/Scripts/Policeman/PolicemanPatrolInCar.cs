@@ -73,13 +73,11 @@ public class PolicemanPatrolInCar : MonoBehaviour
                 if (Vector3.Angle(transform.forward, dirToTarget) < viewAngle / 2f)
                 {
                     policeState = State.Chase;
-                    policemanInv.setState(PolicemanInvInCar.State.Chase);
                     //Debug.Log("Player is in view!");
                 }
                 else
                 {
                     policeState = State.Patrol;
-                    policemanInv.setState(PolicemanInvInCar.State.FindVillager);
                 }
             }
             else

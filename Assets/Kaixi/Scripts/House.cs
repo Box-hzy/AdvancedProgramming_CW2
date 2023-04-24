@@ -56,7 +56,7 @@ public class House : MonoBehaviour
         int hits = Physics.OverlapSphereNonAlloc(centrePoint, radius, results, layerMask);
         for (int i = 0; i < hits; i++)
         {
-            Debug.Log("111");
+            //Debug.Log("111");
             if (results[i].TryGetComponent<House>(out House house))
             {
                

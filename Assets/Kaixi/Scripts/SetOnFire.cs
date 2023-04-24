@@ -49,11 +49,11 @@ public class SetOnFire : MonoBehaviour
 
 
     void burnHouse() {
-        
+        Debug.Log(HouseManager.getMinDistance(this.gameObject));
         
         if (HouseManager.getMinDistance(this.gameObject) <= InteractDistance)
         {
-            Debug.Log("Yeah!");
+            //Debug.Log("Yeah!");
             GameObject closetHouse = HouseManager.getClosestHouse(this.gameObject);
 
 
