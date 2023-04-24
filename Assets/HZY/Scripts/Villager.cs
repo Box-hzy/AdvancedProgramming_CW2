@@ -348,7 +348,7 @@ public class Villager : MonoBehaviour
                 else if (house.getState() == 2)
                 {
                     firedHouse = house;
-                    ChangeStateAndEnter(State.Onlook);\
+                    ChangeStateAndEnter(State.Onlook);
                     break;
                 }
 
