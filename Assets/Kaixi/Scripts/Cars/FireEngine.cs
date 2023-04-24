@@ -6,13 +6,13 @@ using UnityEngine.UI;
 
 public class FireEngine : MonoBehaviour
 {
-    GameObject Fireman;
+    public GameObject Fireman;
     public  NavMeshAgent navMeshAgent;
     FiremanScript firemanScript;
     public Vector3 firehouseDestination;
     public Vector3 fireStationDestination;
     public GameObject firehouse;
-    float stopDistance = 3.0f;
+    float stopDistance = 10.0f;
 
     public int state = 0;//0: go to firehouse, 1:arrived , 2: back
 
@@ -30,13 +30,15 @@ public class FireEngine : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Debug.Log(Vector3.Distance(transform.position, firehouseDestination));
         switch (state)
         {
             case 0:
                 navMeshAgent.SetDestination(firehouseDestination);
+                
                 if (Vector3.Distance(transform.position, firehouseDestination) <= stopDistance)
                 {
-
+                    //Debug.Log("222");
                     navMeshAgent.isStopped = true;
                     Fireman.SetActive(true);
                     Fireman.transform.SetParent(null);

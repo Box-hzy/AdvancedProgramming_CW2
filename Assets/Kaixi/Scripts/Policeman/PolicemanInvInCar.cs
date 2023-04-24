@@ -14,6 +14,7 @@ public class PolicemanInvInCar : MonoBehaviour
         BackToCar
     }
 
+    GameObject player;
     Vector3 PolicecarVector3;
     LayerMask villagerMask;
     public State policeState;
@@ -27,6 +28,7 @@ public class PolicemanInvInCar : MonoBehaviour
     void Start()
     {
         villagerMask = 1 << 11;
+        player = GameObject.FindWithTag("Player");
     }
 
     private void Awake()
@@ -40,11 +42,9 @@ public class PolicemanInvInCar : MonoBehaviour
         switch (policeState)
         {
             case State.FindVillager:
-                agent.SetDestination(PolicecarVector3);
+                agent.SetDestination(villagerVector3);
                 break;
             case State.Investigate:
-                break;
-            case State.Chase:
                 break;
             case State.BackToCar:
                 agent.SetDestination(PolicecarVector3);
@@ -88,4 +88,9 @@ public class PolicemanInvInCar : MonoBehaviour
         policeState= state;
     }
 
+
+    void Chase()
+    {
+        agent.SetDestination(player.transform.position);
+    }
 }
