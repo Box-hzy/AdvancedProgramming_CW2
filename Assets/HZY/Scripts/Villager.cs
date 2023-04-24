@@ -28,6 +28,7 @@ public class Villager : MonoBehaviour
     public float maxWalkDistance = 200;
     public float onLookRange = 10;
     public Vector2 runawayRange = new Vector2(70, 100);
+    public bool hasBeenInvestigated;
     //private bool isBeingInvestigate;
 
     //ray detection
@@ -347,7 +348,8 @@ public class Villager : MonoBehaviour
                 else if (house.getState() == 2)
                 {
                     firedHouse = house;
-                    ChangeStateAndEnter(State.Onlook);
+                    ChangeStateAndEnter(State.Onlook);\
+                    break;
                 }
 
             }
@@ -516,8 +518,9 @@ public class Villager : MonoBehaviour
     #region Investigate
     //police will investigate the villager around the fired house, the police will call this function
     public void BeingInvestigated(GameObject police, float investigateTime)
-    { 
+    {
         //isBeingInvestigate = true;
+        hasBeenInvestigated = true;
         ChangeStateAndEnter(State.Investigate);
         transform.LookAt(police.transform);
         Invoke("FinishInvestigation", investigateTime);

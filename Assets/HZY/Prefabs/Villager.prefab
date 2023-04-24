@@ -5154,7 +5154,7 @@ Transform:
   - {fileID: 3115728010207031860}
   - {fileID: 2616850878560705022}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &2209256580531179233
 Animator:
@@ -5234,16 +5234,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da3cde9ce232e1f49b9ed7161d604cfe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
+  walkSpeed: 3.5
+  runSpeed: 6
   detectRadius: 20
   maxWalkDistance: 50
-  onLookRange: 20
+  onLookRange: 10
   runawayRange: {x: 20, y: 100}
-  isBeingInvestigate: 0
+  hasBeenInvestigated: 0
   detectableLayer:
     serializedVersion: 2
     m_Bits: 3072
   currentState: 0
   targetHouse: {fileID: 0}
+  firedHouse: {fileID: 0}
   distanceFromFiredHouse: 0
   detectedCollider: []
