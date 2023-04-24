@@ -20,6 +20,7 @@ public class PoliceCar : MonoBehaviour
     {
         policemanInv = GetComponentInChildren<PolicemanInvInCar>();
         policemanPatrol = GetComponentInChildren<PolicemanPatrolInCar>();
+        policemanPatrol.setPolicemanInv(policemanInv);
     }
 
     // Update is called once per frame
@@ -35,6 +36,7 @@ public class PoliceCar : MonoBehaviour
                     
                     policemanPatrol.gameObject.SetActive(true);
                     policemanPatrol.SetPoliceCar(transform.position);
+                    
 
                     policemanInv.gameObject.SetActive(true);
                     policemanInv.SetPoliceCar(transform.position);

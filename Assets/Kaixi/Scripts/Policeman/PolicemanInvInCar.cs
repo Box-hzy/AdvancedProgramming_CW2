@@ -6,7 +6,7 @@ using static UnityEngine.GraphicsBuffer;
 
 public class PolicemanInvInCar : MonoBehaviour
 {
-    enum State
+    public enum State
     {
         FindVillager,
         Investigate,
@@ -16,10 +16,12 @@ public class PolicemanInvInCar : MonoBehaviour
 
     Vector3 PolicecarVector3;
     LayerMask villagerMask;
-    [SerializeField] State policeState;
+    public State policeState;
     public NavMeshAgent agent;
     public bool backToCar = false;
     public float findRadius = 10;
+    Vector3 villagerVector3;
+
 
     // Start is called before the first frame update
     void Start()
@@ -30,6 +32,7 @@ public class PolicemanInvInCar : MonoBehaviour
     private void Awake()
     {
         backToCar = false;
+        villagerVector3 = getClosetInvVillager().transform.position;
     }
     // Update is called once per frame
     void Update()
@@ -37,6 +40,7 @@ public class PolicemanInvInCar : MonoBehaviour
         switch (policeState)
         {
             case State.FindVillager:
+                agent.SetDestination(PolicecarVector3);
                 break;
             case State.Investigate:
                 break;
@@ -78,6 +82,10 @@ public class PolicemanInvInCar : MonoBehaviour
 
         }
         return target;
+    }
+
+    public void setState(State state) { 
+        policeState= state;
     }
 
 }
