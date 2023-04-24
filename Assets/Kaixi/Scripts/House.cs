@@ -27,7 +27,7 @@ public class House : MonoBehaviour
         houseState = 0;
         layerMask = 1 << 10;
         defaultMaterial = GetComponent<MeshRenderer>().material;
-        gameObject.AddComponent<NavMeshObstacle>();
+        gameObject.AddComponent<NavMeshObstacle>().carving = true;
         centrePoint = GetComponent<MeshRenderer>().bounds.center;
         AddNeighbour();
     }

@@ -24,7 +24,7 @@ public class Villager : MonoBehaviour
 
     //basic property
     public float speed = 5;
-    public float detectRadius = 10;
+    public float detectRadius = 20;
     public float maxWalkDistance = 200;
     public float onLookRange = 20;
     public Vector2 runawayRange = new Vector2(20, 100);
@@ -47,19 +47,50 @@ public class Villager : MonoBehaviour
 
     private void Start()
     {
+        ChangeSkin();
         animator = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
         houseManager = GameObject.FindObjectOfType<HouseManager>();
         //detectedCollider = new Collider[30];
         Init();
         ChangeStateAndEnter(currentState);
+
+
     }
+
+
 
     private void Init()
     {
         currentState = State.Idle;
     }
 
+    void ChangeSkin()
+    {   
+        List<GameObject> list = new List<GameObject>();
+        int childCount = transform.childCount;
+        for (int i = 0; i < childCount; i++)
+        {
+            if (transform.GetChild(i).TryGetComponent<SkinnedMeshRenderer>(out SkinnedMeshRenderer mesh))
+            {
+                list.Add(transform.GetChild(i).gameObject);
+            }
+        }
+
+        int randomSkinIndex = Random.Range(0, list.Count);
+
+        for (int i = 0; i < list.Count; i++)
+        {
+            if (i == randomSkinIndex)
+            {
+                list[i].SetActive(true);
+            }
+            else
+            {
+                list[i].SetActive(false);
+            }
+        }
+    }
 
     private void FixedUpdate()
     {
@@ -154,13 +185,13 @@ public class Villager : MonoBehaviour
                 break;
             case State.Walk:
                 Debug.Log("Villager Walking");
-                SetRandomDestination();
                 animator.SetBool("Walk", true);
+                SetRandomDestination();
                 break;
             case State.Escape:
                 Debug.Log("Villager Escape");
-                SetEscapePointAndEscape();
                 animator.SetBool("Run", true);
+                SetEscapePointAndEscape();
                 break;
             case State.Onlook:
                 SetOnLookPoint();
@@ -256,42 +287,44 @@ public class Villager : MonoBehaviour
         return navHit.position;
     }
 
+    public Collider[] detectedCollider;
+
     //OnStay
     void DetectFiredHouse()
     {
-        Collider[] detectedCollider = new Collider[30];
+        detectedCollider = new Collider[30];
         Physics.OverlapSphereNonAlloc(transform.position, detectRadius, detectedCollider, detectableLayer);
         for (int i = 0; i < detectedCollider.Length; i++)
         {
+            if (detectedCollider[i] == null) return;
             //if the house is on fire, start escape mode
-            detectedCollider[i].TryGetComponent<House>(out House house);
-            if (house == null)
+            if (detectedCollider[i].TryGetComponent<House>(out House house))
             {
-                return;
-            }
-            else if (house.houseState == 1)
-            {
-                firedHouse = house;
-                ChangeStateAndEnter(State.Escape);
-                break;
-            }
-            //if the house is being puting out on fire, villager will stay around;
-            else if (house.houseState == 2)
-            {
-                firedHouse = house;
-                ChangeStateAndEnter(State.Onlook);
+                if (house.houseState == 1)
+                {
+                    firedHouse = house;
+                    ChangeStateAndEnter(State.Escape);
+                    break;
+                }
+                //if the house is being puting out on fire, villager will stay around;
+                else if (house.houseState == 2)
+                {
+                    firedHouse = house;
+                    ChangeStateAndEnter(State.Onlook);
+                }
+
             }
 
+
             //chain reaction, the escape villager also effect the other villager
-            detectedCollider[i].TryGetComponent<Villager>(out Villager villager);
-            if (villager == null)
+            if (detectedCollider[i].TryGetComponent<Villager>(out Villager villager))
             {
-                return;
+                if (villager.currentState == State.Escape && villager.distanceFromFiredHouse < 10)
+                {
+                    ChangeStateAndEnter(State.Escape);
+                }
             }
-            else if (villager.currentState == State.Escape && villager.distanceFromFiredHouse < 10)
-            {
-                ChangeStateAndEnter(State.Escape);
-            }
+
 
 
         }
@@ -344,21 +377,31 @@ public class Villager : MonoBehaviour
     //OnEnter
     void IdleOnEnter()
     {
-        float randomWaitTime = Random.Range(2f, 4f);
-
+        
         //pretent enter to the building
         if (hasTargetHouse)
         {
-            gameObject.SetActive(false);
-            Invoke("SetActive", randomWaitTime);
+            transform.LookAt(targetDestination);
+            float randomWaitTime = Random.Range(5f, 10f);
+            StartCoroutine(SetDeactiveAndActive(randomWaitTime));
         }
         else
         {
+            float randomWaitTime = Random.Range(2f, 4f);
             StartCoroutine(StopForSeconds(randomWaitTime));
         }
-        
+
     }
 
+    IEnumerator SetDeactiveAndActive(float randomWaitTime)
+    {
+        //wait for 2s and then "enter" the building
+        yield return new WaitForSeconds(2);
+        gameObject.SetActive(false);
+        Invoke("SetActive", randomWaitTime);
+    }
+
+    //"exit" from the building
     void SetActive()
     {
         gameObject.SetActive(true);
@@ -410,7 +453,11 @@ public class Villager : MonoBehaviour
     #endregion
 
 
-
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireSphere(transform.position, detectRadius);
+    }
 
 
 }
