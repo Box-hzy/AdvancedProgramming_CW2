@@ -311,7 +311,7 @@ public class Villager : MonoBehaviour
                 {
                     //Debug.Log("house state = 1!");
                     firedHouse = house;
-                    //Debug.Log(firedHouse.name);
+                    Debug.Log(firedHouse.name);
                     ChangeStateAndEnter(State.Escape);
                     break;
                 }
