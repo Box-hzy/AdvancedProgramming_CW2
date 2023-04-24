@@ -150,12 +150,12 @@ public class Villager : MonoBehaviour
         {
             case State.Idle:
                 agent.isStopped = true;
-                Idle();
+                IdleOnEnter();
                 break;
             case State.Walk:
                 Debug.Log("Villager Walking");
                 SetRandomDestination();
-                animator.SetBool("Walk",true);
+                animator.SetBool("Walk", true);
                 break;
             case State.Escape:
                 Debug.Log("Villager Escape");
@@ -306,6 +306,8 @@ public class Villager : MonoBehaviour
         }
     }
 
+
+
     #endregion
     #region Escape
     //OnEnter
@@ -340,9 +342,27 @@ public class Villager : MonoBehaviour
     #endregion
     #region Idle
     //OnEnter
-    void Idle()
+    void IdleOnEnter()
     {
-        StartCoroutine(StopForSeconds(2));
+        float randomWaitTime = Random.Range(2f, 4f);
+
+        //pretent enter to the building
+        if (hasTargetHouse)
+        {
+            gameObject.SetActive(false);
+            Invoke("SetActive", randomWaitTime);
+        }
+        else
+        {
+            StartCoroutine(StopForSeconds(randomWaitTime));
+        }
+        
+    }
+
+    void SetActive()
+    {
+        gameObject.SetActive(true);
+        ChangeStateAndEnter(State.Walk);
     }
 
     IEnumerator StopForSeconds(float second)
