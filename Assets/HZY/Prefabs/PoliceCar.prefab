@@ -780,8 +780,13 @@ MonoBehaviour:
   firehouseDestination: {x: 0, y: 0, z: 0}
   PoliceStationDestination: {x: 0, y: 0, z: 0}
   firehouse: {fileID: 0}
+  stopDistance: 15
   state: 0
   navMeshAgent: {fileID: 0}
+  policemanInv: {fileID: 5045251340622100231}
+  policemanPatrol: {fileID: 8198272397223151690}
+  policemanInv_GO: {fileID: 3062931147237488243}
+  policemanPatrol_GO: {fileID: 1517284352534469340}
 --- !u!64 &64222710617219654
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -824,7 +829,7 @@ NavMeshAgent:
   m_AutoRepath: 1
   m_Height: 3.482398
   m_BaseOffset: 1.741199
-  m_WalkableMask: 4294967295
+  m_WalkableMask: 16
   m_ObstacleAvoidanceType: 4
 --- !u!1 &196098
 GameObject:
@@ -957,6 +962,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 434564}
     m_Modifications:
+    - target: {fileID: 1166999510723436158, guid: 351572ba0c57e9c4e84efbb71323b86a,
+        type: 3}
+      propertyPath: m_WalkableMask
+      value: 32
+      objectReference: {fileID: 0}
     - target: {fileID: 1451206155850730909, guid: 351572ba0c57e9c4e84efbb71323b86a,
         type: 3}
       propertyPath: m_LocalPosition.z
@@ -1098,6 +1108,7 @@ MonoBehaviour:
   agent: {fileID: 0}
   backToCar: 0
   findRadius: 10
+  policeTime: 180
 --- !u!1001 &8564731705973030658
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1106,6 +1117,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 434564}
     m_Modifications:
+    - target: {fileID: 1166999510723436158, guid: 351572ba0c57e9c4e84efbb71323b86a,
+        type: 3}
+      propertyPath: m_WalkableMask
+      value: 32
+      objectReference: {fileID: 0}
     - target: {fileID: 1858688914007662303, guid: 351572ba0c57e9c4e84efbb71323b86a,
         type: 3}
       propertyPath: m_IsActive
@@ -1230,6 +1246,7 @@ MonoBehaviour:
   targetsInViewRadius: []
   meshFilter: {fileID: 7469163169887131423}
   backToCar: 0
+  PoliceTime: 180
 --- !u!4 &4558876899938734630 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5303103430676000036, guid: 351572ba0c57e9c4e84efbb71323b86a,
