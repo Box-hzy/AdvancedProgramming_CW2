@@ -6,9 +6,10 @@ using UnityEngine;
 
 public class AddHouseScript : MonoBehaviour
 {
+    public Vector2Int randomScore;
     public Material burningMat;
     public Material destoryMat;
-
+    
     private void Awake()
     {
 
@@ -23,14 +24,18 @@ public class AddHouseScript : MonoBehaviour
             house.destroiedMaterial = destoryMat;
             house.tag = "Buildings";
 
-            if (transform.CompareTag("BigHouse"))
-            {
-                house.setScore(200);
-            }
-            else if (transform.CompareTag("SmallHouse"))
-            {
-                house.setScore(100);
-            }
+            int random = Random.Range(randomScore.x, randomScore.y);
+
+            house.setScore(random);
+
+            //if (transform.CompareTag("BigHouse"))
+            //{
+            //    house.setScore(200);
+            //}
+            //else if (transform.CompareTag("SmallHouse"))
+            //{
+            //    house.setScore(100);
+            //}
         }
 
     }

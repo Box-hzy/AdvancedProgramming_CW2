@@ -11,6 +11,7 @@ TagManager:
   - BigHouse
   - Villager
   - EscapePoint
+  - OldHouse
   layers:
   - Default
   - TransparentFX
