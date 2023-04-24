@@ -26,6 +26,7 @@ public class PolicemanPatrolInCar : MonoBehaviour
     public MeshFilter meshFilter;
     Mesh mesh;
 
+    PolicemanInvInCar policemanInv;
     public bool backToCar = false;
     // Start is called before the first frame update
     void Start()
@@ -72,11 +73,13 @@ public class PolicemanPatrolInCar : MonoBehaviour
                 if (Vector3.Angle(transform.forward, dirToTarget) < viewAngle / 2f)
                 {
                     policeState = State.Chase;
+                    policemanInv.setState(PolicemanInvInCar.State.Chase);
                     //Debug.Log("Player is in view!");
                 }
                 else
                 {
                     policeState = State.Patrol;
+                    policemanInv.setState(PolicemanInvInCar.State.FindVillager);
                 }
             }
             else
@@ -166,4 +169,7 @@ public class PolicemanPatrolInCar : MonoBehaviour
         return backToCar;
     }
 
+    public void setPolicemanInv(PolicemanInvInCar thisPolice) { 
+        policemanInv= thisPolice;
+    }
 }
