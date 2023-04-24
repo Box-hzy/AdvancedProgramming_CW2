@@ -17,17 +17,19 @@ public class Villager : MonoBehaviour
         Investigate
     }
 
+    public GameObject testPrefab;
 
     NavMeshAgent agent;
     HouseManager houseManager;
     Animator animator;
 
     //basic property
-    public float speed = 5;
+    public float walkSpeed = 3.5f;
+    public float runSpeed = 6f;
     public float detectRadius = 20;
     public float maxWalkDistance = 200;
     public float onLookRange = 20;
-    public Vector2 runawayRange = new Vector2(20, 100);
+    public Vector2 runawayRange = new Vector2(70, 100);
     public bool isBeingInvestigate;
 
     //ray detection
@@ -42,7 +44,7 @@ public class Villager : MonoBehaviour
     private Vector3 targetDestination;
     bool hasTargetHouse;
 
-    private House firedHouse;
+    [SerializeField]private House firedHouse;
     public float distanceFromFiredHouse;
 
     private void Start()
@@ -100,12 +102,15 @@ public class Villager : MonoBehaviour
 
     private void Update()
     {
+        CurrentStateOnStay();
+
         //check house state
         if (firedHouse != null)
         {
-            if (firedHouse.GetComponent<House>().getState() != 1 || firedHouse.GetComponent<House>().getState() != 2)
+            if (firedHouse.GetComponent<House>().getState() != 1 && firedHouse.GetComponent<House>().getState() != 2)
             {
                 firedHouse = null;
+                Debug.Log("house is not on fire");
                 return;
             }
             distanceFromFiredHouse = Vector3.Distance(transform.position, firedHouse.transform.position);
@@ -118,8 +123,7 @@ public class Villager : MonoBehaviour
             ChangeStateAndEnter(State.Investigate);
         }
 
-
-        CurrentStateOnStay();
+        
     }
 
     //OnStay - excute every fixedUpdate
@@ -169,7 +173,6 @@ public class Villager : MonoBehaviour
         }
     }
 
-
     //OnEnter - excute once
     void ChangeStateAndEnter(State newState)
     {
@@ -184,20 +187,22 @@ public class Villager : MonoBehaviour
                 IdleOnEnter();
                 break;
             case State.Walk:
-                Debug.Log("Villager Walking");
+                //Debug.Log("Villager Walking");
                 animator.SetBool("Walk", true);
+                agent.speed = walkSpeed;
                 SetRandomDestination();
                 break;
             case State.Escape:
-                Debug.Log("Villager Escape");
+                //Debug.Log("Villager Escape");
                 animator.SetBool("Run", true);
+                agent.speed = runSpeed;
                 SetEscapePointAndEscape();
                 break;
             case State.Onlook:
                 SetOnLookPoint();
                 break;
             case State.Investigate:
-                Debug.Log("Villager Investigate");
+                //Debug.Log("Villager Investigate");
                 break;
             default:
                 break;
@@ -236,7 +241,7 @@ public class Villager : MonoBehaviour
     }
 
     //common function
-    bool CheckDistanceFromDestination(Vector3 destination, float distance)
+    bool CheckIfReachDestination(Vector3 destination, float distance)
     {
         if (Vector3.Distance(transform.position, destination) < distance)
         {
@@ -300,14 +305,16 @@ public class Villager : MonoBehaviour
             //if the house is on fire, start escape mode
             if (detectedCollider[i].TryGetComponent<House>(out House house))
             {
-                if (house.houseState == 1)
+                if (house.getState() == 1)
                 {
+                    Debug.Log("house state = 1!");
                     firedHouse = house;
+                    Debug.Log(firedHouse.name);
                     ChangeStateAndEnter(State.Escape);
                     break;
                 }
                 //if the house is being puting out on fire, villager will stay around;
-                else if (house.houseState == 2)
+                else if (house.getState() == 2)
                 {
                     firedHouse = house;
                     ChangeStateAndEnter(State.Onlook);
@@ -319,6 +326,8 @@ public class Villager : MonoBehaviour
             //chain reaction, the escape villager also effect the other villager
             if (detectedCollider[i].TryGetComponent<Villager>(out Villager villager))
             {
+                if (detectedCollider[i].gameObject == gameObject) return;
+
                 if (villager.currentState == State.Escape && villager.distanceFromFiredHouse < 10)
                 {
                     ChangeStateAndEnter(State.Escape);
@@ -333,7 +342,7 @@ public class Villager : MonoBehaviour
     //OnStay
     void CheckIfArrive()
     {
-        if (CheckDistanceFromDestination(targetDestination, 5))
+        if (CheckIfReachDestination(targetDestination, 5))
         {
             ChangeStateAndEnter(State.Idle);
         }
@@ -346,10 +355,14 @@ public class Villager : MonoBehaviour
     //OnEnter
     void SetEscapePointAndEscape()
     {
-        Vector3 direction = (firedHouse.transform.position - transform.position).normalized;
+        //Vector3 direction = (firedHouse.transform.position - transform.position).normalized;
         float randomRange = Random.Range(runawayRange.x, runawayRange.y);
-        Vector3 destination = direction * randomRange;
-        agent.SetDestination(destination);
+        //Vector3 destination = VillagerManager.Instance.SamplePositionOnNavMesh(direction * randomRange,20);
+        //Instantiate(testPrefab, destination, Quaternion.identity);
+        //Debug.Log(destination);
+
+        Vector3 randomRun = RandomNavmeshLocation(firedHouse.transform.position, randomRange);
+        agent.SetDestination(randomRun);
 
     }
 
@@ -361,12 +374,17 @@ public class Villager : MonoBehaviour
             ChangeStateAndEnter(State.Walk);
         }
         //if the house is being putting out on fire, then change to onlook state
-        else if (CheckDistanceFromDestination(firedHouse.transform.position, 80) && firedHouse.getState() == 2)
+        else if (CheckIfReachDestination(firedHouse.transform.position, 80) && firedHouse.getState() == 2)
         {
             ChangeStateAndEnter(State.Onlook);
         }
+
+        //else if (CheckIfReachDestination(firedHouse.transform.position, 80) && firedHouse.getState() == 1)
+        //{
+        //    ChangeStateAndEnter(State.Escape);
+        //}
         //if run too far (>80), then change back to walk state 
-        else if (!CheckDistanceFromDestination(firedHouse.transform.position, 80))
+        else if (!CheckIfReachDestination(firedHouse.transform.position, 80))
         {
             firedHouse = null;
         }

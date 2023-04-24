@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3827996682005348704}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: EscapePoint
   m_TagString: EscapePoint
   m_Icon: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
@@ -43,7 +43,8 @@ GameObject:
   - component: {fileID: 4217698532564386483}
   - component: {fileID: 5753566489709833384}
   - component: {fileID: 688605692325398718}
-  m_Layer: 0
+  - component: {fileID: 3831918389273449764}
+  m_Layer: 10
   m_Name: Building_W(Big)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -64,7 +65,7 @@ Transform:
   m_Children:
   - {fileID: 3827996682005348704}
   m_Father: {fileID: 0}
-  m_RootOrder: 40
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: -90}
 --- !u!33 &4217698532564386483
 MeshFilter:
@@ -143,8 +144,29 @@ MeshCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: ee171171cf1e6bc46a3aa94123b229cc, type: 3}
+--- !u!65 &3831918389273449764
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7463612638366342433}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.09146707, y: 0.09549933, z: 0.059180006}
+  m_Center: {x: 0.025305763, y: 0.0050322916, z: 0.029590001}

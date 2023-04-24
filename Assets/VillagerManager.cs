@@ -6,19 +6,34 @@ using UnityEngine.AI;
 
 public class VillagerManager : MonoBehaviour
 {
+    public static VillagerManager Instance;
+
     public GameObject prefab;
     public Transform villagerGroup;
     public int numVillager = 15;
     BoxCollider spawnArea;
 
+
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(Instance);
+        }
+
+    }
     private void Start()
     {
         spawnArea = GetComponent<BoxCollider>();
-        
+
 
         for (int i = 0; i < numVillager; i++)
         {
-            Vector3 randomPosition = SampleRandomPositionOnNavMesh(GetRandomPosition());
+            Vector3 randomPosition = SamplePositionOnNavMesh(GetRandomPosition(),100);
             Instantiate(prefab, randomPosition, Quaternion.identity, villagerGroup);
         }
     }
@@ -31,11 +46,11 @@ public class VillagerManager : MonoBehaviour
         return new Vector3(x, y, z);
     }
 
-    Vector3 SampleRandomPositionOnNavMesh(Vector3 position)
+    public Vector3 SamplePositionOnNavMesh(Vector3 position, float distance)
     {
         NavMeshHit hit;
-        if (NavMesh.SamplePosition(position, out hit, 100, NavMesh.AllAreas))
-        { 
+        if (NavMesh.SamplePosition(position, out hit, distance, NavMesh.AllAreas))
+        {
             position = hit.position;
         }
         return position;

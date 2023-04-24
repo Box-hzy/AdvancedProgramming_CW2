@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3241254803035669825}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: EscapePoint
   m_TagString: EscapePoint
   m_Icon: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
@@ -42,7 +42,8 @@ GameObject:
   - component: {fileID: 6746286865453197587}
   - component: {fileID: 1529748974488416610}
   - component: {fileID: 1835669135094341111}
-  m_Layer: 0
+  - component: {fileID: 2453108824367542264}
+  m_Layer: 10
   m_Name: Warehouse (Small)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -58,12 +59,12 @@ Transform:
   m_GameObject: {fileID: 4788704696655208520}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -22.814997, y: 0.20000458, z: 15.876795}
-  m_LocalScale: {x: 1.3, y: 1.3, z: 1.3}
+  m_LocalScale: {x: 1.2999998, y: 1.3, z: 1.2999998}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 3241254803035669825}
   m_Father: {fileID: 0}
-  m_RootOrder: 40
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &1529748974488416610
 MeshFilter:
@@ -119,3 +120,24 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &2453108824367542264
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4788704696655208520}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 4.000001, y: 3.6228185, z: 4.000001}
+  m_Center: {x: 0, y: 1.8114092, z: 0}
