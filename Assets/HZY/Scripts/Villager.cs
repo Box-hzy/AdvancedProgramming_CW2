@@ -17,8 +17,6 @@ public class Villager : MonoBehaviour
         Investigate
     }
 
-    public GameObject testPrefab;
-
     NavMeshAgent agent;
     HouseManager houseManager;
     Animator animator;
@@ -28,15 +26,16 @@ public class Villager : MonoBehaviour
     public float runSpeed = 6f;
     public float detectRadius = 20;
     public float maxWalkDistance = 200;
-    public float onLookRange = 20;
+    public float onLookRange = 10;
     public Vector2 runawayRange = new Vector2(70, 100);
-    public bool isBeingInvestigate;
+    //private bool isBeingInvestigate;
 
     //ray detection
     //private Collider[] detectedCollider;
     public LayerMask detectableLayer;
 
     [SerializeField] private State currentState;
+    private State previousState;
     //private State previousState;
 
     //random choose a house as a destination or just roam without house as a target
@@ -64,6 +63,7 @@ public class Villager : MonoBehaviour
 
     private void Init()
     {
+        previousState = State.Idle;
         currentState = State.Idle;
     }
 
@@ -117,11 +117,11 @@ public class Villager : MonoBehaviour
         }
 
         //check if the villager is being investigated by the police
-        if (isBeingInvestigate)
-        {
-            if (currentState == State.Investigate) return;
-            ChangeStateAndEnter(State.Investigate);
-        }
+        //if (isBeingInvestigate)
+        //{
+        //    if (currentState == State.Investigate) return;
+        //    ChangeStateAndEnter(State.Investigate);
+        //}
 
         
     }
@@ -178,8 +178,8 @@ public class Villager : MonoBehaviour
     {
         ExitCurrentState();
 
-        //previousState = currentState;
         currentState = newState;
+
         switch (currentState)
         {
             case State.Idle:
@@ -199,10 +199,14 @@ public class Villager : MonoBehaviour
                 StartCoroutine(SetEscapePointAndEscape());
                 break;
             case State.Onlook:
+                animator.SetBool("Walk", true);
+                agent.speed = walkSpeed;
+                transform.LookAt(firedHouse.transform.position);
                 SetOnLookPoint();
                 break;
             case State.Investigate:
                 //Debug.Log("Villager Investigate");
+                animator.SetBool("Talk", true);
                 break;
             default:
                 break;
@@ -228,6 +232,7 @@ public class Villager : MonoBehaviour
                 break;
             case State.Escape:
                 animator.SetBool("Run", false);
+                animator.SetBool("Walk", false);
                 StopCoroutine(SetEscapePointAndEscape());
                 break;
             case State.Onlook:
@@ -239,6 +244,8 @@ public class Villager : MonoBehaviour
             default:
                 break;
         }
+
+        previousState = currentState;
     }
 
     //common function
@@ -279,20 +286,41 @@ public class Villager : MonoBehaviour
         }
         else
         {
-            targetDestination = RandomNavmeshLocation(transform.position, maxWalkDistance);
+            targetDestination = RandomPoint(transform.position, maxWalkDistance);
         }
         agent.SetDestination(targetDestination);
     }
 
-    private Vector3 RandomNavmeshLocation(Vector3 origin, float distance)
+    //private Vector3 RandomNavmeshLocation(Vector3 origin, float distance)
+    //{
+    //    // Random generate a new location
+        
+    //    Vector3 randomDirection = Random.insideUnitSphere * distance;
+    //    randomDirection += origin;
+    //    NavMeshHit navHit;
+
+
+    //    NavMesh.SamplePosition(randomDirection, out navHit, distance, NavMesh.AllAreas);
+    //    return navHit.position;
+    //}
+
+    Vector3 RandomPoint(Vector3 origin, float range)
     {
-        // Random generate a new location
-        Vector3 randomDirection = Random.insideUnitSphere * distance;
-        randomDirection += origin;
-        NavMeshHit navHit;
-        NavMesh.SamplePosition(randomDirection, out navHit, distance, NavMesh.AllAreas);
-        return navHit.position;
+        for (int i = 0; i < 30; i++)
+        {
+            Vector3 randomPoint = origin + Random.insideUnitSphere * range;
+            NavMeshHit hit;
+            if (NavMesh.SamplePosition(randomPoint, out hit, range, NavMesh.AllAreas))
+            { 
+                return hit.position;
+            }
+        }
+        
+        return Vector3.zero;
+       
+
     }
+
 
     public Collider[] detectedCollider;
 
@@ -361,12 +389,14 @@ public class Villager : MonoBehaviour
         {
             //Vector3 direction = (firedHouse.transform.position - transform.position).normalized;
             float randomRange = Random.Range(runawayRange.x, runawayRange.y);
-            //Vector3 destination = VillagerManager.Instance.SamplePositionOnNavMesh(direction * randomRange,20);
-            //Instantiate(testPrefab, destination, Quaternion.identity);
-            //Debug.Log(destination);
+            //Vector3 randomDirection = Random.insideUnitSphere*randomRange;
+            //randomDirection.z = 0;
+            //NavMeshHit hit;
+            //NavMesh.SamplePosition(randomDirection + transform.position, out hit, 70, NavMesh.AllAreas);
+            //Vector3 randomRun = RandomNavmeshLocation(transform.position, randomRange);
 
-            Vector3 randomRun = RandomNavmeshLocation(firedHouse.transform.position, randomRange);
-            agent.SetDestination(randomRun);
+            Vector3 destination = RandomPoint(transform.position, randomRange);
+            agent.SetDestination(destination);
             //Debug.Log("Set run destination");
             yield return new WaitForSeconds(5);
         }
@@ -447,8 +477,14 @@ public class Villager : MonoBehaviour
     void SetOnLookPoint()
     {
         if (firedHouse == null) return;
-        Vector3 destination = (transform.position - firedHouse.transform.position).normalized * onLookRange;
-        agent.SetDestination(destination);
+        //Vector3 randomDirection = Random.insideUnitSphere*onLookRange;
+        //randomDirection.z = 0;
+        //NavMeshHit hit;
+        //NavMesh.SamplePosition(randomDirection + firedHouse.transform.position, out hit, 20, NavMesh.AllAreas);
+        //Vector3 destination = (transform.position - firedHouse.transform.position).normalized * onLookRange;
+
+        Vector3 onLookPosition = RandomPoint(firedHouse.transform.position, onLookRange);
+        agent.SetDestination(onLookPosition);
     }
 
     //OnStay
@@ -471,12 +507,29 @@ public class Villager : MonoBehaviour
     {
         if (distanceFromFiredHouse < onLookRange)
         {
+            animator.SetBool("Walk", false);
             agent.isStopped = true;
         }
     }
 
     #endregion
+    #region Investigate
+    //police will investigate the villager around the fired house, the police will call this function
+    public void BeingInvestigated(GameObject police, float investigateTime)
+    { 
+        //isBeingInvestigate = true;
+        ChangeStateAndEnter(State.Investigate);
+        transform.LookAt(police.transform);
+        Invoke("FinishInvestigation", investigateTime);
+    }
 
+    void FinishInvestigation()
+    {
+        //isBeingInvestigate = false;
+        ChangeStateAndEnter(previousState);
+    }
+
+    #endregion
 
     private void OnDrawGizmos()
     {
