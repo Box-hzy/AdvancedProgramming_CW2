@@ -57,11 +57,12 @@ public class PoliceStationManager : MonoBehaviour
         GameObject thisPoliceEngine = Instantiate(PoliceEngine, PoliceEngineAppear[Policestation].transform.position, Quaternion.identity);
         PoliceCar PoliceEngineScript = thisPoliceEngine.GetComponent<PoliceCar>();
 
+        Vector3 firehouseCenter = firehouse.GetComponent<House>().getCentre();
 
 
         //Caculate the parking point near the burning house
-        Vector3 truckDirection = (firehouse.transform.position - thisPoliceEngine.transform.position).normalized;
-        Vector3 truckStopPosition = firehouse.transform.position - truckDirection * truckStoppingDistance;
+        Vector3 truckDirection = (firehouseCenter - thisPoliceEngine.transform.position).normalized;
+        Vector3 truckStopPosition = firehouseCenter - truckDirection * truckStoppingDistance;
 
         PoliceEngineScript.setPolicehouseDestination(truckStopPosition);
         PoliceEngineScript.setPoliceStationDestination(PoliceEngineAppear[Policestation].transform.position);
@@ -75,13 +76,13 @@ public class PoliceStationManager : MonoBehaviour
     {
         GameObject closestPoliceStation = null;
         float minDistance = Mathf.Infinity;
-        foreach (GameObject firestation in PoliceStationList)
+        foreach (GameObject policestation in PoliceStationList)
         {
-            float distance = Vector3.Distance(firestation.transform.position, firestation.transform.position);
+            float distance = Vector3.Distance(policestation.transform.position, policestation.transform.position);
             if (minDistance > distance)
             {
                 minDistance = distance;
-                closestPoliceStation = firestation;
+                closestPoliceStation = policestation;
             }
         }
         return closestPoliceStation;

@@ -13,7 +13,8 @@ public class FireStationManagement : MonoBehaviour
     GameObject firehouse;
 
     public List<GameObject> FireEngineGenerationList= new List<GameObject>();
-
+    public List<int> FireEngineNumberInFireStationList = new List<int>();
+    Dictionary<GameObject, int> FireEngineInFireStation = new Dictionary<GameObject, int>();
     public bool dispatch = false;
 
     public float truckStoppingDistance = 3.0f;
@@ -29,7 +30,9 @@ public class FireStationManagement : MonoBehaviour
         for (int i = 0; i < FireEngineGenerationList.Count; i++) {
             FireEngineAppear.Add(FireStationList[i], FireEngineGenerationList[i]);
         }
-        
+        for (int i = 0; i < FireEngineNumberInFireStationList.Count; i++) {
+            FireEngineInFireStation.Add(FireStationList[i], FireEngineNumberInFireStationList[i]);
+        }
     }
 
     // Update is called once per frame
@@ -40,7 +43,11 @@ public class FireStationManagement : MonoBehaviour
             firehouse = houseManager.getCurrentBurningHouse();
             Debug.Log(firehouse);
             GameObject firestation = GetClosestFireStation(firehouse);
-            DispatchFireEngines(firestation, firehouse);
+            if (firestation != null)
+            {
+                DispatchFireEngines(firestation, firehouse);
+                changeFireEngineNumber(firestation, -1);
+            }
             
 
         }
@@ -55,12 +62,12 @@ public class FireStationManagement : MonoBehaviour
 
         GameObject thisFireEngine = Instantiate(FireEngine, FireEngineAppear[firestation].transform.position, Quaternion.identity);
         FireEngine fireEngineScript = thisFireEngine.GetComponent<FireEngine>();
-        
-        
+
+        Vector3 firehouseCenter = firehouse.GetComponent<House>().getCentre();
         
         //Caculate the parking point near the burning house
-        Vector3 truckDirection = (firehouse.transform.position - thisFireEngine.transform.position).normalized;
-        Vector3 truckStopPosition = firehouse.transform.position - truckDirection * truckStoppingDistance;
+        Vector3 truckDirection = (firehouseCenter - thisFireEngine.transform.position).normalized;
+        Vector3 truckStopPosition = firehouseCenter - truckDirection * truckStoppingDistance;
 
         fireEngineScript.setFirehouseDestination(truckStopPosition);
         fireEngineScript.setFireStationDestination(FireEngineAppear[firestation].transform.position);
@@ -75,10 +82,16 @@ public class FireStationManagement : MonoBehaviour
         foreach (GameObject firestation in FireStationList) {
             float distance = Vector3.Distance(firestation.transform.position, firestation.transform.position);
             if (minDistance > distance) { 
-                minDistance= distance;
-                closestFireStation = firestation;
+                if (FireEngineInFireStation[firestation] > 0) {
+                    minDistance = distance;
+                    closestFireStation = firestation;
+                }
             }
         }
         return closestFireStation;
+    }
+
+    public void changeFireEngineNumber(GameObject fireStation, int number) { 
+        FireEngineInFireStation[fireStation] = FireEngineInFireStation[fireStation]+ number;
     }
 }

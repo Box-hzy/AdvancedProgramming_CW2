@@ -42,8 +42,8 @@ public class FiremanScript : MonoBehaviour
         switch (state) {
             case 0:
                 
-                FirefighterAgent.SetDestination(ClosestFireHouse.transform.position);
-                if (Vector3.Distance(transform.position, ClosestFireHouse.transform.position) < 3f) {
+                FirefighterAgent.SetDestination(ClosestFireHouse.GetComponent<House>().getCentre());
+                if (Vector3.Distance(transform.position, ClosestFireHouse.GetComponent<House>().getCentre()) < 3f) {
                     
                     state = 1;
                     houseManager.setHouseState(ClosestFireHouse, 2);

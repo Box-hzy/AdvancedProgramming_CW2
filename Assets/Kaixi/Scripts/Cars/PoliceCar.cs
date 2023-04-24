@@ -13,10 +13,13 @@ public class PoliceCar : MonoBehaviour
     GameObject PatrolPoliceman;
     public int state = 0;
     public NavMeshAgent navMeshAgent;
+    PolicemanInvInCar policemanInv;
+    PolicemanPatrolInCar policemanPatrol;
     // Start is called before the first frame update
     void Start()
     {
-        
+        policemanInv = GetComponentInChildren<PolicemanInvInCar>();
+        policemanPatrol = GetComponentInChildren<PolicemanPatrolInCar>();
     }
 
     // Update is called once per frame
@@ -29,14 +32,20 @@ public class PoliceCar : MonoBehaviour
                 {
 
                     navMeshAgent.isStopped = true;
-                    //Policeman.SetActive(true);
-                    //Policeman.transform.SetParent(null);
-                    //PolicemanScript.SetFireEnginePostion(transform.position);
+                    
+                    policemanPatrol.gameObject.SetActive(true);
+                    policemanPatrol.SetPoliceCar(transform.position);
+
+                    policemanInv.gameObject.SetActive(true);
+                    policemanInv.SetPoliceCar(transform.position);
                     changeState(1);
                 }
 
                 break;
             case 1:
+                if (policemanInv.getBackToCar() && policemanPatrol.getBackToCar()) {
+                    changeState(2);
+                }
                 break;
             case 2:
                 navMeshAgent.isStopped = false;

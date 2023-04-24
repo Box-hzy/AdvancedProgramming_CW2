@@ -36,7 +36,7 @@ public class HouseManager : MonoBehaviour
 
         foreach (House house in houses)
         {
-            float distance = Vector3.Distance(gameObject.transform.position, house.gameObject.transform.position);
+            float distance = Vector3.Distance(gameObject.transform.position, house.getCentre());
             if (distance < minDistance)
             {
                 closestHouse = house.gameObject;
@@ -75,7 +75,7 @@ public class HouseManager : MonoBehaviour
 
         foreach (House house in houses)
         {
-            float distance = Vector3.Distance(gameObject.transform.position, house.gameObject.transform.position);
+            float distance = Vector3.Distance(gameObject.transform.position, house.getCentre());
             if (distance < minDistance && house.getState() == state)
             {
                 closestHouse = house.gameObject;

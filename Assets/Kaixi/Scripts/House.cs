@@ -101,6 +101,10 @@ public class House : MonoBehaviour
         return score;
     }
 
+    public Vector3 getCentre()
+    {
+        return centrePoint;
+    }
 
     private void OnDrawGizmos()
     {

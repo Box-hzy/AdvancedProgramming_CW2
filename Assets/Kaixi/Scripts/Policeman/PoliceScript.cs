@@ -1,8 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using TMPro;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -21,7 +18,7 @@ public class PoliceScript : MonoBehaviour
 
     public List<Collider>targetsInViewRadius = new List<Collider>();
     public MeshFilter meshFilter;
-    public Mesh mesh;
+    Mesh mesh;
     // Start is called before the first frame update
     void Start()
     {
