@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 194728828991688008}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: EscapePoint
   m_TagString: EscapePoint
   m_Icon: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 1523265685288437027}
   - component: {fileID: 1565428331158924603}
   - component: {fileID: 8075258361207658943}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Building_T(Big)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -59,12 +59,12 @@ Transform:
   m_GameObject: {fileID: 7715444014009217464}
   m_LocalRotation: {x: -0.7069834, y: 0, z: 0, w: 0.7072302}
   m_LocalPosition: {x: 48.74338, y: 0.10000038, z: 11.83167}
-  m_LocalScale: {x: 100, y: 99.999954, z: 99.999954}
+  m_LocalScale: {x: 100, y: 99.99996, z: 99.99996}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 194728828991688008}
   m_Father: {fileID: 0}
-  m_RootOrder: 41
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: -89.98, y: 0, z: 0}
 --- !u!33 &1523265685288437027
 MeshFilter:

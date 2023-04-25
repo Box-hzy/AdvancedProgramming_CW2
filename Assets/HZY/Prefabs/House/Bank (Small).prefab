@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8060208275687546749}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: EscapePoint
   m_TagString: EscapePoint
   m_Icon: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
@@ -42,7 +42,7 @@ GameObject:
   - component: {fileID: 571210164547772983}
   - component: {fileID: 8551460755764253349}
   - component: {fileID: 475986849111531854}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Bank (Small)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -63,7 +63,7 @@ Transform:
   m_Children:
   - {fileID: 8060208275687546749}
   m_Father: {fileID: 0}
-  m_RootOrder: 38
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &8551460755764253349
 MeshFilter:
