@@ -6,7 +6,7 @@ using UnityEngine.AI;
 
 
 
-public class Villager : MonoBehaviour
+public class Villager : VillagerBase
 {
     private enum State
     {
@@ -47,9 +47,10 @@ public class Villager : MonoBehaviour
     [SerializeField] private House firedHouse;
     public float distanceFromFiredHouse;
 
+
     private void Start()
     {
-        ChangeSkin();
+        //ChangeSkin();
         animator = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
         houseManager = GameObject.FindObjectOfType<HouseManager>();
@@ -68,32 +69,32 @@ public class Villager : MonoBehaviour
         currentState = State.Idle;
     }
 
-    void ChangeSkin()
-    {
-        List<GameObject> list = new List<GameObject>();
-        int childCount = transform.childCount;
-        for (int i = 0; i < childCount; i++)
-        {
-            if (transform.GetChild(i).TryGetComponent<SkinnedMeshRenderer>(out SkinnedMeshRenderer mesh))
-            {
-                list.Add(transform.GetChild(i).gameObject);
-            }
-        }
+    //void ChangeSkin()
+    //{
+    //    List<GameObject> list = new List<GameObject>();
+    //    int childCount = transform.childCount;
+    //    for (int i = 0; i < childCount; i++)
+    //    {
+    //        if (transform.GetChild(i).TryGetComponent<SkinnedMeshRenderer>(out SkinnedMeshRenderer mesh))
+    //        {
+    //            list.Add(transform.GetChild(i).gameObject);
+    //        }
+    //    }
 
-        int randomSkinIndex = Random.Range(0, list.Count);
+    //    int randomSkinIndex = Random.Range(0, list.Count);
 
-        for (int i = 0; i < list.Count; i++)
-        {
-            if (i == randomSkinIndex)
-            {
-                list[i].SetActive(true);
-            }
-            else
-            {
-                list[i].SetActive(false);
-            }
-        }
-    }
+    //    for (int i = 0; i < list.Count; i++)
+    //    {
+    //        if (i == randomSkinIndex)
+    //        {
+    //            list[i].SetActive(true);
+    //        }
+    //        else
+    //        {
+    //            list[i].SetActive(false);
+    //        }
+    //    }
+    //}
 
     private void FixedUpdate()
     {

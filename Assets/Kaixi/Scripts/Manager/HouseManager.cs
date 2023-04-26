@@ -125,6 +125,8 @@ public class HouseManager : MonoBehaviour
     {
         for (int i = 0; i < houses.Length; i++)
         {
+            if(houses[i].transform.childCount >0)
+           
             if (houses[i].transform.GetChild(0).CompareTag("EscapePoint"))
             {
                 accessibleHouses.Add(houses[i]);

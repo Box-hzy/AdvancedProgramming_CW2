@@ -6,7 +6,7 @@ using UnityEngine.AI;
 public class House : MonoBehaviour
 {
 
-
+    public GameObject scaredVillager;
     public int houseState;
     public List<House> neighbourHouses = new List<House>();
     public int score;
@@ -16,7 +16,7 @@ public class House : MonoBehaviour
     //public Transform escapePoint;
     public float radius = 10;    //raycast radius
     Collider[] results = new Collider[10];
-    [SerializeField]LayerMask layerMask;
+    [SerializeField] LayerMask layerMask;
     float RecoverTime = 180;
     float timer;
     Vector3 centrePoint; //transform.position is based on Pivot point, however the pivot point of the model is too faraway
@@ -47,17 +47,16 @@ public class House : MonoBehaviour
         }
 
 
-
-
     }
 
-    //void SetEscapePoint()
-    //{
-    //    if (transform.GetChild(0).CompareTag("EscapePoint"))
-    //    {
-    //        escapePoint = transform.GetChild(0);
-    //    }
-    //}
+    void SpawnScaredVillagers()
+    {
+        for (int i = 0; i < 5; i++)
+        {
+            GameObject go =   Instantiate(scaredVillager, transform.position, Quaternion.identity, transform);
+        }
+       
+    }
 
 
     private void AddNeighbour()
@@ -68,7 +67,7 @@ public class House : MonoBehaviour
             //Debug.Log("111");
             if (results[i].TryGetComponent<House>(out House house))
             {
-               
+
                 if (house != this)
                     neighbourHouses.Add(house);
             }
@@ -89,10 +88,11 @@ public class House : MonoBehaviour
         switch (houseState)
         {
             case 0://original state
-                GetComponent<Renderer>().material = defaultMaterial; 
+                GetComponent<Renderer>().material = defaultMaterial;
                 break;
             case 1://fire is burning
-                GetComponent<Renderer>().material = burningMaterial; 
+                GetComponent<Renderer>().material = burningMaterial;
+                SpawnScaredVillagers();
                 break;
             case 2:// fireman is putting off the fire
                 break;
