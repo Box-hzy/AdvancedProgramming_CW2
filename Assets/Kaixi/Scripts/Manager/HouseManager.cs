@@ -9,6 +9,7 @@ public class HouseManager : MonoBehaviour
     //public GameObject[] buildings;
 
     public House[] houses;
+    public List<House> accessibleHouses;
 
     float minDistance;
     
@@ -21,10 +22,10 @@ public class HouseManager : MonoBehaviour
     {
         
         gameManagement = GameObject.Find("GameManagement").GetComponent<GameManagement>();
-
+        accessibleHouses = new List<House>();
         //buildings = GameObject.FindGameObjectsWithTag("Buildings");
         AddHouses();
-
+        AddaccessibleHouses();
 
     }
 
@@ -117,6 +118,17 @@ public class HouseManager : MonoBehaviour
         for (int i = 0; i < goArray.Length; i++)
         {
             houses[i] = goArray[i].GetComponent<House>();
+        }
+    }
+
+    void AddaccessibleHouses()
+    {
+        for (int i = 0; i < houses.Length; i++)
+        {
+            if (houses[i].transform.GetChild(0).CompareTag("EscapePoint"))
+            {
+                accessibleHouses.Add(houses[i]);
+            }
         }
     }
     

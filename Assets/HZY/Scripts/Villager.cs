@@ -26,7 +26,7 @@ public class Villager : MonoBehaviour
     public float runSpeed = 6f;
     public float detectRadius = 20;
     public float maxWalkDistance = 200;
-    public float onLookRange = 5;
+    public float onLookRange = 10;
     public Vector2 runawayRange = new Vector2(70, 100);
     public bool hasBeenInvestigated;
     //private bool isBeingInvestigate;
@@ -234,9 +234,12 @@ public class Villager : MonoBehaviour
                 animator.SetBool("Run", false);
                 animator.SetBool("Walk", false);
                 StopCoroutine(SetEscapePointAndEscape());
+                 //StopAllCoroutines();
+                Debug.Log("STOP");
                 break;
             case State.Onlook:
                 agent.isStopped = false;
+                //animator.SetBool("Onlook", false);
                 StopCoroutine(RandomOnlookAnimation());
                 break;
             case State.Investigate:
@@ -282,8 +285,9 @@ public class Villager : MonoBehaviour
         if (hasTargetHouse)
         {
             int random = Random.Range(0, houseManager.houses.Length);
-            targetHouse = houseManager.houses[randomNumber].transform;
-            targetDestination = targetHouse.transform.position + transform.forward;
+            //targetHouse = houseManager.houses[randomNumber].transform;
+            targetHouse = houseManager.accessibleHouses[randomNumber].transform;
+            targetDestination = targetHouse.GetChild(0).position;
         }
         else
         {
@@ -340,7 +344,7 @@ public class Villager : MonoBehaviour
                 {
                     //Debug.Log("house state = 1!");
                     firedHouse = house;
-                    Debug.Log(firedHouse.name);
+                    //Debug.Log(firedHouse.name);
                     ChangeStateAndEnter(State.Escape);
                     break;
                 }
@@ -389,6 +393,12 @@ public class Villager : MonoBehaviour
     {
         while (CheckIfReachDestination(firedHouse.transform.position, 80))
         {
+            
+            if (currentState != State.Escape)
+            {
+                Debug.Log("COROUTINE BREAK");
+                yield break;
+            } 
             //Vector3 direction = (firedHouse.transform.position - transform.position).normalized;
             float randomRange = Random.Range(runawayRange.x, runawayRange.y);
             //Vector3 randomDirection = Random.insideUnitSphere*randomRange;
@@ -399,7 +409,7 @@ public class Villager : MonoBehaviour
 
             Vector3 destination = RandomPoint(transform.position, randomRange);
             agent.SetDestination(destination);
-            //Debug.Log("Set run destination");
+            Debug.Log("Set run destination");
             yield return new WaitForSeconds(5);
         }
 
@@ -416,7 +426,7 @@ public class Villager : MonoBehaviour
         {
             if (firedHouse.getState() == 1)
             {
-                if (agent.remainingDistance < 3)
+                if (agent.remainingDistance < 1)
                 {
                     ChangeStateAndEnter(State.Escape);
                 }
@@ -500,9 +510,10 @@ public class Villager : MonoBehaviour
         //NavMeshHit hit;
         //NavMesh.SamplePosition(randomDirection + firedHouse.transform.position, out hit, 20, NavMesh.AllAreas);
         //Vector3 destination = (transform.position - firedHouse.transform.position).normalized * onLookRange;
-
-        Vector3 onLookPosition = RandomPoint(firedHouse.transform.position, onLookRange);
-        agent.SetDestination(onLookPosition);
+        Vector3 onLookPosition = firedHouse.transform.position + (transform.position - firedHouse.transform.position).normalized * onLookRange;
+        NavMeshHit hit;
+        NavMesh.SamplePosition(onLookPosition,out hit, onLookRange,NavMesh.AllAreas);
+        agent.SetDestination(hit.position);
         Debug.Log("set destination");
     }
 
@@ -512,14 +523,17 @@ public class Villager : MonoBehaviour
     /// </summary>
     void CheckFiredHouseState()
     {
+       
         if (firedHouse == null)
         {
             ChangeStateAndEnter(State.Walk);
+            Debug.Log("fired house = null");
         }
         else if (firedHouse.GetComponent<House>().getState() != 2)
         {
             firedHouse = null;
             ChangeStateAndEnter(State.Walk);
+            Debug.Log("fired house != 2");
         }
 
     }
@@ -531,12 +545,12 @@ public class Villager : MonoBehaviour
     void CheckFiredHouseDistance()
     {
         if (agent.isStopped) return;
-        if (agent.remainingDistance < 2)
+        if (agent.remainingDistance < 1)
         {
-            Debug.Log("arrived");
+            Debug.Log("less than 1");
             agent.isStopped = true;
             animator.SetBool("Walk", false);
-            transform.LookAt(firedHouse.transform.position);
+           
             StartCoroutine(RandomOnlookAnimation());
 
         }
@@ -545,13 +559,22 @@ public class Villager : MonoBehaviour
     //pick animation from blend tree
     IEnumerator RandomOnlookAnimation()
     {
+        int randomIndex = Random.Range(0, 3);
+        transform.LookAt(firedHouse.transform.position);
         while (true)
         {
-            int randomIndex = Random.Range(0, 3);
-            animator.SetFloat("OnlookBlendAnimations", randomIndex);
-            yield return new WaitForSeconds(5);
+            if(currentState != State.Onlook) yield break;
+            animator.SetTrigger("Onlook");
+            randomIndex++;
+            if (randomIndex >= 4)
+            {
+                randomIndex = 1;
+            }
+            Debug.Log("Start random animation " + randomIndex);
+            //animator.SetBool("Onlook",true);
+            animator.SetInteger("OnlookBlendAnimations", randomIndex);
+            yield return new WaitForSeconds(6);
         }
-
     }
 
     #endregion

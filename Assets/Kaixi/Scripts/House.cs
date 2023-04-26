@@ -13,7 +13,7 @@ public class House : MonoBehaviour
     public Material defaultMaterial;
     public Material burningMaterial;
     public Material destroiedMaterial;
-
+    //public Transform escapePoint;
     public float radius = 10;    //raycast radius
     Collider[] results = new Collider[10];
     [SerializeField]LayerMask layerMask;
@@ -30,6 +30,7 @@ public class House : MonoBehaviour
         gameObject.AddComponent<NavMeshObstacle>().carving = true;
         centrePoint = GetComponent<MeshRenderer>().bounds.center;
         AddNeighbour();
+        //SetEscapePoint();
     }
 
     // Update is called once per frame
@@ -49,6 +50,14 @@ public class House : MonoBehaviour
 
 
     }
+
+    //void SetEscapePoint()
+    //{
+    //    if (transform.GetChild(0).CompareTag("EscapePoint"))
+    //    {
+    //        escapePoint = transform.GetChild(0);
+    //    }
+    //}
 
 
     private void AddNeighbour()
