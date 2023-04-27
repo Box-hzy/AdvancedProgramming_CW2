@@ -7,10 +7,16 @@ public class SpawnScaredVillagers : MonoBehaviour
 
     public GameObject scaredVillager;
     private House thisHouse;
+    private Transform escapePoint;
     bool isSpawn;
     private void Awake()
     {
-        thisHouse = GetComponent<House>();
+        thisHouse = GetComponentInParent<House>();
+        if (transform.childCount > 0)
+        {
+            if (transform.GetChild(0).CompareTag("EscapePoint"))
+                escapePoint = transform.GetChild(0);
+        }
     }
 
     private void Update()
@@ -28,22 +34,24 @@ public class SpawnScaredVillagers : MonoBehaviour
             case 1:
                 if (!isSpawn)
                 {
-                    Spawn();
+                    StartCoroutine(Spawn());
                 }
                 break;
         }
     }
 
-    void Spawn()
+    IEnumerator Spawn()
     {
         isSpawn = true;
         Debug.Log("spawn scared villagers");
         for (int i = 0; i < 5; i++)
         {
-            GameObject go = Instantiate(scaredVillager, transform.position, Quaternion.identity, VillagerManager.Instance.scaredVillagerParent);
-            go.GetComponent<ScaredVillager>().origin = transform;
-            go.GetComponent<ScaredVillager>().SetEscapePoint();
+            GameObject go = Instantiate(scaredVillager, escapePoint.position, Quaternion.identity, VillagerManager.Instance.scaredVillagerParent);
+            go.transform.forward = escapePoint.forward;
+            yield return new WaitForSeconds(0.6f);
+            //go.GetComponent<ScaredVillager>().origin = escapePoint;
+            //go.GetComponent<ScaredVillager>().SetEscapePoint();
         }
-      
+
     }
 }
