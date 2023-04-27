@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro.EditorUtilities;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class AddHouseScript : MonoBehaviour
 {
@@ -18,8 +19,10 @@ public class AddHouseScript : MonoBehaviour
         for (int i = 0; i < childCout; i++)
         {
             if (transform.GetChild(i).GetComponent<MeshRenderer>() == null) return; //ignore EscapePoint empty obj
-
-            var house = transform.GetChild(i).AddComponent<House>();
+            
+            Transform child = transform.GetChild(i);
+            var house = child.AddComponent<House>();
+            child.AddComponent<SpawnScaredVillagers>();
             house.burningMaterial = burningMat;
             house.destroiedMaterial = destoryMat;
             house.tag = "Buildings";

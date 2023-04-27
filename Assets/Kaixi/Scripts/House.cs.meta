@@ -4,11 +4,11 @@ MonoImporter:
   externalObjects: {}
   serializedVersion: 2
   defaultReferences:
-  - scaredVillager: {fileID: 9151066825631746519, guid: 35e34617e1553f545abbfed8a7caa2fb,
-      type: 3}
   - defaultMaterial: {instanceID: 0}
   - burningMaterial: {instanceID: 0}
   - destroiedMaterial: {instanceID: 0}
+  - vfx: {fileID: 8154856359357389863, guid: c8465181174f7e14ab3c9a7d73cd1516, type: 3}
+  - fireVFX: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

@@ -7,13 +7,14 @@ using UnityEngine.VFX;
 public class House : MonoBehaviour
 {
 
-    public GameObject scaredVillager;
+   
     public int houseState;
     public List<House> neighbourHouses = new List<House>();
     public int score;
     public Material defaultMaterial;
     public Material burningMaterial;
     public Material destroiedMaterial;
+    public GameObject vfx;
     //public Transform escapePoint;
     public float radius = 10;    //raycast radius
     Collider[] results = new Collider[10];
@@ -25,16 +26,22 @@ public class House : MonoBehaviour
     public VisualEffect fireVFX;
     float putoffFire = 180;
 
+
     // Start is called before the first frame update
     void Start()
     {
-        fireVFX = GetComponentInChildren<VisualEffect>();
+       
         houseState = 0;
         layerMask = 1 << 10;
         defaultMaterial = GetComponent<MeshRenderer>().material;
         gameObject.AddComponent<NavMeshObstacle>().carving = true;
         centrePoint = GetComponent<MeshRenderer>().bounds.center;
         AddNeighbour();
+
+        //instantiate vfx component
+        Instantiate(vfx, centrePoint, Quaternion.identity, transform);
+        fireVFX = GetComponentInChildren<VisualEffect>();
+
         //putoffFire = fireVFX.GetFloat("MaxSize");
         //SetEscapePoint();
     }
@@ -88,14 +95,7 @@ public class House : MonoBehaviour
 
     }
 
-    void SpawnScaredVillagers()
-    {
-        for (int i = 0; i < 5; i++)
-        {
-            GameObject go =   Instantiate(scaredVillager, transform.position, Quaternion.identity, transform);
-        }
-       
-    }
+
 
 
     private void AddNeighbour()
@@ -132,7 +132,6 @@ public class House : MonoBehaviour
                 break;
             case 1://fire is burning
                 GetComponent<Renderer>().material = burningMaterial;
-                SpawnScaredVillagers();
                 break;
             case 2:// fireman is putting off the fire
                 break;
