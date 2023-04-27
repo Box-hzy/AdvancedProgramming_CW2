@@ -78,7 +78,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Shading_Gradient:
-        m_Texture: {fileID: 2800000, guid: 95ed325b120551e499cbbeb67faa2822, type: 3}
+        m_Texture: {fileID: 2800000, guid: fc87dad6118d61c46b8eecc00b0a2792, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SpecGlossMap:
