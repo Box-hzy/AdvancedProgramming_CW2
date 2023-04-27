@@ -4,7 +4,16 @@ using UnityEngine;
 
 public class WeatherManagement : MonoBehaviour
 {
-    public int weatherState = 0; // 0 is sunny, 1 is rainy, 2 is foggy
+    
+    public enum weatherType { 
+        Sunny,
+        Rainy,
+        Foggy
+    }
+
+    public weatherType weather;
+       
+
     // Start is called before the first frame update
     void Start()
     {
@@ -17,7 +26,7 @@ public class WeatherManagement : MonoBehaviour
         
     }
 
-    public void changeWeather(int weather) { 
-        weatherState= weather;
+    public void changeWeather(weatherType thisWeather) { 
+        weather = thisWeather;
     }
 }

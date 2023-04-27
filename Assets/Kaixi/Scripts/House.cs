@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.VFX;
 
 public class House : MonoBehaviour
 {
@@ -20,22 +21,60 @@ public class House : MonoBehaviour
     float RecoverTime = 180;
     float timer;
     Vector3 centrePoint; //transform.position is based on Pivot point, however the pivot point of the model is too faraway
+    float FireTimer = 0;
+    public VisualEffect fireVFX;
+    float putoffFire = 180;
 
     // Start is called before the first frame update
     void Start()
     {
+        fireVFX = GetComponentInChildren<VisualEffect>();
         houseState = 0;
         layerMask = 1 << 10;
         defaultMaterial = GetComponent<MeshRenderer>().material;
         gameObject.AddComponent<NavMeshObstacle>().carving = true;
         centrePoint = GetComponent<MeshRenderer>().bounds.center;
         AddNeighbour();
+        //putoffFire = fireVFX.GetFloat("MaxSize");
         //SetEscapePoint();
     }
 
     // Update is called once per frame
     void Update()
     {
+        
+        
+        if (houseState == 1)
+        { //fire will get big with the time increase;
+            FireTimer += Time.deltaTime;
+            if (FireTimer <= fireVFX.GetFloat("MaxSize"))
+            {
+                fireVFX.SetFloat("FireSize", FireTimer);
+            }
+            else
+            {
+                fireVFX.SetFloat("FireSize", fireVFX.GetFloat("MaxSize"));
+            }
+
+
+        }
+        if (houseState == 2)
+        {
+
+            putoffFire -= Time.deltaTime;
+            if (putoffFire > 0)
+            {
+                fireVFX.SetFloat("FireSize", putoffFire);
+            }
+            else
+            {
+                fireVFX.SetFloat("FireSize", 0);
+            }
+
+
+        }
+
+
 
         if (houseState == 3)
         {
@@ -84,6 +123,7 @@ public class House : MonoBehaviour
     public void setState(int thisState)
     {
         houseState = thisState;
+        fireVFX.SetInt("HouseState", houseState);
 
         switch (houseState)
         {
@@ -99,6 +139,7 @@ public class House : MonoBehaviour
             case 3://house into ruin
                 GetComponent<Renderer>().material = destroiedMaterial;
                 timer = RecoverTime;
+
                 break;
         }
     }
