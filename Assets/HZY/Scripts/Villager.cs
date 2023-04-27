@@ -573,7 +573,7 @@ public class Villager : VillagerBase
             }
             Debug.Log("Start random animation " + randomIndex);
             //animator.SetBool("Onlook",true);
-            animator.SetInteger("OnlookBlendAnimations", randomIndex);
+            animator.SetFloat("OnlookBlendAnimations", randomIndex);
             yield return new WaitForSeconds(6);
         }
     }
