@@ -72,7 +72,7 @@ MonoBehaviour:
   m_Active: 1
   settings:
     passTag: RenderObjects
-    Event: 1000
+    Event: 450
     filterSettings:
       RenderQueueType: 0
       LayerMask:
@@ -81,7 +81,8 @@ MonoBehaviour:
       PassNames: []
     overrideMaterial: {fileID: 2100000, guid: 2cf7b20f9d790ba4393f8e0ffe6d1f28, type: 2}
     overrideMaterialPassIndex: 0
-    overrideShader: {fileID: 0}
+    overrideShader: {fileID: -6465566751694194690, guid: a969d5485907a2b45a828a5cb0e02896,
+      type: 3}
     overrideShaderPassIndex: 0
     overrideMode: 1
     overrideDepthState: 0
