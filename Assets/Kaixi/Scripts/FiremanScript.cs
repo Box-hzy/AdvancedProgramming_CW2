@@ -7,13 +7,15 @@ public class FiremanScript : MonoBehaviour
 {
     
     HouseManager houseManager;
-    FireStationManagement fireStationManagement;
+    //FireStationManagement fireStationManagement;
+    GameManagement gameManagement;
     public GameObject ClosestFireHouse;
     public NavMeshAgent FirefighterAgent;
     public Vector3 FirefighterOriginPostion;
     public FireEngine fireEngineScript;
     public GameObject fireEngine;
 
+    float PutOffFireTime;
     public int state = 0; //0 for go to fire building, 1 for put off fire, 2 for get back to fire engine
     
     
@@ -22,9 +24,10 @@ public class FiremanScript : MonoBehaviour
     {
         
         houseManager = GameObject.Find("HouseManager").GetComponent<HouseManager>();
-        fireStationManagement = GameObject.Find("FireStationManagement").GetComponent<FireStationManagement>();
+        gameManagement = GameObject.Find("GameManagement").GetComponent<GameManagement>();
+        //fireStationManagement = GameObject.Find("FireStationManagement").GetComponent<FireStationManagement>();
         FirefighterAgent = GetComponent<NavMeshAgent>();
-        
+
         FirefighterOriginPostion = this.transform.position;
     }
 
@@ -44,16 +47,20 @@ public class FiremanScript : MonoBehaviour
                 
                 FirefighterAgent.SetDestination(ClosestFireHouse.GetComponent<House>().getCentre());
                 if (Vector3.Distance(transform.position, ClosestFireHouse.GetComponent<House>().getCentre()) < 8f) {
-                    
+                    FirefighterAgent.isStopped = true;
                     state = 1;
                     houseManager.setHouseState(ClosestFireHouse, 2);
                 }
                 break;
             case 1:
                 //Debug.Log("put off fire");
-                StartCoroutine(putoffFire());
+                if (ClosestFireHouse.GetComponent<House>().getIsPutOff()) {
+                    houseManager.setHouseState(ClosestFireHouse, 3); //set house state into ruin.
+                    state = 2;
+                }
                 break;
             case 2:
+                FirefighterAgent.isStopped = false;
                 //Debug.Log("Go Back");
                 GoBackToFireEngine();
                 break;
@@ -64,14 +71,7 @@ public class FiremanScript : MonoBehaviour
 
     
 
-    IEnumerator putoffFire()
-    {
-        yield return new WaitForSeconds(3f);
 
-       
-        houseManager.setHouseState(ClosestFireHouse, 3); //set house state into ruin.
-        state = 2;
-    }
 
     void GoBackToFireEngine() {
         FirefighterAgent.SetDestination(FirefighterOriginPostion);

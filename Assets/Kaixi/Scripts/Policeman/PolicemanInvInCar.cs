@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 using static UnityEngine.GraphicsBuffer;
@@ -39,7 +41,13 @@ public class PolicemanInvInCar : MonoBehaviour
     private void Awake()
     {
         backToCar = false;
-        villagerVector3 = getClosetInvVillager().transform.position;
+        if (getClosetInvVillager() != null)
+        {
+            villagerVector3 = getClosetInvVillager().transform.position;
+        }
+        
+        
+
         thisTime = policeTime;
     }
     // Update is called once per frame
@@ -53,11 +61,15 @@ public class PolicemanInvInCar : MonoBehaviour
         switch (policeState)
         {
             case State.FindVillager:
-                agent.SetDestination(villagerVector3);
-                if (Vector3.Distance(transform.position, villagerVector3) <= 2.0f) { 
-                    setState(State.Investigate);
+                if (getClosetInvVillager() != null) {
+                    agent.SetDestination(villagerVector3);
+                    if (Vector3.Distance(transform.position, villagerVector3) <= 2.0f)
+                    {
+                        setState(State.Investigate);
 
+                    }
                 }
+                
                 break;
             case State.Investigate:
 
@@ -87,17 +99,27 @@ public class PolicemanInvInCar : MonoBehaviour
     GameObject getClosetInvVillager()
     {
         Collider[] villagers = new Collider[20];
-        int hits = Physics.OverlapSphereNonAlloc(transform.position, findRadius, villagers, villagerMask);
-        GameObject target = villagers[0].gameObject;
-        for (int i = 1; i < hits; i++)
-        {
-            if (Vector3.Distance(transform.position, target.transform.position) > Vector3.Distance(transform.position, villagers[i].transform.position))
-            {
-                target = villagers[i].gameObject;
-            }
 
+        int hits = Physics.OverlapSphereNonAlloc(transform.position, findRadius, villagers, villagerMask);
+
+        
+        if (villagers[0] != null) {
+            Debug.Log("Yeha");
+            GameObject target = villagers[0].gameObject;
+            for (int i = 1; i < hits; i++)
+            {
+                if (Vector3.Distance(transform.position, target.transform.position) > Vector3.Distance(transform.position, villagers[i].transform.position))
+                {
+                    target = villagers[i].gameObject;
+                }
+
+            }
+            return target;
         }
-        return target;
+        
+
+        return null;
+        
     }
 
     public void setState(State state) { 

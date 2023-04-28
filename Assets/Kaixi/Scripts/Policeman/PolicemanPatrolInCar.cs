@@ -8,7 +8,7 @@ public class PolicemanPatrolInCar : MonoBehaviour
 {
     GameObject player;
     Vector3 PolicecarVector3;
-    float patrolSpeed;
+    float patrolSpeed = 3.0f;
     float chaseSpeed;
     enum State { 
         Patrol,
@@ -45,6 +45,7 @@ public class PolicemanPatrolInCar : MonoBehaviour
     {
         backToCar = false;
         thisTime = PoliceTime;
+        policeState = State.Patrol;
     }
     // Update is called once per frame
     void Update()

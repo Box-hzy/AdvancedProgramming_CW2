@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class PickUpStick : MonoBehaviour
 {
@@ -8,13 +9,18 @@ public class PickUpStick : MonoBehaviour
     public bool isHoldingStick;
     public GameObject stick;
 
-    public float ActiveDuration = 20;
+    float ActiveDuration;
     [SerializeField]float timer;
+
+    GameManagement gameManagement;
+    public VisualEffect TorchVFX;
 
 
     private void Start()
     {
         stick.SetActive(false);
+        gameManagement = GameObject.Find("GameManagement").GetComponent<GameManagement>();
+        ActiveDuration = gameManagement.getTorchFireActiveTime();
     }
 
     private void Update()
@@ -32,10 +38,16 @@ public class PickUpStick : MonoBehaviour
         if (stick.activeSelf)
         { 
             timer-= Time.deltaTime;
-            if (timer < 0)
+            float currentFireSize = (timer / ActiveDuration) * TorchVFX.GetFloat("MaxSize");
+            if (timer <= 0)
             {
                 stick.SetActive(false);
+                TorchVFX.SetFloat("FireSize", 0);
             }
+            else{
+                TorchVFX.SetFloat("FireSize", currentFireSize);
+            }
+
         }
 
 

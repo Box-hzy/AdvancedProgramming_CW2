@@ -4,9 +4,21 @@ using UnityEngine;
 
 public class GameManagement : MonoBehaviour
 {
-    public bool FireAlarm = false;
-    public bool PoliceAlarm = false; 
-    
+    [Header("Alarm")]
+    [SerializeField] bool FireAlarm = false;
+    [SerializeField]bool PoliceAlarm = false;
+
+    [Header("Fireman")]
+    [SerializeField][Range(0, 2)] float FiremanPutOffFireSpeed;
+
+    [Header("Torch")]
+    [SerializeField] float TorchFireActiveTime;
+
+    [Header("Player")]
+    [SerializeField] float PlayerSpeed;
+
+    [Header("Fire")]
+    [SerializeField] float FireIncreaseSpeed;
     // Start is called before the first frame update
     void Start()
     {
@@ -38,5 +50,17 @@ public class GameManagement : MonoBehaviour
     public void setPoliceAlarm(bool state)
     {
         PoliceAlarm = state;
+    }
+
+    public float getTorchFireActiveTime() {
+        return TorchFireActiveTime;
+    }
+
+    public float getFiremanPutOffFireSpeed() { 
+        return FiremanPutOffFireSpeed;
+    }
+
+    public float getFireIncreaseSpeed() {
+        return FireIncreaseSpeed;
     }
 }

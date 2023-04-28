@@ -7,7 +7,7 @@ using UnityEngine.VFX;
 public class House : MonoBehaviour
 {
 
-   
+
     public int houseState;
     public List<House> neighbourHouses = new List<House>();
     public int score;
@@ -23,8 +23,17 @@ public class House : MonoBehaviour
     float timer;
     Vector3 centrePoint; //transform.position is based on Pivot point, however the pivot point of the model is too faraway
     float FireTimer = 0;
-    public VisualEffect fireVFX;
-    float putoffFire = 180;
+    VisualEffect fireVFX;
+
+    [Header("HouseBuring")]
+    float FireSpeed;
+
+    [Header("Put Off Fire")]
+    float putoffFireSpeed;
+    float putoffFireTime = 0;
+    bool isPutOff = false;
+    GameManagement gameManagement;
+
 
 
     // Start is called before the first frame update
@@ -42,6 +51,10 @@ public class House : MonoBehaviour
         Instantiate(vfx, centrePoint, Quaternion.identity, transform);
         fireVFX = GetComponentInChildren<VisualEffect>();
 
+        gameManagement = GameObject.Find("GameManagement").GetComponent<GameManagement>();
+        FireSpeed = gameManagement.getFireIncreaseSpeed();
+        putoffFireSpeed= gameManagement.getFiremanPutOffFireSpeed();
+        
         //putoffFire = fireVFX.GetFloat("MaxSize");
         //SetEscapePoint();
     }
@@ -53,10 +66,12 @@ public class House : MonoBehaviour
         
         if (houseState == 1)
         { //fire will get big with the time increase;
+            
             FireTimer += Time.deltaTime;
-            if (FireTimer <= fireVFX.GetFloat("MaxSize"))
+            float CurrentFireSize = FireTimer * FireSpeed;
+            if (CurrentFireSize <= fireVFX.GetFloat("MaxSize"))
             {
-                fireVFX.SetFloat("FireSize", FireTimer);
+                fireVFX.SetFloat("FireSize", CurrentFireSize);
             }
             else
             {
@@ -64,18 +79,25 @@ public class House : MonoBehaviour
             }
 
 
+
         }
         if (houseState == 2)
         {
 
-            putoffFire -= Time.deltaTime;
-            if (putoffFire > 0)
+            putoffFireTime += Time.deltaTime;
+            float CurrentFireSize = fireVFX.GetFloat("FireSize") - putoffFireSpeed * putoffFireTime;
+            
+            
+            if (CurrentFireSize > 0)
             {
-                fireVFX.SetFloat("FireSize", putoffFire);
+                fireVFX.SetFloat("FireSize", CurrentFireSize);
             }
             else
             {
                 fireVFX.SetFloat("FireSize", 0);
+                putoffFireTime = 0;
+                houseState = 3;
+                isPutOff = true;
             }
 
 
@@ -123,7 +145,6 @@ public class House : MonoBehaviour
     public void setState(int thisState)
     {
         houseState = thisState;
-        fireVFX.SetInt("HouseState", houseState);
 
         switch (houseState)
         {
@@ -132,6 +153,7 @@ public class House : MonoBehaviour
                 break;
             case 1://fire is burning
                 GetComponent<Renderer>().material = burningMaterial;
+                isPutOff = false;
                 break;
             case 2:// fireman is putting off the fire
                 break;
@@ -160,5 +182,9 @@ public class House : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.DrawWireSphere(centrePoint, radius);
+    }
+
+    public bool getIsPutOff() { 
+        return isPutOff;
     }
 }
