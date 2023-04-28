@@ -43,6 +43,7 @@ GameObject:
   - component: {fileID: 3670730737636547182}
   - component: {fileID: 5045778104571689244}
   - component: {fileID: 6445099027224596430}
+  - component: {fileID: 8367291819107214197}
   m_Layer: 0
   m_Name: Building_O(Big)
   m_TagString: Untagged
@@ -146,8 +147,29 @@ MeshCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: ca246c97a259738478f76dc4bd734bea, type: 3}
+--- !u!65 &8367291819107214197
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8997145859253254296}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 11.030093, y: 15.807276, z: 8.495644}
+  m_Center: {x: -5.5849595, y: 5.3154645, z: 4.2478175}

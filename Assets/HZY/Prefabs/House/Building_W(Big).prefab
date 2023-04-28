@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 4217698532564386483}
   - component: {fileID: 5753566489709833384}
   - component: {fileID: 688605692325398718}
-  - component: {fileID: 3831918389273449764}
+  - component: {fileID: 6249634451918261885}
   m_Layer: 10
   m_Name: Building_W(Big)
   m_TagString: Untagged
@@ -149,7 +149,7 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: ee171171cf1e6bc46a3aa94123b229cc, type: 3}
---- !u!65 &3831918389273449764
+--- !u!65 &6249634451918261885
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -168,5 +168,5 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.09146707, y: 0.09549933, z: 0.059180006}
-  m_Center: {x: 0.025305763, y: 0.0050322916, z: 0.029590001}
+  m_Size: {x: 9.146708, y: 9.5499325, z: 5.9180007}
+  m_Center: {x: 2.5305727, y: 0.50322926, z: 2.959}
