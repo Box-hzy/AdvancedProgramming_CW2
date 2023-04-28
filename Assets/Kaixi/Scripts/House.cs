@@ -27,6 +27,8 @@ public class House : MonoBehaviour
 
     [Header("HouseBuring")]
     float FireSpeed;
+    float spreadTime;
+    [SerializeField]float thisSpreaTime;
 
     [Header("Put Off Fire")]
     float putoffFireSpeed;
@@ -53,7 +55,9 @@ public class House : MonoBehaviour
 
         gameManagement = GameObject.Find("GameManagement").GetComponent<GameManagement>();
         FireSpeed = GetFireSpeed();
+        spreadTime = gameManagement.getFireSpreadTime();
         putoffFireSpeed = gameManagement.getFiremanPutOffFireSpeed();
+        thisSpreaTime = spreadTime;
 
         //putoffFire = fireVFX.GetFloat("MaxSize");
         //SetEscapePoint();
@@ -97,7 +101,11 @@ public class House : MonoBehaviour
             }
 
             if (CurrentFireSize >= 10) {
-                BurnNeighbour();
+                thisSpreaTime -= Time.deltaTime;
+                if (thisSpreaTime <= 0) {
+                    BurnNeighbour();
+                }
+                
             }
 
 
@@ -133,6 +141,7 @@ public class House : MonoBehaviour
             if (timer <= 0)
             {
                 setState(0);
+                thisSpreaTime = spreadTime;
             }
         }
 

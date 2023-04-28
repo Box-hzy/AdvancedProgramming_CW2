@@ -21,6 +21,7 @@ public class GameManagement : MonoBehaviour
     [SerializeField] float smallFireIncreaseSpeed;
     [SerializeField] float largeFireIncreaseSpeed;
     [SerializeField] float oldFireIncreaseSpeed;
+    [SerializeField] float FireSpreadTime;
 
     // Start is called before the first frame update
     void Start()
@@ -81,5 +82,9 @@ public class GameManagement : MonoBehaviour
         return oldFireIncreaseSpeed;
     }
 
+    public float getFireSpreadTime()
+    {
+        return FireSpreadTime;
+    }
 
 }

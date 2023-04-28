@@ -10,12 +10,12 @@ public class PolicemanPatrolInCar : MonoBehaviour
     Vector3 PolicecarVector3;
     float patrolSpeed = 3.0f;
     float chaseSpeed;
-    enum State { 
+    public enum State { 
         Patrol,
         Chase,
         BackToCar
     }
-    [SerializeField]State policeState;
+    public State policeState;
 
     public NavMeshAgent agent;
     public float maxPatrolDistance;
@@ -188,4 +188,6 @@ public class PolicemanPatrolInCar : MonoBehaviour
     public void setPolicemanInv(PolicemanInvInCar thisPolice) { 
         policemanInv= thisPolice;
     }
+
+    
 }
