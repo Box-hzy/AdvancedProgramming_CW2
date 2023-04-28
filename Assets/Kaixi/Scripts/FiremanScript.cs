@@ -90,5 +90,7 @@ public class FiremanScript : MonoBehaviour
 
     }
 
-    
+    public int getState() { 
+        return state;
+    }
 }

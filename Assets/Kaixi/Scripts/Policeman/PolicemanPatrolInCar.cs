@@ -189,5 +189,9 @@ public class PolicemanPatrolInCar : MonoBehaviour
         policemanInv= thisPolice;
     }
 
+    public State getState() {
+        return policeState;
+    }
+
     
 }

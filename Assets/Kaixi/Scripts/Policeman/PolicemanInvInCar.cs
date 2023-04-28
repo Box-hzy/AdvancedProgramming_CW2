@@ -131,4 +131,9 @@ public class PolicemanInvInCar : MonoBehaviour
     {
         agent.SetDestination(player.transform.position);
     }
+
+    public State getState()
+    {
+        return policeState;
+    }
 }
