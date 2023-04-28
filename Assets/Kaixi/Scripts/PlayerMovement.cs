@@ -84,17 +84,20 @@ public class PlayerMovement : MonoBehaviour
         //change animation facing
         if (movementDirection.magnitude >= 0.1f)
         {
-            float facingAngle = Mathf.Atan2(movementDirection.x, movementDirection.z) * Mathf.Rad2Deg;
-            float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, facingAngle, ref turnSmoothVelocity,turnSmoothTime); 
+            float facingAngle = Mathf.Atan2(movementDirection.x, movementDirection.z) * Mathf.Rad2Deg + Camera.main.transform.eulerAngles.y;
+            float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, facingAngle, ref turnSmoothVelocity, turnSmoothTime);
             transform.rotation = Quaternion.Euler(0f, angle, 0f);
             //model.transform.rotation = Quaternion.LookRotation(movementDirection);
+
+            //// Apply movement to transform (CANNOT BE USED IN THIS STATUE)
+            //transform.position += movementDirection * speed * Time.deltaTime;
+            Vector3 moveDir = Quaternion.Euler(0, facingAngle, 0) * Vector3.forward;
+            //rig.velocity = movementDirection * speed * Time.deltaTime;
+            rig.velocity = moveDir.normalized * speed * Time.deltaTime;
+            //Debug.Log(rig.velocity);
         }
 
 
-        //// Apply movement to transform (CANNOT BE USED IN THIS STATUE)
-        //transform.position += movementDirection * speed * Time.deltaTime;
 
-        rig.velocity = movementDirection * speed * Time.deltaTime;
-        //Debug.Log(rig.velocity);
     }
 }
