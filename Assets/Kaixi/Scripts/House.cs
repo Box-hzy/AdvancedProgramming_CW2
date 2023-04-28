@@ -39,7 +39,7 @@ public class House : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-       
+
         houseState = 0;
         layerMask = 1 << 10;
         defaultMaterial = GetComponent<MeshRenderer>().material;
@@ -52,21 +52,38 @@ public class House : MonoBehaviour
         fireVFX = GetComponentInChildren<VisualEffect>();
 
         gameManagement = GameObject.Find("GameManagement").GetComponent<GameManagement>();
-        FireSpeed = gameManagement.getFireIncreaseSpeed();
-        putoffFireSpeed= gameManagement.getFiremanPutOffFireSpeed();
-        
+        FireSpeed = GetFireSpeed();
+        putoffFireSpeed = gameManagement.getFiremanPutOffFireSpeed();
+
         //putoffFire = fireVFX.GetFloat("MaxSize");
         //SetEscapePoint();
+    }
+
+    float GetFireSpeed()
+    {
+        if (transform.parent.CompareTag("OldHouse"))
+        {
+            return gameManagement.getOldFireIncreaseSpeed();
+        }
+        else if (transform.parent.CompareTag("SmallHouse"))
+        {
+            return gameManagement.getSmallFireIncreaseSpeed();
+        }
+        else if (transform.parent.CompareTag("BigHouse"))
+        {
+            return gameManagement.getLargeFireIncreaseSpeed();
+        }
+        return 0;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
-        
+
+
         if (houseState == 1)
         { //fire will get big with the time increase;
-            
+
             FireTimer += Time.deltaTime;
             float CurrentFireSize = FireTimer * FireSpeed;
             if (CurrentFireSize <= fireVFX.GetFloat("MaxSize"))
@@ -76,6 +93,7 @@ public class House : MonoBehaviour
             else
             {
                 fireVFX.SetFloat("FireSize", fireVFX.GetFloat("MaxSize"));
+                //fireVFX.SetFloat("FireSize", 50);
             }
 
 
@@ -86,8 +104,8 @@ public class House : MonoBehaviour
 
             putoffFireTime += Time.deltaTime;
             float CurrentFireSize = fireVFX.GetFloat("FireSize") - putoffFireSpeed * putoffFireTime;
-            
-            
+
+
             if (CurrentFireSize > 0)
             {
                 fireVFX.SetFloat("FireSize", CurrentFireSize);
@@ -184,7 +202,8 @@ public class House : MonoBehaviour
         Gizmos.DrawWireSphere(centrePoint, radius);
     }
 
-    public bool getIsPutOff() { 
+    public bool getIsPutOff()
+    {
         return isPutOff;
     }
 }

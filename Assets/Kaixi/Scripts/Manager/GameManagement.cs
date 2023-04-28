@@ -6,10 +6,10 @@ public class GameManagement : MonoBehaviour
 {
     [Header("Alarm")]
     [SerializeField] bool FireAlarm = false;
-    [SerializeField]bool PoliceAlarm = false;
+    [SerializeField] bool PoliceAlarm = false;
 
     [Header("Fireman")]
-    [SerializeField][Range(0, 2)] float FiremanPutOffFireSpeed;
+    [SerializeField] [Range(0, 2)] float FiremanPutOffFireSpeed;
 
     [Header("Torch")]
     [SerializeField] float TorchFireActiveTime;
@@ -18,7 +18,10 @@ public class GameManagement : MonoBehaviour
     [SerializeField] float PlayerSpeed;
 
     [Header("Fire")]
-    [SerializeField] float FireIncreaseSpeed;
+    [SerializeField] float smallFireIncreaseSpeed;
+    [SerializeField] float largeFireIncreaseSpeed;
+    [SerializeField] float oldFireIncreaseSpeed;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -52,15 +55,31 @@ public class GameManagement : MonoBehaviour
         PoliceAlarm = state;
     }
 
-    public float getTorchFireActiveTime() {
+    public float getTorchFireActiveTime()
+    {
         return TorchFireActiveTime;
     }
 
-    public float getFiremanPutOffFireSpeed() { 
+    public float getFiremanPutOffFireSpeed()
+    {
         return FiremanPutOffFireSpeed;
     }
 
-    public float getFireIncreaseSpeed() {
-        return FireIncreaseSpeed;
+    public float getSmallFireIncreaseSpeed()
+    {
+        return smallFireIncreaseSpeed;
     }
+
+
+    public float getLargeFireIncreaseSpeed()
+    {
+        return largeFireIncreaseSpeed;
+    }
+
+    public float getOldFireIncreaseSpeed()
+    {
+        return oldFireIncreaseSpeed;
+    }
+
+
 }
