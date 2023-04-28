@@ -96,6 +96,10 @@ public class House : MonoBehaviour
                 //fireVFX.SetFloat("FireSize", 50);
             }
 
+            if (CurrentFireSize >= 10) {
+                BurnNeighbour();
+            }
+
 
 
         }
@@ -153,6 +157,14 @@ public class House : MonoBehaviour
         }
 
 
+    }
+
+    void BurnNeighbour() {
+        foreach (House house in neighbourHouses) {
+            if (house.getState() == 0) {
+                house.setState(1);
+            } 
+        }
     }
 
     public int getState()
