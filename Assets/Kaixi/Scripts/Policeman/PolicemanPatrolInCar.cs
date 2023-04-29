@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.SceneManagement;
 
 
 public class PolicemanPatrolInCar : MonoBehaviour
@@ -115,6 +116,10 @@ public class PolicemanPatrolInCar : MonoBehaviour
     {
         agent.SetDestination(player.transform.position);
         agent.speed = chaseSpeed;
+        Debug.Log(Vector3.Distance(transform.position, player.transform.position));
+        if (Vector3.Distance(transform.position, player.transform.position) <= 3) {
+            SceneManager.LoadScene("Level1");
+        }
     }
 
     void Patrol()
