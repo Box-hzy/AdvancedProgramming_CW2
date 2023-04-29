@@ -28,6 +28,7 @@ public class GameManagement : MonoBehaviour
 
     [Header("FireTruck")]
     [SerializeField] float FireTruckSpeed;
+    [SerializeField] float FireTruckStopDistance;
 
     [Header("Policeman")]
     [SerializeField] float PolicePatrolSpeed;
@@ -35,6 +36,7 @@ public class GameManagement : MonoBehaviour
 
     [Header("PoliceCar")]
     [SerializeField] float PoliceCarSpeed;
+    [SerializeField] float PoliceCarStopDistance;
 
 
     WeatherManagement weatherManagement;
@@ -141,4 +143,11 @@ public class GameManagement : MonoBehaviour
         return FiremanRange;
     }
 
+    public float getFireTruckStopDistance() { 
+        return FireTruckStopDistance;
+    }
+
+    public float getPoliceCarStopDistance() {
+        return PoliceCarStopDistance;
+    }
 }

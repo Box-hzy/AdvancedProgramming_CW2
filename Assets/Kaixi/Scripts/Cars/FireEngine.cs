@@ -12,7 +12,7 @@ public class FireEngine : MonoBehaviour
     public Vector3 firehouseDestination;
     public Vector3 fireStationDestination;
     public GameObject firehouse;
-    float stopDistance = 10.0f;
+    float stopDistance;
     GameManagement gameManagement;
     public int state = 0;//0: go to firehouse, 1:arrived , 2: back
 
@@ -26,6 +26,7 @@ public class FireEngine : MonoBehaviour
         firemanScript.ClosestFireHouse = firehouse;
         navMeshAgent = GetComponent<NavMeshAgent>();
         navMeshAgent.speed = gameManagement.getFireEngineSpeed();
+        stopDistance = gameManagement.getFireTruckStopDistance();
     }
 
     // Update is called once per frame

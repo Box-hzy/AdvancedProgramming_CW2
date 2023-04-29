@@ -8,7 +8,7 @@ public class PoliceCar : MonoBehaviour
     public Vector3 firehouseDestination;
     public Vector3 PoliceStationDestination;
     public GameObject firehouse;
-    public float stopDistance = 15f;
+    float stopDistance;
     public int state = 0;
     public NavMeshAgent navMeshAgent;
     public PolicemanInvInCar policemanInv;
@@ -26,6 +26,7 @@ public class PoliceCar : MonoBehaviour
         policemanPatrol.setPolicemanInv(policemanInv);
         navMeshAgent= GetComponent<NavMeshAgent>();
         navMeshAgent.speed = gameManagement.getPoliceCarSpeed();
+        stopDistance = gameManagement.getPoliceCarStopDistance();
     }
 
     // Update is called once per frame
@@ -37,7 +38,7 @@ public class PoliceCar : MonoBehaviour
                 navMeshAgent.SetDestination(firehouseDestination);
                 if (Vector3.Distance(transform.position, firehouseDestination) <= stopDistance)
                 {
-                    Debug.Log("2323");
+                    //Debug.Log("2323");
                     navMeshAgent.isStopped = true;
 
                     policemanPatrol_GO.SetActive(true);
