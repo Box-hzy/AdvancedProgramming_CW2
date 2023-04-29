@@ -6,13 +6,6 @@ public class GrassInteract : MonoBehaviour
 {
     public Material grassmat;
     public Transform player;
-    public Terrain terrain;
-    TerrainData tData;
-    void Start()
-    {
-      
-        
-    }
 
     void Update()
     {
