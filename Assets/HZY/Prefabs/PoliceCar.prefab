@@ -713,7 +713,7 @@ Transform:
   - {fileID: 457006}
   - {fileID: 428250}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &3376028
 MeshFilter:
@@ -828,7 +828,7 @@ NavMeshAgent:
   m_AutoBraking: 1
   m_AutoRepath: 1
   m_Height: 3.482398
-  m_BaseOffset: 1.741199
+  m_BaseOffset: 0
   m_WalkableMask: 16
   m_ObstacleAvoidanceType: 4
 --- !u!1 &196098
