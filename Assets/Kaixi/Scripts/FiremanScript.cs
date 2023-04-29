@@ -49,6 +49,7 @@ public class FiremanScript : MonoBehaviour
                 FirefighterAgent.SetDestination(ClosestFireHouse.GetComponent<House>().getCentre());
                 if (Vector3.Distance(transform.position, ClosestFireHouse.GetComponent<House>().getCentre()) < 8f) {
                     FirefighterAgent.isStopped = true;
+                    transform.LookAt(ClosestFireHouse.GetComponent<House>().getCentre());
                     state = 1;
                     houseManager.setHouseState(ClosestFireHouse, 2);
                 }
