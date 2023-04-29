@@ -4,18 +4,21 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public float speed;
+    float speed;
     Animator animator;
     PickUpStick pickUpStick;
     public Transform model;
     public float turnSmoothTime = 0.1f;
     float turnSmoothVelocity;
     Rigidbody rig;
+    GameManagement gameManagement;
     private void Start()
     {
+        gameManagement = GameObject.Find("GameManagement").GetComponent<GameManagement>();
         animator = GetComponentInChildren<Animator>();
         pickUpStick = GetComponent<PickUpStick>();
         rig = GetComponent<Rigidbody>();
+        speed = gameManagement.getPlayerSpeed();
     }
 
     void ChangeAnimationWeight()

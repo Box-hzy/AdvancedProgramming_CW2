@@ -13,7 +13,7 @@ public class FireEngine : MonoBehaviour
     public Vector3 fireStationDestination;
     public GameObject firehouse;
     float stopDistance = 10.0f;
-
+    GameManagement gameManagement;
     public int state = 0;//0: go to firehouse, 1:arrived , 2: back
 
     // Start is called before the first frame update
@@ -21,10 +21,11 @@ public class FireEngine : MonoBehaviour
     {
         
         Fireman = transform.GetChild(0).gameObject;
-        
+        gameManagement = GameObject.Find("GameManagement").GetComponent<GameManagement>();
         firemanScript = Fireman.GetComponent<FiremanScript>();
         firemanScript.ClosestFireHouse = firehouse;
         navMeshAgent = GetComponent<NavMeshAgent>();
+        navMeshAgent.speed = gameManagement.getFireEngineSpeed();
     }
 
     // Update is called once per frame

@@ -8,7 +8,7 @@ public class PolicemanPatrolInCar : MonoBehaviour
 {
     GameObject player;
     Vector3 PolicecarVector3;
-    float patrolSpeed = 3.0f;
+    float patrolSpeed;
     float chaseSpeed;
     public enum State { 
         Patrol,
@@ -31,6 +31,8 @@ public class PolicemanPatrolInCar : MonoBehaviour
 
     public float PoliceTime = 180.0f;
     float thisTime;
+
+    GameManagement gameManagement;
     // Start is called before the first frame update
     void Start()
     {
@@ -38,8 +40,9 @@ public class PolicemanPatrolInCar : MonoBehaviour
         mesh = CreateMesh();
         meshFilter.mesh = mesh;
         agent = GetComponent<NavMeshAgent>();
-
-
+        gameManagement = GameObject.Find("GameManagement").GetComponent<GameManagement>();
+        patrolSpeed = gameManagement.getPolicePatrolSpeed();
+        chaseSpeed = gameManagement.getPoliceChaseSpeed();
     }
     private void Awake()
     {

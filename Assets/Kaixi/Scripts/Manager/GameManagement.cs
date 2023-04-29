@@ -8,8 +8,9 @@ public class GameManagement : MonoBehaviour
     [SerializeField] bool FireAlarm = false;
     [SerializeField] bool PoliceAlarm = false;
 
-    [Header("Fireman")]
-    [SerializeField] [Range(0, 2)] float FiremanPutOffFireSpeed;
+    
+    
+    
 
     [Header("Torch")]
     [SerializeField] float TorchFireActiveTime;
@@ -23,17 +24,23 @@ public class GameManagement : MonoBehaviour
     [SerializeField] float oldFireIncreaseSpeed;
     [SerializeField] float FireSpreadTime;
 
-    // Start is called before the first frame update
-    void Start()
-    {
+    [Header("Fireman")]
+    [SerializeField][Range(0, 2)] float FiremanPutOffFireSpeed;
+    [SerializeField] float FiremanMovingSpeed;
 
-    }
+    [Header("FireTruck")]
+    [SerializeField] float FireTruckSpeed;
 
-    // Update is called once per frame
-    void Update()
-    {
+    [Header("Policeman")]
+    [SerializeField] float PolicePatrolSpeed;
+    [SerializeField] float PoliceChaseSpeed;
 
-    }
+    [Header("PoliceCar")]
+    [SerializeField] float PoliceCarSpeed;
+
+    
+
+
 
     public bool getFireAlarm()
     {
@@ -86,5 +93,34 @@ public class GameManagement : MonoBehaviour
     {
         return FireSpreadTime;
     }
+
+    public float getFiremanMovingSpeed()
+    { 
+        return FiremanMovingSpeed;
+    }
+
+    public float getFireEngineSpeed()
+    {
+        return FireTruckSpeed;
+    }
+
+    public float getPlayerSpeed()
+    { 
+        return PlayerSpeed;
+    }
+
+    public float getPolicePatrolSpeed()
+    {
+        return PolicePatrolSpeed;
+    }
+
+    public float getPoliceChaseSpeed() { 
+        return PoliceChaseSpeed;
+    }
+
+    public float getPoliceCarSpeed() {
+        return PoliceCarSpeed;
+    }
+
 
 }

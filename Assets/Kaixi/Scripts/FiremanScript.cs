@@ -27,7 +27,7 @@ public class FiremanScript : MonoBehaviour
         gameManagement = GameObject.Find("GameManagement").GetComponent<GameManagement>();
         //fireStationManagement = GameObject.Find("FireStationManagement").GetComponent<FireStationManagement>();
         FirefighterAgent = GetComponent<NavMeshAgent>();
-
+        FirefighterAgent.speed = gameManagement.getFiremanMovingSpeed();
         FirefighterOriginPostion = this.transform.position;
     }
 
