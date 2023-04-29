@@ -29,6 +29,7 @@ public class PickUpStick : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.E))
             {
+                Debug.Log("111");
                 stick.SetActive(true);
                 ActiveDuration = gameManagement.getTorchFireActiveTime();
                 timer = ActiveDuration;

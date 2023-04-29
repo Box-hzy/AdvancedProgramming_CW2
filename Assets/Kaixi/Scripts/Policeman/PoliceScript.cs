@@ -65,7 +65,7 @@ public class PoliceScript : MonoBehaviour
         agent.SetDestination(player.transform.position);
     }
 
-    void Patrol() {
+    void Patrol() { 
         if (!agent.pathPending && agent.remainingDistance < 0.5f)//if police is not walking
         {
             Vector3 randomPoint = RandomNavmeshLocation(transform.position, maxPatrolDistance);

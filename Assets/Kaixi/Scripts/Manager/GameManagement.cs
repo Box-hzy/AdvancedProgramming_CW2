@@ -38,13 +38,20 @@ public class GameManagement : MonoBehaviour
 
 
     WeatherManagement weatherManagement;
-    
+    WeatherManagement.weatherType weatherType;
 
     private void Start()
     {
         weatherManagement = GameObject.Find("WeatherManagement").GetComponent<WeatherManagement>();
+        weatherType = weatherManagement.getWeather();
+        
     }
 
+    private void Update()
+    {
+        weatherType = weatherManagement.getWeather();
+        //Debug.Log(weatherManagement.getWeather());
+    }
     public bool getFireAlarm()
     {
         return FireAlarm;
@@ -68,12 +75,11 @@ public class GameManagement : MonoBehaviour
 
     public float getTorchFireActiveTime()
     {
-        switch (weatherManagement.getWeather()) {
-            case WeatherManagement.weatherType.Rainy:
-                return TorchFireActiveTime_Rainy;
-                
+        if (weatherType == WeatherManagement.weatherType.Rainy) {
+            return TorchFireActiveTime_Rainy;
         }
         return TorchFireActiveTime_Noramal;
+
         
     }
 
