@@ -1079,6 +1079,10 @@ PrefabInstance:
         type: 3}
       insertIndex: 2
       addedObject: {fileID: 5045251340622100231}
+    - targetCorrespondingSourceObject: {fileID: 7192934767730320862, guid: 351572ba0c57e9c4e84efbb71323b86a,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8980407296965449718}
   m_SourcePrefab: {fileID: 100100000, guid: 351572ba0c57e9c4e84efbb71323b86a, type: 3}
 --- !u!4 &57332731936751241 stripped
 Transform:
@@ -1109,6 +1113,18 @@ MonoBehaviour:
   backToCar: 0
   findRadius: 10
   policeTime: 180
+--- !u!114 &8980407296965449718
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3062931147237488243}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52b0851261ca06e459846066eb5e885f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &8564731705973030658
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1219,6 +1235,10 @@ PrefabInstance:
         type: 3}
       insertIndex: 2
       addedObject: {fileID: 8198272397223151690}
+    - targetCorrespondingSourceObject: {fileID: 7192934767730320862, guid: 351572ba0c57e9c4e84efbb71323b86a,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7034013797556139830}
   m_SourcePrefab: {fileID: 100100000, guid: 351572ba0c57e9c4e84efbb71323b86a, type: 3}
 --- !u!1 &1517284352534469340 stripped
 GameObject:
@@ -1247,6 +1267,18 @@ MonoBehaviour:
   meshFilter: {fileID: 7469163169887131423}
   backToCar: 0
   PoliceTime: 180
+--- !u!114 &7034013797556139830
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1517284352534469340}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be206357241a8a24dbac162727ad15c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &4558876899938734630 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5303103430676000036, guid: 351572ba0c57e9c4e84efbb71323b86a,
