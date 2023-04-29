@@ -15,6 +15,7 @@ public class WeatherManagement : MonoBehaviour
     public weatherType currentWeather;
 
     public ParticleSystem rain;
+    public ParticleSystem fog;
     public Vector2 durationRange = new Vector2(60,180);
     [SerializeField]private float timer;
 
@@ -68,6 +69,7 @@ public class WeatherManagement : MonoBehaviour
                 rain.Stop();
                 break;
             case weatherType.Foggy:
+                fog.Stop();
                 break;
             default:
                 break;
@@ -91,6 +93,7 @@ public class WeatherManagement : MonoBehaviour
                 rain.Play();
                 break;
             case weatherType.Foggy:
+                fog.Play();
                 break;
             default:
                 break;
