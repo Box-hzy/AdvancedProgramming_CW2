@@ -9,21 +9,23 @@ public class PoliceCar : MonoBehaviour
     public Vector3 PoliceStationDestination;
     public GameObject firehouse;
     public float stopDistance = 15f;
-    GameObject TalkingPoliceman;
-    GameObject PatrolPoliceman;
     public int state = 0;
     public NavMeshAgent navMeshAgent;
     public PolicemanInvInCar policemanInv;
     public PolicemanPatrolInCar policemanPatrol;
     public GameObject policemanInv_GO;
     public GameObject policemanPatrol_GO;
+
+    GameManagement gameManagement;
     // Start is called before the first frame update
     void Start()
     {
+        gameManagement = GameObject.Find("GameManagement").GetComponent<GameManagement>();
         //policemanInv = GetComponentInChildren<PolicemanInvInCar>();
         //policemanPatrol = GetComponentInChildren<PolicemanPatrolInCar>();
         policemanPatrol.setPolicemanInv(policemanInv);
         navMeshAgent= GetComponent<NavMeshAgent>();
+        navMeshAgent.speed = gameManagement.getPoliceCarSpeed();
     }
 
     // Update is called once per frame

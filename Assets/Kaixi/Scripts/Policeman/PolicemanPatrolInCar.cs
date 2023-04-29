@@ -114,10 +114,12 @@ public class PolicemanPatrolInCar : MonoBehaviour
     void Chase()
     {
         agent.SetDestination(player.transform.position);
+        agent.speed = chaseSpeed;
     }
 
     void Patrol()
     {
+        agent.speed = patrolSpeed;
         if (!agent.pathPending && agent.remainingDistance < 0.5f)//if police is not walking
         {
             Vector3 randomPoint = RandomNavmeshLocation(transform.position, maxPatrolDistance);

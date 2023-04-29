@@ -27,15 +27,18 @@ public class PolicemanInvInCar : MonoBehaviour
 
     public float policeTime = 180f;
     float thisTime;
+    float speed;
 
+    GameManagement gameManagement;
 
     // Start is called before the first frame update
     void Start()
     {
+        gameManagement = GameObject.Find("GameManagement").GetComponent<GameManagement>();
         villagerMask = 1 << 11;
         player = GameObject.FindWithTag("Player");
         agent = GetComponent<NavMeshAgent>();
-        
+        agent.speed = gameManagement.getPolicePatrolSpeed();
     }
 
     private void Awake()
@@ -126,11 +129,6 @@ public class PolicemanInvInCar : MonoBehaviour
         policeState= state;
     }
 
-
-    void Chase()
-    {
-        agent.SetDestination(player.transform.position);
-    }
 
     public State getState()
     {
