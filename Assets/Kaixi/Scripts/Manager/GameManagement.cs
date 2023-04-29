@@ -8,12 +8,9 @@ public class GameManagement : MonoBehaviour
     [SerializeField] bool FireAlarm = false;
     [SerializeField] bool PoliceAlarm = false;
 
-    
-    
-    
-
     [Header("Torch")]
-    [SerializeField] float TorchFireActiveTime;
+    [SerializeField] float TorchFireActiveTime_Noramal;
+    [SerializeField] float TorchFireActiveTime_Rainy;
 
     [Header("Player")]
     [SerializeField] float PlayerSpeed;
@@ -27,6 +24,7 @@ public class GameManagement : MonoBehaviour
     [Header("Fireman")]
     [SerializeField][Range(0, 2)] float FiremanPutOffFireSpeed;
     [SerializeField] float FiremanMovingSpeed;
+    [SerializeField] float FiremanRange;
 
     [Header("FireTruck")]
     [SerializeField] float FireTruckSpeed;
@@ -38,9 +36,14 @@ public class GameManagement : MonoBehaviour
     [Header("PoliceCar")]
     [SerializeField] float PoliceCarSpeed;
 
+
+    WeatherManagement weatherManagement;
     
 
-
+    private void Start()
+    {
+        weatherManagement = GameObject.Find("WeatherManagement").GetComponent<WeatherManagement>();
+    }
 
     public bool getFireAlarm()
     {
@@ -65,7 +68,13 @@ public class GameManagement : MonoBehaviour
 
     public float getTorchFireActiveTime()
     {
-        return TorchFireActiveTime;
+        switch (weatherManagement.getWeather()) {
+            case WeatherManagement.weatherType.Rainy:
+                return TorchFireActiveTime_Rainy;
+                
+        }
+        return TorchFireActiveTime_Noramal;
+        
     }
 
     public float getFiremanPutOffFireSpeed()
@@ -122,5 +131,8 @@ public class GameManagement : MonoBehaviour
         return PoliceCarSpeed;
     }
 
+    public float getFiremanRange(){
+        return FiremanRange;
+    }
 
 }

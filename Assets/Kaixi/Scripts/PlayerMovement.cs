@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    float speed;
+    public float speed;
     Animator animator;
     PickUpStick pickUpStick;
     public Transform model;

@@ -99,4 +99,9 @@ public class WeatherManagement : MonoBehaviour
                 break;
         }
     }
+
+    public weatherType getWeather()
+    {
+        return currentWeather;
+    }
 }

@@ -14,8 +14,7 @@ public class FiremanScript : MonoBehaviour
     public Vector3 FirefighterOriginPostion;
     public FireEngine fireEngineScript;
     public GameObject fireEngine;
-
-    float PutOffFireTime;
+    float FireHouseRange;
     public int state = 0; //0 for go to fire building, 1 for put off fire, 2 for get back to fire engine
     
     
@@ -29,12 +28,14 @@ public class FiremanScript : MonoBehaviour
         FirefighterAgent = GetComponent<NavMeshAgent>();
         FirefighterAgent.speed = gameManagement.getFiremanMovingSpeed();
         FirefighterOriginPostion = this.transform.position;
+        FireHouseRange = gameManagement.getFiremanRange();
     }
 
     private void OnEnable()
     {
         fireEngine = transform.parent.gameObject;
         fireEngineScript = fireEngine.GetComponent<FireEngine>();
+        
     }
 
     // Update is called once per frame
@@ -62,7 +63,29 @@ public class FiremanScript : MonoBehaviour
             case 2:
                 FirefighterAgent.isStopped = false;
                 //Debug.Log("Go Back");
-                GoBackToFireEngine();
+                Collider[] results = new Collider[10];
+                LayerMask layerMask = 1 << 10;
+                int houses = 0;
+                int hits = Physics.OverlapSphereNonAlloc(transform.position,FireHouseRange , results, layerMask);
+                for (int i = 0; i < hits; i++)
+                {
+                    //Debug.Log("111");
+                    if (results[i].TryGetComponent<House>(out House house))
+                    {
+
+                        if (house.getState() == 1)
+                            houses++;
+                    }
+                }
+                if (houses > 0)
+                {
+                    state = 0;
+                    ClosestFireHouse = houseManager.getClosestHouseWithState(gameObject, 1);
+                }
+                else {
+                    GoBackToFireEngine();
+                }
+                
                 break;
         }
 
