@@ -192,6 +192,7 @@ public class House : MonoBehaviour
                 break;
             case 1://fire is burning
                 GetComponent<Renderer>().material = burningMaterial;
+                UImanager.instance.UpdateScore(score);
                 isPutOff = false;
                 break;
             case 2:// fireman is putting off the fire

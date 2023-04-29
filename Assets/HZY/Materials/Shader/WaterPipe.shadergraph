@@ -178,6 +178,9 @@
         },
         {
             "m_Id": "fe6d99fe888549a1b455ba2598790d10"
+        },
+        {
+            "m_Id": "555cdf472c964214b49801b7052410cc"
         }
     ],
     "m_StickyNoteDatas": [],
@@ -2114,17 +2117,17 @@
     "m_Type": "UnityEditor.ShaderGraph.PropertyNode",
     "m_ObjectId": "38d5773c3557406e8b326406516527d1",
     "m_Group": {
-        "m_Id": ""
+        "m_Id": "555cdf472c964214b49801b7052410cc"
     },
     "m_Name": "Property",
     "m_DrawState": {
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -322.39996337890627,
-            "y": 1036.800048828125,
-            "width": 183.19998168945313,
-            "height": 33.5999755859375
+            "x": -260.00006103515627,
+            "y": 988.0,
+            "width": 183.20004272460938,
+            "height": 33.60003662109375
         }
     },
     "m_Slots": [
@@ -2991,6 +2994,17 @@
 
 {
     "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.GroupData",
+    "m_ObjectId": "555cdf472c964214b49801b7052410cc",
+    "m_Title": "change vertex",
+    "m_Position": {
+        "x": 10.0,
+        "y": 10.0
+    }
+}
+
+{
+    "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.DynamicValueMaterialSlot",
     "m_ObjectId": "566b3e8ca3904caebd27808cad100d59",
     "m_Id": 1,
@@ -3338,17 +3352,17 @@
     "m_Type": "UnityEditor.ShaderGraph.MultiplyNode",
     "m_ObjectId": "691f302964d84de5ae89b1ed5c19432d",
     "m_Group": {
-        "m_Id": ""
+        "m_Id": "555cdf472c964214b49801b7052410cc"
     },
     "m_Name": "Multiply",
     "m_DrawState": {
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -87.99996948242188,
-            "y": 988.800048828125,
+            "x": -67.1999740600586,
+            "y": 964.800048828125,
             "width": 208.0,
-            "height": 301.60009765625
+            "height": 301.5999755859375
         }
     },
     "m_Slots": [
@@ -3728,7 +3742,7 @@
     "m_Type": "UnityEditor.ShaderGraph.AddNode",
     "m_ObjectId": "7862cccf0d2240a1b4e365d421bf5276",
     "m_Group": {
-        "m_Id": ""
+        "m_Id": "555cdf472c964214b49801b7052410cc"
     },
     "m_Name": "Add",
     "m_DrawState": {
@@ -5347,7 +5361,7 @@
     "m_Type": "UnityEditor.ShaderGraph.PositionNode",
     "m_ObjectId": "d3bdd2b0ab284cfe8d5e5884fd7d152b",
     "m_Group": {
-        "m_Id": ""
+        "m_Id": "555cdf472c964214b49801b7052410cc"
     },
     "m_Name": "Position",
     "m_DrawState": {
