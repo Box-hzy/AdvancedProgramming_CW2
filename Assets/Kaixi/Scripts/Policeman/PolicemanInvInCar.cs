@@ -12,7 +12,6 @@ public class PolicemanInvInCar : MonoBehaviour
     {
         FindVillager,
         Investigate,
-        Chase,
         BackToCar
     }
 
@@ -40,6 +39,7 @@ public class PolicemanInvInCar : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         agent.speed = gameManagement.getPolicePatrolSpeed();
         policeTime = gameManagement.getPoliceTime();
+        
     }
 
     private void Awake()
@@ -53,6 +53,11 @@ public class PolicemanInvInCar : MonoBehaviour
         
 
         thisTime = policeTime;
+    }
+
+    private void OnEnable()
+    {
+        policeState = State.FindVillager;
     }
     // Update is called once per frame
     void Update()

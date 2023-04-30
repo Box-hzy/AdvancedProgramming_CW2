@@ -50,6 +50,11 @@ public class PolicemanPatrolInCar : MonoBehaviour
     {
         backToCar = false;
         thisTime = PoliceTime;
+        
+    }
+
+    private void OnEnable()
+    {
         policeState = State.Patrol;
     }
     // Update is called once per frame
