@@ -46,15 +46,18 @@ public class PlayerMovement : MonoBehaviour
 
     //}
 
+
+    float horizontalInput;
+    float verticalInput;
+
     private void Update()
     {
 
         ChangeAnimationWeight();
 
         // Get input axes for horizontal and vertical movement
-        float horizontalInput = Input.GetAxisRaw("Horizontal");
-        float verticalInput = Input.GetAxisRaw("Vertical");
-
+        horizontalInput = Input.GetAxisRaw("Horizontal");
+        verticalInput = Input.GetAxisRaw("Vertical");
 
         if (horizontalInput != 0 || verticalInput != 0)
         {
@@ -73,34 +76,42 @@ public class PlayerMovement : MonoBehaviour
         {
             animator.SetBool("Run", false);
         }
+    }
 
-        // Calculate movement direction based on input axes
-        Vector3 movementDirection = new Vector3(horizontalInput, 0f, verticalInput).normalized;
-        //ector3 movementDirection = (transform.forward * horizontalInput + transform.right * verticalInput).normalized;
-
-        // Normalize movement direction to prevent faster diagonal movement
-        //if (movementDirection.magnitude > 1f)
-        //{
-        //    movementDirection.Normalize();
-        //}
-
-        //change animation facing
-        if (movementDirection.magnitude >= 0.1f)
+    private void FixedUpdate()
+    {
+        if (horizontalInput == 0 && verticalInput == 0)
         {
-            float facingAngle = Mathf.Atan2(movementDirection.x, movementDirection.z) * Mathf.Rad2Deg + Camera.main.transform.eulerAngles.y;
-            float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, facingAngle, ref turnSmoothVelocity, turnSmoothTime);
-            transform.rotation = Quaternion.Euler(0f, angle, 0f);
-            //model.transform.rotation = Quaternion.LookRotation(movementDirection);
-
-            //// Apply movement to transform (CANNOT BE USED IN THIS STATUE)
-            //transform.position += movementDirection * speed * Time.deltaTime;
-            Vector3 moveDir = Quaternion.Euler(0, facingAngle, 0) * Vector3.forward;
-            //rig.velocity = movementDirection * speed * Time.deltaTime;
-            rig.velocity = moveDir.normalized * speed * Time.deltaTime;
-            //Debug.Log(rig.velocity);
+            rig.velocity = Vector3.zero;
         }
+        else
+        {
+            // Calculate movement direction based on input axes
+            Vector3 movementDirection = new Vector3(horizontalInput, 0f, verticalInput).normalized;
+            //ector3 movementDirection = (transform.forward * horizontalInput + transform.right * verticalInput).normalized;
 
+            // Normalize movement direction to prevent faster diagonal movement
+            //if (movementDirection.magnitude > 1f)
+            //{
+            //    movementDirection.Normalize();
+            //}
 
+            //change animation facing
+            if (movementDirection.magnitude >= 0.1f)
+            {
+                float facingAngle = Mathf.Atan2(movementDirection.x, movementDirection.z) * Mathf.Rad2Deg + Camera.main.transform.eulerAngles.y;
+                float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, facingAngle, ref turnSmoothVelocity, turnSmoothTime);
+                transform.rotation = Quaternion.Euler(0f, angle, 0f);
+                //model.transform.rotation = Quaternion.LookRotation(movementDirection);
+
+                //// Apply movement to transform (CANNOT BE USED IN THIS STATUE)
+                //transform.position += movementDirection * speed * Time.deltaTime;
+                Vector3 moveDir = Quaternion.Euler(0, facingAngle, 0) * Vector3.forward;
+                //rig.velocity = movementDirection * speed * Time.deltaTime;
+                rig.velocity = moveDir.normalized * speed * Time.deltaTime;
+                //Debug.Log(rig.velocity);
+            }
+        }
 
     }
 }
