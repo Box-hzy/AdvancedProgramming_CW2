@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3196465571724360833}
   - component: {fileID: 1184671631844683575}
   - component: {fileID: 4838474920266949209}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: House_02 (Small)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -33,7 +33,7 @@ Transform:
   m_Children:
   - {fileID: 8023071786425499426}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &3196465571724360833
 MeshFilter:
@@ -116,7 +116,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8023071786425499426}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: EscapePoint
   m_TagString: EscapePoint
   m_Icon: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
@@ -131,7 +131,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5048783297032409580}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.61, y: 0, z: 35.57}
+  m_LocalPosition: {x: -3.61, y: 0, z: 36.78}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

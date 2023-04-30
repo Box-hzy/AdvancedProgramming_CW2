@@ -37,6 +37,7 @@ public class House : MonoBehaviour
     float putoffFireTime = 0;
     bool isPutOff = false;
     GameManagement gameManagement;
+    
 
 
 
@@ -206,6 +207,7 @@ public class House : MonoBehaviour
                     NewMaterial_Array[i] = burningMaterial;
                 }
                 meshRenderer.materials = NewMaterial_Array;
+                UImanager.instance.UpdateScore(score);
                 isPutOff = false;
                 break;
             case 2:// fireman is putting off the fire
