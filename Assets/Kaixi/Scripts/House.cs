@@ -11,15 +11,17 @@ public class House : MonoBehaviour
     public int houseState;
     public List<House> neighbourHouses = new List<House>();
     public int score;
-    public Material defaultMaterial;
-    public Material burningMaterial;
-    public Material destroiedMaterial;
+    public MeshRenderer meshRenderer;
+    Material destroiedMaterial;
+    Material burningMaterial;
+    public Material[] defaultMaterial_Array;
+    public Material[] NewMaterial_Array;
     public GameObject vfx;
     //public Transform escapePoint;
     public float radius = 10;    //raycast radius
     Collider[] results = new Collider[10];
     [SerializeField] LayerMask layerMask;
-    float RecoverTime = 180;
+    float RecoverTime;
     float timer;
     Vector3 centrePoint; //transform.position is based on Pivot point, however the pivot point of the model is too faraway
     float FireTimer = 0;
@@ -44,7 +46,12 @@ public class House : MonoBehaviour
 
         houseState = 0;
         layerMask = 1 << 10;
-        defaultMaterial = GetComponent<MeshRenderer>().material;
+        meshRenderer = GetComponent<MeshRenderer>();
+        defaultMaterial_Array = meshRenderer.materials;
+        NewMaterial_Array = new Material[defaultMaterial_Array.Length];
+        
+        
+
         gameObject.AddComponent<NavMeshObstacle>().carving = true;
         centrePoint = GetComponent<MeshRenderer>().bounds.center;
         AddNeighbour();
@@ -59,6 +66,9 @@ public class House : MonoBehaviour
         putoffFireSpeed = gameManagement.getFiremanPutOffFireSpeed();
         thisSpreaTime = spreadTime;
 
+        burningMaterial = gameManagement.getBurningMaterial();
+        destroiedMaterial= gameManagement.getDestroiedMaterial();
+        RecoverTime = gameManagement.getHouseRecoverTime();
         //putoffFire = fireVFX.GetFloat("MaxSize");
         //SetEscapePoint();
     }
@@ -188,16 +198,24 @@ public class House : MonoBehaviour
         switch (houseState)
         {
             case 0://original state
-                GetComponent<Renderer>().material = defaultMaterial;
+                meshRenderer.materials = defaultMaterial_Array;
                 break;
+
             case 1://fire is burning
-                GetComponent<Renderer>().material = burningMaterial;
+                for (int i = 0; i < NewMaterial_Array.Length; i++){
+                    NewMaterial_Array[i] = burningMaterial;
+                }
+                meshRenderer.materials = NewMaterial_Array;
                 isPutOff = false;
                 break;
             case 2:// fireman is putting off the fire
                 break;
             case 3://house into ruin
-                GetComponent<Renderer>().material = destroiedMaterial;
+                for (int i = 0; i < NewMaterial_Array.Length; i++)
+                {
+                    NewMaterial_Array[i] = destroiedMaterial;
+                }
+                meshRenderer.materials = NewMaterial_Array;
                 timer = RecoverTime;
 
                 break;

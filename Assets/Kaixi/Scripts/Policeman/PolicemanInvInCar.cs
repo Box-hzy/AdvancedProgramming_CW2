@@ -25,7 +25,7 @@ public class PolicemanInvInCar : MonoBehaviour
     public float findRadius = 10;
     Vector3 villagerVector3;
 
-    public float policeTime = 180f;
+    float policeTime;
     float thisTime;
     float speed;
 
@@ -39,6 +39,7 @@ public class PolicemanInvInCar : MonoBehaviour
         player = GameObject.FindWithTag("Player");
         agent = GetComponent<NavMeshAgent>();
         agent.speed = gameManagement.getPolicePatrolSpeed();
+        policeTime = gameManagement.getPoliceTime();
     }
 
     private void Awake()

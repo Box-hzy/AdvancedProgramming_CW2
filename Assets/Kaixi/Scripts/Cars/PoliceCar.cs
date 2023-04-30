@@ -32,8 +32,9 @@ public class PoliceCar : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Debug.Log(Vector3.Distance(transform.position, firehouseDestination));
+        Debug.Log(Vector3.Distance(transform.position, firehouseDestination));
         switch (state) {
+            
             case 0:
                 navMeshAgent.SetDestination(firehouseDestination);
                 if (Vector3.Distance(transform.position, firehouseDestination) <= stopDistance)

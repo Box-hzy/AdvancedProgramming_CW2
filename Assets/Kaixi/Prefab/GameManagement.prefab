@@ -1,0 +1,68 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &7398423937286617685
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6651551679532333873}
+  - component: {fileID: 992453689792489653}
+  m_Layer: 0
+  m_Name: GameManagement
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6651551679532333873
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7398423937286617685}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &992453689792489653
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7398423937286617685}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63e93284fe9fe9648a92989be549bdec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  FireAlarm: 0
+  PoliceAlarm: 0
+  TorchFireActiveTime_Noramal: 30
+  TorchFireActiveTime_Rainy: 20
+  PlayerSpeed: 300
+  smallFireIncreaseSpeed: 1
+  largeFireIncreaseSpeed: 4
+  oldFireIncreaseSpeed: 6
+  FireSpreadTime: 10
+  FiremanPutOffFireSpeed: 0.568
+  FiremanMovingSpeed: 10
+  FiremanRange: 3
+  FireTruckSpeed: 10
+  FireTruckStopDistance: 10
+  PolicePatrolSpeed: 5
+  PoliceChaseSpeed: 6
+  PoliceTime: 20
+  PoliceCarSpeed: 15
+  PoliceCarStopDistance: 15
+  BurningMaterial: {fileID: 2100000, guid: eade7021e8b211d4581ea148456e5675, type: 2}
+  DestroiedMaterial: {fileID: 2100000, guid: b31e2168010449c419649854ca9a2b92, type: 2}
+  HouseRecoverTime: 10

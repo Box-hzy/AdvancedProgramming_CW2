@@ -30,7 +30,7 @@ public class PolicemanPatrolInCar : MonoBehaviour
     PolicemanInvInCar policemanInv;
     public bool backToCar = false;
 
-    public float PoliceTime = 180.0f;
+    float PoliceTime;
     float thisTime;
 
     GameManagement gameManagement;
@@ -44,6 +44,7 @@ public class PolicemanPatrolInCar : MonoBehaviour
         gameManagement = GameObject.Find("GameManagement").GetComponent<GameManagement>();
         patrolSpeed = gameManagement.getPolicePatrolSpeed();
         chaseSpeed = gameManagement.getPoliceChaseSpeed();
+        PoliceTime = gameManagement.getPoliceTime();
     }
     private void Awake()
     {

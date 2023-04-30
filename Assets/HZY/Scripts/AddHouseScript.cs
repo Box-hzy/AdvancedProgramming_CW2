@@ -23,8 +23,7 @@ public class AddHouseScript : MonoBehaviour
             Transform child = transform.GetChild(i);
             var house = child.AddComponent<House>();
             child.AddComponent<SpawnScaredVillagers>();
-            house.burningMaterial = burningMat;
-            house.destroiedMaterial = destoryMat;
+
             house.tag = "Buildings";
 
             int random = Random.Range(randomScore.x, randomScore.y);

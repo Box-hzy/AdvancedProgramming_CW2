@@ -33,11 +33,16 @@ public class GameManagement : MonoBehaviour
     [Header("Policeman")]
     [SerializeField] float PolicePatrolSpeed;
     [SerializeField] float PoliceChaseSpeed;
+    [SerializeField] float PoliceTime;
 
     [Header("PoliceCar")]
     [SerializeField] float PoliceCarSpeed;
     [SerializeField] float PoliceCarStopDistance;
 
+    [Header("House")]
+    public Material BurningMaterial;
+    public Material DestroiedMaterial;
+    [SerializeField] float HouseRecoverTime;
 
     WeatherManagement weatherManagement;
     WeatherManagement.weatherType weatherType;
@@ -149,5 +154,22 @@ public class GameManagement : MonoBehaviour
 
     public float getPoliceCarStopDistance() {
         return PoliceCarStopDistance;
+    }
+
+    public Material getBurningMaterial()
+    {
+        return BurningMaterial;
+    }
+
+    public Material getDestroiedMaterial() {
+        return DestroiedMaterial;
+    }
+
+    public float getHouseRecoverTime() { 
+        return HouseRecoverTime;
+    }
+
+    public float getPoliceTime() {
+        return PoliceTime;
     }
 }
