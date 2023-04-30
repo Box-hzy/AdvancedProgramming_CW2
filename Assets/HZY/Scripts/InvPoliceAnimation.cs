@@ -38,7 +38,7 @@ public class InvPoliceAnimation : MonoBehaviour
         switch (currentState)
         {
             case PolicemanInvInCar.State.FindVillager:
-                animator.SetBool("Walk", !policemanInvInCar.agent.isStopped);
+                animator.SetBool("Walk", policemanInvInCar.VillagerNearyby);
                 break;
             case PolicemanInvInCar.State.Investigate:
                 animator.SetBool("Text", true);

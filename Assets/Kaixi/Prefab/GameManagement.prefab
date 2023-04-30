@@ -46,23 +46,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   FireAlarm: 0
   PoliceAlarm: 0
-  TorchFireActiveTime_Noramal: 30
+  TorchFireActiveTime_Noramal: 45
   TorchFireActiveTime_Rainy: 20
   PlayerSpeed: 300
   smallFireIncreaseSpeed: 1
   largeFireIncreaseSpeed: 4
   oldFireIncreaseSpeed: 6
   FireSpreadTime: 10
-  FiremanPutOffFireSpeed: 0.568
-  FiremanMovingSpeed: 10
+  FiremanPutOffFireSpeed: 0.031
+  FiremanMovingSpeed: 7
   FiremanRange: 3
-  FireTruckSpeed: 10
-  FireTruckStopDistance: 10
+  FireTruckSpeed: 9
+  FireTruckStopDistance: 18
   PolicePatrolSpeed: 5
   PoliceChaseSpeed: 6
   PoliceTime: 20
-  PoliceCarSpeed: 15
-  PoliceCarStopDistance: 15
+  PoliceCarSpeed: 18
+  PoliceCarStopDistance: 22
   BurningMaterial: {fileID: 2100000, guid: eade7021e8b211d4581ea148456e5675, type: 2}
   DestroiedMaterial: {fileID: 2100000, guid: b31e2168010449c419649854ca9a2b92, type: 2}
   HouseRecoverTime: 10
+  canRestart: 0

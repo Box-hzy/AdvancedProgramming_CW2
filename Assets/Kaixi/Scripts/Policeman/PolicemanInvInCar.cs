@@ -23,6 +23,7 @@ public class PolicemanInvInCar : MonoBehaviour
     float findRadius = 20;
     public Vector3 villagerVector3;
     public GameObject villager;
+    public bool VillagerNearyby = false;
 
     public float policeTime;
     public float thisTime;
@@ -74,21 +75,25 @@ public class PolicemanInvInCar : MonoBehaviour
                 villager = getClosetInvVillager();
 
 
-                if (villager != null) {
+                if (villager != null)
+                {
                     villagerVector3 = villager.transform.position;
                     agent.SetDestination(villagerVector3);
+                    VillagerNearyby = true;
                     if (Vector3.Distance(transform.position, villagerVector3) <= 2.0f)
                     {
                         setState(State.Investigate);
 
                     }
                 }
-                
+                else {
+                   VillagerNearyby = false;
+                }
                 break;
             case State.Investigate:
                 if (villager.TryGetComponent<Villager>(out Villager  villagerScript))
                 {
-                    villagerScript.BeingInvestigated(gameObject, 5);
+                    villagerScript.BeingInvestigated(this, 5);
                 }
                 break;
             case State.BackToCar:

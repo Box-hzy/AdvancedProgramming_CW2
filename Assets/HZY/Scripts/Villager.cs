@@ -208,6 +208,7 @@ public class Villager : VillagerBase
                 break;
             case State.Investigate:
                 //Debug.Log("Villager Investigate");
+                agent.isStopped = true;
                 animator.SetBool("Talk", true);
                 break;
             default:
@@ -235,18 +236,20 @@ public class Villager : VillagerBase
             case State.Escape:
                 animator.SetBool("Run", false);
                 animator.SetBool("Walk", false);
-                StopCoroutine(SetEscapePointAndEscape());
-                 //StopAllCoroutines();
+                //StopCoroutine(SetEscapePointAndEscape());
+                StopAllCoroutines();
                 Debug.Log("STOP");
                 break;
             case State.Onlook:
                 agent.isStopped = false;
                 //animator.SetBool("Onlook", false);
-                StopCoroutine(RandomOnlookAnimation());
+                //StopCoroutine(RandomOnlookAnimation());
+                StopAllCoroutines();
                 break;
             case State.Investigate:
                 animator.SetBool("Talk", false);
                 hasBeenInvestigated = false;
+                agent.isStopped = false;
                 break;
             default:
                 break;
@@ -597,7 +600,7 @@ public class Villager : VillagerBase
     #endregion
     #region Investigate
     //police will investigate the villager around the fired house, the police will call this function
-    public void BeingInvestigated(GameObject police, float investigateTime)
+    public void BeingInvestigated(PolicemanInvInCar police, float investigateTime)
     {
         if (hasBeenInvestigated) return;
         hasBeenInvestigated = true;
@@ -606,10 +609,11 @@ public class Villager : VillagerBase
         Invoke("FinishInvestigation", investigateTime);
     }
 
-    void FinishInvestigation()
+    void FinishInvestigation(PolicemanInvInCar police)
     {
         //isBeingInvestigate = false;
         ChangeStateAndEnter(previousState);
+        police.setState(PolicemanInvInCar.State.FindVillager);
     }
 
     #endregion
