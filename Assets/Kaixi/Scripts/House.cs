@@ -26,7 +26,8 @@ public class House : MonoBehaviour
     Vector3 centrePoint; //transform.position is based on Pivot point, however the pivot point of the model is too faraway
     float FireTimer = 0;
     VisualEffect fireVFX;
-    ParticleSystem fireParticle;
+    public ParticleSystem fireParticle;
+    public ParticleSystem SparkParticle;
 
     [Header("HouseBuring")]
     float FireSpeed;
@@ -62,6 +63,7 @@ public class House : MonoBehaviour
         Instantiate(vfx, centrePoint, Quaternion.identity, transform);
         //fireVFX = GetComponentInChildren<VisualEffect>();
         fireParticle = GetComponentInChildren<ParticleSystem>();
+        SparkParticle= fireParticle.gameObject.transform.GetChild(0).GetComponent<ParticleSystem>();
         gameManagement = GameObject.Find("GameManagement").GetComponent<GameManagement>();
         FireSpeed = GetFireSpeed();
         spreadTime = gameManagement.getFireSpreadTime();
@@ -100,7 +102,8 @@ public class House : MonoBehaviour
 
         if (houseState == 1)
         { //fire will get big with the time increase;
-
+            fireParticle.Play();
+            SparkParticle.Play();
             FireTimer += Time.deltaTime;
             float CurrentFireSize = FireTimer * FireSpeed;
             /*if (CurrentFireSize <= fireVFX.GetFloat("MaxSize"))
@@ -122,14 +125,18 @@ public class House : MonoBehaviour
             }*/
 
 
-            if (CurrentFireSize <= 20)
+            if (CurrentFireSize <= 70)
             { //maxfire
                 var emission = fireParticle.emission;
                 emission.rateOverTimeMultiplier = CurrentFireSize;
+                var emission2 = SparkParticle.emission;
+                emission2.rateOverTimeMultiplier = CurrentFireSize * 5 / 7;
             }
             else {
                 var emission = fireParticle.emission;
-                emission.rateOverTimeMultiplier = 20;
+                emission.rateOverTimeMultiplier = 70;
+                var emission2 = SparkParticle.emission;
+                emission2.rateOverTimeMultiplier = 50;
 
             }
             
@@ -149,11 +156,15 @@ public class House : MonoBehaviour
             {
                 var emission = fireParticle.emission;
                 emission.rateOverTimeMultiplier = CurrentFireSize;
+                var emission2 = SparkParticle.emission;
+                emission2.rateOverTimeMultiplier = CurrentFireSize*5/7;
             }
             else
             {
                 var emission = fireParticle.emission;
                 emission.rateOverTimeMultiplier = 0;
+                var emission2 = SparkParticle.emission;
+                emission2.rateOverTimeMultiplier = 0;
                 putoffFireTime = 0;
                 houseState = 3;
                 isPutOff = true;
@@ -179,6 +190,8 @@ public class House : MonoBehaviour
         if (houseState == 3)
         {
             timer -= Time.deltaTime;
+            fireParticle.Stop();
+            SparkParticle.Stop();
             if (timer <= 0)
             {
                 setState(0);
