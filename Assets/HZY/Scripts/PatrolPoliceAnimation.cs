@@ -30,7 +30,7 @@ public class PatrolPoliceAnimation : MonoBehaviour
                 animator.SetBool("Run", false);
                 break;
             case PolicemanPatrolInCar.State.Chase:
-                animator.SetBool("Run", !policemanPatrolInCar.agent.isStopped);
+                animator.SetBool("Run", true);
                 animator.SetBool("Walk", false);
                 break;
             case PolicemanPatrolInCar.State.BackToCar:

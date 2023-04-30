@@ -853,11 +853,11 @@ RectTransform:
   m_Father: {fileID: 3315283196721766571}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.5}
-  m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 505, y: -169.78}
-  m_SizeDelta: {x: 447.9519, y: 169.7835}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 0}
+  m_AnchoredPosition: {x: 0, y: 61.015}
+  m_SizeDelta: {x: 551.9636, y: 169.7835}
+  m_Pivot: {x: 0.5, y: 0}
 --- !u!222 &2695764153211112897
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -886,7 +886,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Press G to restart
+  m_text: 'Refresh page to restart
 
 '
   m_isRightToLeft: 0

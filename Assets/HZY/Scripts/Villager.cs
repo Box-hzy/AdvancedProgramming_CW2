@@ -110,7 +110,7 @@ public class Villager : VillagerBase
         if (firedHouse != null)
         {
             //if (firedHouse.GetComponent<House>().getState() != 1 && firedHouse.GetComponent<House>().getState() != 2)
-            if (firedHouse.GetComponent<House>().getState() !=0)
+            if (firedHouse.GetComponent<House>().getState() ==0)
             {
                 firedHouse = null;
                 //Debug.Log("house is not on fire");

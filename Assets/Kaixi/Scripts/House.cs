@@ -58,8 +58,8 @@ public class House : MonoBehaviour
         AddNeighbour();
 
         ////instantiate vfx component
-        //Instantiate(vfx, centrePoint, Quaternion.identity, transform);
-        //fireVFX = GetComponentInChildren<VisualEffect>();
+        Instantiate(vfx, centrePoint, Quaternion.identity, transform);
+        fireVFX = GetComponentInChildren<VisualEffect>();
 
         gameManagement = GameObject.Find("GameManagement").GetComponent<GameManagement>();
         FireSpeed = GetFireSpeed();
@@ -74,12 +74,6 @@ public class House : MonoBehaviour
         //SetEscapePoint();
     }
 
-    private void LateUpdate()
-    {
-        //instantiate vfx component
-        Instantiate(vfx, centrePoint, Quaternion.identity, transform);
-        fireVFX = GetComponentInChildren<VisualEffect>();
-    }
 
     float GetFireSpeed()
     {

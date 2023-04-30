@@ -7,6 +7,9 @@ using UnityEngine.SceneManagement;
 
 public class PolicemanPatrolInCar : MonoBehaviour
 {
+    public Material material;
+    Color green = new Color(0, 1, 0, 0.5f);
+    Color red = new Color(1, 0, 0, 0.5f);
     GameObject player;
     Vector3 PolicecarVector3;
     float patrolSpeed;
@@ -45,6 +48,7 @@ public class PolicemanPatrolInCar : MonoBehaviour
         patrolSpeed = gameManagement.getPolicePatrolSpeed();
         chaseSpeed = gameManagement.getPoliceChaseSpeed();
         PoliceTime = gameManagement.getPoliceTime();
+        material.SetColor("_BaseColor", green);
     }
     private void Awake()
     {
@@ -94,26 +98,31 @@ public class PolicemanPatrolInCar : MonoBehaviour
                 if (Vector3.Angle(transform.forward, dirToTarget) < viewAngle / 2f)
                 {
                     policeState = State.Chase;
+                    material.SetColor("_BaseColor", red);
 
                     //Debug.Log("Player is in view!");
                 }
                 else if (thisTime <= 0)
                 {
                     policeState = State.BackToCar;
+                    material.SetColor("_BaseColor", green);
 
                 }
                 else {
                     policeState = State.Patrol;
+                    material.SetColor("_BaseColor", green);
                 }
             }
             else if (thisTime <= 0)
             {
                 policeState = State.BackToCar;
+                material.SetColor("_BaseColor", green);
 
             }
             else
             {
                 policeState = State.Patrol;
+                material.SetColor("_BaseColor", green);
             }
 
 
