@@ -57,9 +57,9 @@ public class House : MonoBehaviour
         centrePoint = GetComponent<MeshRenderer>().bounds.center;
         AddNeighbour();
 
-        //instantiate vfx component
-        Instantiate(vfx, centrePoint, Quaternion.identity, transform);
-        fireVFX = GetComponentInChildren<VisualEffect>();
+        ////instantiate vfx component
+        //Instantiate(vfx, centrePoint, Quaternion.identity, transform);
+        //fireVFX = GetComponentInChildren<VisualEffect>();
 
         gameManagement = GameObject.Find("GameManagement").GetComponent<GameManagement>();
         FireSpeed = GetFireSpeed();
@@ -72,6 +72,13 @@ public class House : MonoBehaviour
         RecoverTime = gameManagement.getHouseRecoverTime();
         //putoffFire = fireVFX.GetFloat("MaxSize");
         //SetEscapePoint();
+    }
+
+    private void LateUpdate()
+    {
+        //instantiate vfx component
+        Instantiate(vfx, centrePoint, Quaternion.identity, transform);
+        fireVFX = GetComponentInChildren<VisualEffect>();
     }
 
     float GetFireSpeed()

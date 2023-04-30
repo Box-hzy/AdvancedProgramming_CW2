@@ -294,7 +294,7 @@ public class Villager : VillagerBase
         }
         else
         {
-            targetDestination = RandomPoint(transform.position, maxWalkDistance);
+            targetDestination = RandomPoint(transform.position, maxWalkDistance,10);
         }
         agent.SetDestination(targetDestination);
     }
@@ -312,19 +312,23 @@ public class Villager : VillagerBase
     //    return navHit.position;
     //}
 
-    Vector3 RandomPoint(Vector3 origin, float range)
+    Vector3 RandomPoint(Vector3 origin, float range, float maxDis)
     {
+        Vector3 finalPos = Vector3.zero;
+
         for (int i = 0; i < 30; i++)
         {
             Vector3 randomPoint = origin + Random.insideUnitSphere * range;
             NavMeshHit hit;
-            if (NavMesh.SamplePosition(randomPoint, out hit, range, NavMesh.AllAreas))
+            
+            if (NavMesh.SamplePosition(randomPoint, out hit, maxDis, NavMesh.AllAreas))
             {
-                return hit.position;
+                finalPos =  hit.position;
+                Debug.Log("finalPos=" + finalPos);
             }
         }
 
-        return Vector3.zero;
+        return finalPos;
 
 
     }
@@ -398,6 +402,8 @@ public class Villager : VillagerBase
     //OnEnter
     IEnumerator SetEscapePointAndEscape()
     {
+        if(currentState != State.Escape) yield break;
+        Debug.Log("Enter escape coroutine");
         while (CheckIfReachDestination(firedHouse.transform.position, 80))
         {
             
@@ -414,9 +420,9 @@ public class Villager : VillagerBase
             //NavMesh.SamplePosition(randomDirection + transform.position, out hit, 70, NavMesh.AllAreas);
             //Vector3 randomRun = RandomNavmeshLocation(transform.position, randomRange);
 
-            Vector3 destination = RandomPoint(transform.position, randomRange);
+            Vector3 destination = RandomPoint(transform.position, randomRange, randomRange);
             agent.SetDestination(destination);
-            Debug.Log("Set run destination");
+            Debug.Log("Set escape destination");
             yield return new WaitForSeconds(5);
         }
 
