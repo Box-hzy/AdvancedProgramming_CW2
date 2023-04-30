@@ -29,11 +29,7 @@ public class InvPoliceAnimation : MonoBehaviour
         if (currentState != PolicemanInvInCar.State.Investigate)
         {
             animator.SetBool("Text", false);
-        }
-        else if (currentState != PolicemanInvInCar.State.Chase)
-        {
-            animator.SetBool("Run", false);
-        }
+        } 
         else if (currentState != PolicemanInvInCar.State.FindVillager && currentState != PolicemanInvInCar.State.BackToCar)
         {
             animator.SetBool("Walk", false);
@@ -46,9 +42,6 @@ public class InvPoliceAnimation : MonoBehaviour
                 break;
             case PolicemanInvInCar.State.Investigate:
                 animator.SetBool("Text", true);
-                break;
-            case PolicemanInvInCar.State.Chase:
-                animator.SetBool("Run", !policemanInvInCar.agent.isStopped);
                 break;
             case PolicemanInvInCar.State.BackToCar:
                 animator.SetBool("Walk", !policemanInvInCar.agent.isStopped);
