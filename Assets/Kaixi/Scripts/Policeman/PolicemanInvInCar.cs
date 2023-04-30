@@ -15,18 +15,18 @@ public class PolicemanInvInCar : MonoBehaviour
         BackToCar
     }
 
-    GameObject player;
     Vector3 PolicecarVector3;
-    LayerMask villagerMask;
+    public LayerMask villagerMask;
     public State policeState;
     public NavMeshAgent agent;
     public bool backToCar = false;
-    public float findRadius = 10;
-    Vector3 villagerVector3;
+    float findRadius = 20;
+    public Vector3 villagerVector3;
+    public GameObject villager;
 
     public float policeTime;
     public float thisTime;
-    float speed;
+
 
     GameManagement gameManagement;
 
@@ -35,7 +35,7 @@ public class PolicemanInvInCar : MonoBehaviour
     {
         gameManagement = GameObject.Find("GameManagement").GetComponent<GameManagement>();
         villagerMask = 1 << 11;
-        player = GameObject.FindWithTag("Player");
+
         agent = GetComponent<NavMeshAgent>();
         agent.speed = gameManagement.getPolicePatrolSpeed();
         policeTime = gameManagement.getPoliceTime();
@@ -45,9 +45,10 @@ public class PolicemanInvInCar : MonoBehaviour
     private void Awake()
     {
         backToCar = false;
-        if (getClosetInvVillager() != null)
+        villager = getClosetInvVillager();
+        if (villager != null)
         {
-            villagerVector3 = getClosetInvVillager().transform.position;
+            villagerVector3 = villager.transform.position;
         }
         
         
@@ -70,7 +71,11 @@ public class PolicemanInvInCar : MonoBehaviour
         switch (policeState)
         {
             case State.FindVillager:
-                if (getClosetInvVillager() != null) {
+                villager = getClosetInvVillager();
+
+
+                if (villager != null) {
+                    villagerVector3 = villager.transform.position;
                     agent.SetDestination(villagerVector3);
                     if (Vector3.Distance(transform.position, villagerVector3) <= 2.0f)
                     {
