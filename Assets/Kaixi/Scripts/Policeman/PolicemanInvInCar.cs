@@ -24,8 +24,8 @@ public class PolicemanInvInCar : MonoBehaviour
     public float findRadius = 10;
     Vector3 villagerVector3;
 
-    float policeTime;
-    float thisTime;
+    public float policeTime;
+    public float thisTime;
     float speed;
 
     GameManagement gameManagement;

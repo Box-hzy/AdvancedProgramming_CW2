@@ -30,8 +30,8 @@ public class PolicemanPatrolInCar : MonoBehaviour
     PolicemanInvInCar policemanInv;
     public bool backToCar = false;
 
-    float PoliceTime;
-    float thisTime;
+    public float PoliceTime;
+    public float thisTime;
 
     GameManagement gameManagement;
     // Start is called before the first frame update
