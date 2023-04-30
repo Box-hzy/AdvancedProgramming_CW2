@@ -107,7 +107,7 @@ public class GameManagement : MonoBehaviour
 
     public float getFiremanPutOffFireSpeed()
     {
-        return FiremanPutOffFireSpeed;
+        return FiremanPutOffFireSpeed/100;
     }
 
     public float getSmallFireIncreaseSpeed()
