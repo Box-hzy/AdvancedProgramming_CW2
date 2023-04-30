@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManagement : MonoBehaviour
 {
@@ -47,6 +48,8 @@ public class GameManagement : MonoBehaviour
     WeatherManagement weatherManagement;
     WeatherManagement.weatherType weatherType;
 
+    public bool canRestart;
+
     private void Start()
     {
         weatherManagement = GameObject.Find("WeatherManagement").GetComponent<WeatherManagement>();
@@ -58,7 +61,19 @@ public class GameManagement : MonoBehaviour
     {
         weatherType = weatherManagement.getWeather();
         //Debug.Log(weatherManagement.getWeather());
+
+        if (canRestart)
+        {
+            if (Input.GetKeyDown(KeyCode.G))
+            {
+                SceneManager.LoadScene(0);
+            }
+        }
     }
+
+
+
+
     public bool getFireAlarm()
     {
         return FireAlarm;

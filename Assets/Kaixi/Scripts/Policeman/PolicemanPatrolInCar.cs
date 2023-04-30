@@ -127,7 +127,10 @@ public class PolicemanPatrolInCar : MonoBehaviour
         agent.speed = chaseSpeed;
         Debug.Log(Vector3.Distance(transform.position, player.transform.position));
         if (Vector3.Distance(transform.position, player.transform.position) <= 3) {
-            SceneManager.LoadScene("Level1");
+            //SceneManager.LoadScene("Level1");
+            UImanager.instance.ShowResult();
+            gameManagement.canRestart = true;
+
         }
     }
 

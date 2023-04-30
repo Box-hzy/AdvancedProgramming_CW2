@@ -10,6 +10,8 @@ public class UImanager : MonoBehaviour
 
     public int totalScore;
     public TextMeshProUGUI totalScoreText;
+    public TextMeshProUGUI resultText;
+    public GameObject resultPanel;
 
     private void Awake()
     {
@@ -20,6 +22,7 @@ public class UImanager : MonoBehaviour
 
     private void Start()
     {
+        resultPanel.SetActive(false);
         totalScore = 0;
         totalScoreText.text = totalScore.ToString();
     }
@@ -28,5 +31,12 @@ public class UImanager : MonoBehaviour
     { 
        totalScore += score;
         totalScoreText.text = totalScore.ToString();
+    }
+
+    public void ShowResult()
+    {
+        Time.timeScale = 0;
+        resultPanel.SetActive(true);
+        resultText.text = totalScoreText.text;
     }
 }
