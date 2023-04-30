@@ -23,7 +23,7 @@ public class GameManagement : MonoBehaviour
     [SerializeField] float FireSpreadTime;
 
     [Header("Fireman")]
-    [SerializeField][Range(0, 2)] float FiremanPutOffFireSpeed;
+    [SerializeField] [Range(1,200)]float FiremanPutOffFireSpeed;
     [SerializeField] float FiremanMovingSpeed;
     [SerializeField] float FiremanRange;
 
