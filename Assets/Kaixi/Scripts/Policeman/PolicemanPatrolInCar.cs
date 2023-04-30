@@ -62,8 +62,11 @@ public class PolicemanPatrolInCar : MonoBehaviour
     {
         targetsInViewRadius = new List<Collider>(Physics.OverlapSphere(transform.position, viewDistance));
         thisTime -= Time.deltaTime;
-      
 
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            SceneManager.LoadScene(0);
+        }
 
         switch (policeState)
         {

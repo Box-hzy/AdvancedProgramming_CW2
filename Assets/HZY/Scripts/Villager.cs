@@ -109,7 +109,8 @@ public class Villager : VillagerBase
         //check house state
         if (firedHouse != null)
         {
-            if (firedHouse.GetComponent<House>().getState() != 1 && firedHouse.GetComponent<House>().getState() != 2)
+            //if (firedHouse.GetComponent<House>().getState() != 1 && firedHouse.GetComponent<House>().getState() != 2)
+            if (firedHouse.GetComponent<House>().getState() !=0)
             {
                 firedHouse = null;
                 //Debug.Log("house is not on fire");
@@ -245,6 +246,7 @@ public class Villager : VillagerBase
                 break;
             case State.Investigate:
                 animator.SetBool("Talk", false);
+                hasBeenInvestigated = false;
                 break;
             default:
                 break;
@@ -345,7 +347,8 @@ public class Villager : VillagerBase
                 {
                     //Debug.Log("house state = 1!");
                     firedHouse = house;
-                    //Debug.Log(firedHouse.name);
+                    
+                    Debug.Log("111: " + firedHouse.name);
                     ChangeStateAndEnter(State.Escape);
                     break;
                 }
@@ -353,6 +356,7 @@ public class Villager : VillagerBase
                 else if (house.getState() == 2)
                 {
                     firedHouse = house;
+                    Debug.Log("222: "+firedHouse.name);
                     ChangeStateAndEnter(State.Onlook);
                     break;
                 }
@@ -367,6 +371,8 @@ public class Villager : VillagerBase
 
                 if (villager.currentState == State.Escape && villager.distanceFromFiredHouse < 10)
                 {
+                    firedHouse = villager.firedHouse; 
+                    Debug.Log("from villager: " + firedHouse.name);
                     ChangeStateAndEnter(State.Escape);
                 }
             }
@@ -551,8 +557,12 @@ public class Villager : VillagerBase
             Debug.Log("less than 1");
             agent.isStopped = true;
             animator.SetBool("Walk", false);
+
+            if (firedHouse != null)
+            {
+                StartCoroutine(RandomOnlookAnimation());
+            }
            
-            StartCoroutine(RandomOnlookAnimation());
 
         }
     }
@@ -583,7 +593,7 @@ public class Villager : VillagerBase
     //police will investigate the villager around the fired house, the police will call this function
     public void BeingInvestigated(GameObject police, float investigateTime)
     {
-        //isBeingInvestigate = true;
+        if (hasBeenInvestigated) return;
         hasBeenInvestigated = true;
         ChangeStateAndEnter(State.Investigate);
         transform.LookAt(police.transform);

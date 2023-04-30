@@ -42,6 +42,7 @@ public class SpawnScaredVillagers : MonoBehaviour
 
     IEnumerator Spawn()
     {
+        if (escapePoint == null) yield break;
         isSpawn = true;
         Debug.Log("spawn scared villagers");
         for (int i = 0; i < 5; i++)

@@ -86,7 +86,10 @@ public class PolicemanInvInCar : MonoBehaviour
                 
                 break;
             case State.Investigate:
-
+                if (villager.TryGetComponent<Villager>(out Villager  villagerScript))
+                {
+                    villagerScript.BeingInvestigated(gameObject, 5);
+                }
                 break;
             case State.BackToCar:
                 agent.SetDestination(PolicecarVector3);

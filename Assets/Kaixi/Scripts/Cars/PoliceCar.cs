@@ -40,7 +40,8 @@ public class PoliceCar : MonoBehaviour
                 NavMeshHit navHit;
                 NavMesh.SamplePosition(firehouseDestination, out navHit, 10, NavMesh.AllAreas);
                 navMeshAgent.SetDestination(navHit.position);
-                if (Vector3.Distance(transform.position, firehouseDestination) <= stopDistance)
+                //if (Vector3.Distance(transform.position, firehouseDestination) <= stopDistance)
+                if (navMeshAgent.remainingDistance < 10);
                 {
                     //Debug.Log("2323");
                     navMeshAgent.isStopped = true;
