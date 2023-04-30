@@ -4,11 +4,8 @@ MonoImporter:
   externalObjects: {}
   serializedVersion: 2
   defaultReferences:
-  - defaultMaterial: {instanceID: 0}
-  - burningMaterial: {instanceID: 0}
-  - destroiedMaterial: {instanceID: 0}
-  - vfx: {fileID: 8154856359357389863, guid: c8465181174f7e14ab3c9a7d73cd1516, type: 3}
-  - fireVFX: {instanceID: 0}
+  - meshRenderer: {instanceID: 0}
+  - vfx: {fileID: 1321723867245489190, guid: 1aaee71f5003e8d4f83378657251b792, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
