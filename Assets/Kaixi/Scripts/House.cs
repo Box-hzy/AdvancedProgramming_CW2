@@ -26,6 +26,7 @@ public class House : MonoBehaviour
     Vector3 centrePoint; //transform.position is based on Pivot point, however the pivot point of the model is too faraway
     float FireTimer = 0;
     VisualEffect fireVFX;
+    ParticleSystem fireParticle;
 
     [Header("HouseBuring")]
     float FireSpeed;
@@ -59,8 +60,8 @@ public class House : MonoBehaviour
 
         ////instantiate vfx component
         Instantiate(vfx, centrePoint, Quaternion.identity, transform);
-        fireVFX = GetComponentInChildren<VisualEffect>();
-
+        //fireVFX = GetComponentInChildren<VisualEffect>();
+        fireParticle = GetComponentInChildren<ParticleSystem>();
         gameManagement = GameObject.Find("GameManagement").GetComponent<GameManagement>();
         FireSpeed = GetFireSpeed();
         spreadTime = gameManagement.getFireSpreadTime();
@@ -102,7 +103,7 @@ public class House : MonoBehaviour
 
             FireTimer += Time.deltaTime;
             float CurrentFireSize = FireTimer * FireSpeed;
-            if (CurrentFireSize <= fireVFX.GetFloat("MaxSize"))
+            /*if (CurrentFireSize <= fireVFX.GetFloat("MaxSize"))
             {
                 fireVFX.SetFloat("FireSize", CurrentFireSize);
             }
@@ -112,13 +113,27 @@ public class House : MonoBehaviour
                 //fireVFX.SetFloat("FireSize", 50);
             }
 
-            if (CurrentFireSize >= 10) {
+            if (CurrentFireSize >= 15) {
                 thisSpreaTime -= Time.deltaTime;
                 if (thisSpreaTime <= 0) {
                     BurnNeighbour();
                 }
                 
+            }*/
+
+
+            if (CurrentFireSize <= 20)
+            { //maxfire
+                var emission = fireParticle.emission;
+                emission.rateOverTimeMultiplier = CurrentFireSize;
             }
+            else {
+                var emission = fireParticle.emission;
+                emission.rateOverTimeMultiplier = 20;
+
+            }
+            
+
 
 
 
@@ -127,10 +142,24 @@ public class House : MonoBehaviour
         {
 
             putoffFireTime += Time.deltaTime;
-            float CurrentFireSize = fireVFX.GetFloat("FireSize") - putoffFireSpeed * putoffFireTime;
-
+            //float CurrentFireSize = fireVFX.GetFloat("FireSize") - putoffFireSpeed * putoffFireTime;
+            float CurrentFireSize = fireParticle.emission.rateOverTimeMultiplier - putoffFireSpeed * putoffFireTime;
 
             if (CurrentFireSize > 0)
+            {
+                var emission = fireParticle.emission;
+                emission.rateOverTimeMultiplier = CurrentFireSize;
+            }
+            else
+            {
+                var emission = fireParticle.emission;
+                emission.rateOverTimeMultiplier = 0;
+                putoffFireTime = 0;
+                houseState = 3;
+                isPutOff = true;
+            }
+
+            /*if (CurrentFireSize > 0)
             {
                 fireVFX.SetFloat("FireSize", CurrentFireSize);
             }
@@ -140,7 +169,7 @@ public class House : MonoBehaviour
                 putoffFireTime = 0;
                 houseState = 3;
                 isPutOff = true;
-            }
+            }*/
 
 
         }
