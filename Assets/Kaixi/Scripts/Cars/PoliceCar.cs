@@ -44,6 +44,7 @@ public class PoliceCar : MonoBehaviour
                 //if (navMeshAgent.remainingDistance < 0)
                 {
                     //Debug.Log("2323");
+                    navMeshAgent.SetDestination(transform.position);
                     navMeshAgent.isStopped = true;
 
                     policemanPatrol_GO.SetActive(true);
