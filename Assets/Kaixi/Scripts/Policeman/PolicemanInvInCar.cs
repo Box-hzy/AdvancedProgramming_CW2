@@ -40,7 +40,7 @@ public class PolicemanInvInCar : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         agent.speed = gameManagement.getPolicePatrolSpeed();
         policeTime = gameManagement.getPoliceTime();
-        
+        thisTime = policeTime;
     }
 
     private void Awake()
@@ -54,7 +54,7 @@ public class PolicemanInvInCar : MonoBehaviour
         
         
 
-        thisTime = policeTime;
+        
     }
 
     private void OnEnable()

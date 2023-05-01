@@ -73,6 +73,7 @@ public class FireStationManagement : MonoBehaviour
         fireEngineScript.setFirehouseDestination(truckStopPosition);
         fireEngineScript.setFireStationDestination(FireEngineAppear[firestation]);
         fireEngineScript.firehouse = firehouse;
+        fireEngineScript.setFireStation(firestation);
         
         gameManagement.setFireAlarm(false);
     }

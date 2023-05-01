@@ -16,6 +16,7 @@ public class FireEngine : MonoBehaviour
     GameManagement gameManagement;
     public int state = 0;//0: go to firehouse, 1:arrived , 2: back
     FireStationManagement fireStationManagement;
+    GameObject firestation;
     // Start is called before the first frame update
     void Start()
     {
@@ -60,7 +61,7 @@ public class FireEngine : MonoBehaviour
                 navMeshAgent.SetDestination(fireStationDestination.transform.position);
                 if (Vector3.Distance(transform.position, fireStationDestination.transform.position) <= 1.0f)
                 {
-                    fireStationManagement.changeFireEngineNumber(fireStationDestination, 1);
+                    fireStationManagement.changeFireEngineNumber(firestation, 1);
                     Destroy(this.gameObject);
                     
                 }
@@ -78,6 +79,10 @@ public class FireEngine : MonoBehaviour
     public void setFireStationDestination(GameObject thisFireStation)
     {
         fireStationDestination = thisFireStation;
+    }
+
+    public void setFireStation(GameObject thisFireStation) { 
+        firestation= thisFireStation;
     }
 
     

@@ -48,12 +48,13 @@ public class PolicemanPatrolInCar : MonoBehaviour
         patrolSpeed = gameManagement.getPolicePatrolSpeed();
         chaseSpeed = gameManagement.getPoliceChaseSpeed();
         PoliceTime = gameManagement.getPoliceTime();
+        thisTime = PoliceTime;
         material.SetColor("_BaseColor", green);
     }
     private void Awake()
     {
         backToCar = false;
-        thisTime = PoliceTime;
+        
         
     }
 
