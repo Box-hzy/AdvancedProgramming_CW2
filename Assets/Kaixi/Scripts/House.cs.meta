@@ -5,7 +5,10 @@ MonoImporter:
   serializedVersion: 2
   defaultReferences:
   - meshRenderer: {instanceID: 0}
-  - vfx: {fileID: 1321723867245489190, guid: 1aaee71f5003e8d4f83378657251b792, type: 3}
+  - fireParticlePrefab: {fileID: 1321723867245489190, guid: 1aaee71f5003e8d4f83378657251b792,
+      type: 3}
+  - fireParticle: {instanceID: 0}
+  - SparkParticle: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

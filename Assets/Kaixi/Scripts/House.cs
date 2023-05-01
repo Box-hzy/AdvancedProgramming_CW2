@@ -16,7 +16,7 @@ public class House : MonoBehaviour
     Material burningMaterial;
     public Material[] defaultMaterial_Array;
     public Material[] NewMaterial_Array;
-    public GameObject vfx;
+    public GameObject fireParticlePrefab;
     //public Transform escapePoint;
     public float radius = 10;    //raycast radius
     Collider[] results = new Collider[10];
@@ -60,7 +60,8 @@ public class House : MonoBehaviour
         AddNeighbour();
 
         ////instantiate vfx component
-        Instantiate(vfx, centrePoint, Quaternion.identity, transform);
+        GameObject particle = Instantiate(fireParticlePrefab, centrePoint, Quaternion.identity, transform);
+        particle.transform.forward = Vector3.up;
         //fireVFX = GetComponentInChildren<VisualEffect>();
         fireParticle = GetComponentInChildren<ParticleSystem>();
         SparkParticle= fireParticle.gameObject.transform.GetChild(0).GetComponent<ParticleSystem>();

@@ -441,6 +441,8 @@ MonoBehaviour:
   stick: {fileID: 8641599885117886235}
   timer: 0
   TorchVFX: {fileID: 5975776533880687308}
+  TorchParticle: {fileID: 5934595676791616295}
+  SparkParticle: {fileID: 8182460140269842560}
 --- !u!1 &1118687715042363354
 GameObject:
   m_ObjectHideFlags: 0
@@ -497,7 +499,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1433391490499857786}
-  m_LocalRotation: {x: 0.09853763, y: -0.000000004656613, z: 4.2200554e-10, w: 0.9951334}
+  m_LocalRotation: {x: 0.09853763, y: 0.000000003958121, z: -4.2200554e-10, w: 0.9951334}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -6500,7 +6502,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5759162341857961959}
-  m_LocalRotation: {x: 0.05217777, y: -0.0000000037252899, z: 2.0372679e-10, w: 0.99863786}
+  m_LocalRotation: {x: 0.052177772, y: -0, z: -0, w: 0.99863786}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -11896,7 +11898,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8065023270298844435}
-  m_LocalRotation: {x: 0.075327836, y: -0.000000017927958, z: 0.0000000013242242,
+  m_LocalRotation: {x: 0.075327836, y: 0.000000016530974, z: -0.0000000012660165,
     w: 0.9971588}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
