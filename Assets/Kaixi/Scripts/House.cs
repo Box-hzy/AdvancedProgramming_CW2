@@ -16,7 +16,7 @@ public class House : MonoBehaviour
     Material burningMaterial;
     public Material[] defaultMaterial_Array;
     public Material[] NewMaterial_Array;
-    public GameObject fireParticlePrefab;
+    [SerializeField]GameObject fireParticlePrefab;
     //public Transform escapePoint;
     public float radius = 10;    //raycast radius
     Collider[] results = new Collider[10];
@@ -26,8 +26,8 @@ public class House : MonoBehaviour
     Vector3 centrePoint; //transform.position is based on Pivot point, however the pivot point of the model is too faraway
     float FireTimer = 0;
     VisualEffect fireVFX;
-    public ParticleSystem fireParticle;
-    public ParticleSystem SparkParticle;
+    ParticleSystem fireParticle;
+    ParticleSystem SparkParticle;
 
     [Header("HouseBuring")]
     float FireSpeed;
@@ -60,7 +60,9 @@ public class House : MonoBehaviour
         AddNeighbour();
 
         ////instantiate vfx component
+        fireParticlePrefab = GameObject.Find("FireParticlePrefab");
         GameObject particle = Instantiate(fireParticlePrefab, centrePoint, Quaternion.identity, transform);
+
         particle.transform.forward = Vector3.up;
         //fireVFX = GetComponentInChildren<VisualEffect>();
         fireParticle = GetComponentInChildren<ParticleSystem>();
@@ -253,9 +255,9 @@ public class House : MonoBehaviour
 
             case 1://fire is burning
                 for (int i = 0; i < NewMaterial_Array.Length; i++){
-                    NewMaterial_Array[i] = burningMaterial;
+                    //NewMaterial_Array[i] = burningMaterial;
                 }
-                meshRenderer.materials = NewMaterial_Array;
+                //meshRenderer.materials = NewMaterial_Array;
                 UImanager.instance.UpdateScore(score);
                 isPutOff = false;
                 break;
@@ -264,9 +266,9 @@ public class House : MonoBehaviour
             case 3://house into ruin
                 for (int i = 0; i < NewMaterial_Array.Length; i++)
                 {
-                    NewMaterial_Array[i] = destroiedMaterial;
+                   // NewMaterial_Array[i] = destroiedMaterial;
                 }
-                meshRenderer.materials = NewMaterial_Array;
+                //meshRenderer.materials = NewMaterial_Array;
                 timer = RecoverTime;
 
                 break;
@@ -296,4 +298,7 @@ public class House : MonoBehaviour
     {
         return isPutOff;
     }
+
+
+
 }
