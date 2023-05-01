@@ -108,7 +108,7 @@ public class House : MonoBehaviour
             fireParticle.Play();
             SparkParticle.Play();
             FireTimer += Time.deltaTime;
-            float CurrentFireSize = FireTimer * FireSpeed;
+            float CurrentFireSize = 10+FireTimer * FireSpeed;
             if (CurrentFireSize <= 70)
             { //maxfire
                 var emission = fireParticle.emission;
