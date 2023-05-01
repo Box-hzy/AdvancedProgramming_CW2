@@ -254,21 +254,33 @@ public class House : MonoBehaviour
                 break;
 
             case 1://fire is burning
-                for (int i = 0; i < NewMaterial_Array.Length; i++){
-                    //NewMaterial_Array[i] = burningMaterial;
+
+                if (burningMaterial != null)
+                {
+                    for (int i = 0; i < NewMaterial_Array.Length; i++)
+                    {
+                        NewMaterial_Array[i] = burningMaterial;
+                    }
+                    meshRenderer.materials = NewMaterial_Array;
                 }
-                //meshRenderer.materials = NewMaterial_Array;
+
                 UImanager.instance.UpdateScore(score);
                 isPutOff = false;
                 break;
             case 2:// fireman is putting off the fire
                 break;
             case 3://house into ruin
-                for (int i = 0; i < NewMaterial_Array.Length; i++)
+
+                if (destroiedMaterial != null)
                 {
-                   // NewMaterial_Array[i] = destroiedMaterial;
+                    for (int i = 0; i < NewMaterial_Array.Length; i++)
+                    {
+                        NewMaterial_Array[i] = destroiedMaterial;
+                    }
+                    meshRenderer.materials = NewMaterial_Array;
+
                 }
-                //meshRenderer.materials = NewMaterial_Array;
+               
                 timer = RecoverTime;
 
                 break;

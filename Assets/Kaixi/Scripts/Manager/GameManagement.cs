@@ -55,7 +55,9 @@ public class GameManagement : MonoBehaviour
         weatherManagement = GameObject.Find("WeatherManagement").GetComponent<WeatherManagement>();
         weatherType = weatherManagement.getWeather();
         BurningMaterial = GetComponent<MeshRenderer>().materials[0];
+        BurningMaterial = new Material(BurningMaterial);
         DestroiedMaterial = GetComponent<MeshRenderer>().materials[1];
+        DestroiedMaterial = new Material(DestroiedMaterial);
 
 
     }
