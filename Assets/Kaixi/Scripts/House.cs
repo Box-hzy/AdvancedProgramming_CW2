@@ -106,6 +106,23 @@ public class House : MonoBehaviour
             SparkParticle.Play();
             FireTimer += Time.deltaTime;
             float CurrentFireSize = FireTimer * FireSpeed;
+            if (CurrentFireSize <= 70)
+            { //maxfire
+                var emission = fireParticle.emission;
+                emission.rateOverTimeMultiplier = CurrentFireSize;
+                var emission2 = SparkParticle.emission;
+                emission2.rateOverTimeMultiplier = CurrentFireSize * 5 / 7;
+            }
+            else
+            {
+                var emission = fireParticle.emission;
+                emission.rateOverTimeMultiplier = 70;
+                var emission2 = SparkParticle.emission;
+                emission2.rateOverTimeMultiplier = 50;
+
+            }
+
+
             /*if (CurrentFireSize <= fireVFX.GetFloat("MaxSize"))
             {
                 fireVFX.SetFloat("FireSize", CurrentFireSize);
@@ -125,21 +142,8 @@ public class House : MonoBehaviour
             }*/
 
 
-            if (CurrentFireSize <= 70)
-            { //maxfire
-                var emission = fireParticle.emission;
-                emission.rateOverTimeMultiplier = CurrentFireSize;
-                var emission2 = SparkParticle.emission;
-                emission2.rateOverTimeMultiplier = CurrentFireSize * 5 / 7;
-            }
-            else {
-                var emission = fireParticle.emission;
-                emission.rateOverTimeMultiplier = 70;
-                var emission2 = SparkParticle.emission;
-                emission2.rateOverTimeMultiplier = 50;
 
-            }
-            
+
 
 
 
