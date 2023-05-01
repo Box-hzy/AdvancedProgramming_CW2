@@ -41,8 +41,8 @@ public class GameManagement : MonoBehaviour
     [SerializeField] float PoliceCarStopDistance;
 
     [Header("House")]
-    public Material BurningMaterial;
-    public Material DestroiedMaterial;
+    [SerializeField] Material BurningMaterial;
+    [SerializeField] Material DestroiedMaterial;
     [SerializeField] float HouseRecoverTime;
 
     WeatherManagement weatherManagement;
@@ -54,7 +54,10 @@ public class GameManagement : MonoBehaviour
     {
         weatherManagement = GameObject.Find("WeatherManagement").GetComponent<WeatherManagement>();
         weatherType = weatherManagement.getWeather();
-        
+        BurningMaterial = GetComponent<MeshRenderer>().materials[0];
+        DestroiedMaterial = GetComponent<MeshRenderer>().materials[1];
+
+
     }
 
     private void Update()
