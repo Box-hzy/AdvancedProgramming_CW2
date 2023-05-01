@@ -14,6 +14,8 @@ public class PickUpStick : MonoBehaviour
 
     GameManagement gameManagement;
     public VisualEffect TorchVFX;
+    public ParticleSystem TorchParticle;
+    public ParticleSystem SparkParticle;
 
 
     private void Start()
@@ -21,6 +23,7 @@ public class PickUpStick : MonoBehaviour
         stick.SetActive(false);
         gameManagement = GameObject.Find("GameManagement").GetComponent<GameManagement>();
         ActiveDuration = gameManagement.getTorchFireActiveTime();
+        
     }
 
     private void Update()
@@ -38,16 +41,26 @@ public class PickUpStick : MonoBehaviour
 
 
         if (stick.activeSelf)
-        { 
-            timer-= Time.deltaTime;
-            float currentFireSize = (timer / ActiveDuration) * TorchVFX.GetFloat("MaxSize");
+        {
+            TorchParticle.Play();
+            SparkParticle.Play();
+            timer -= Time.deltaTime;
+            //float currentFireSize = (timer / ActiveDuration) * TorchVFX.GetFloat("MaxSize");
+            float currentFireSize = (timer / ActiveDuration) * 15;
             if (timer <= 0)
             {
                 stick.SetActive(false);
-                TorchVFX.SetFloat("FireSize", 0);
+                //TorchVFX.SetFloat("FireSize", 0);
+                TorchParticle.Stop();
+                SparkParticle.Stop();
             }
-            else{
-                TorchVFX.SetFloat("FireSize", currentFireSize);
+            else
+            {
+                //TorchVFX.SetFloat("FireSize", currentFireSize);
+                var emission = TorchParticle.emission;
+                emission.rateOverTimeMultiplier = currentFireSize;
+                var emission2 = SparkParticle.emission;
+                emission2.rateOverTimeMultiplier = currentFireSize * 10 / 15;
             }
 
         }
