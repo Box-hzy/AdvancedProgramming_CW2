@@ -60,10 +60,10 @@ public class House : MonoBehaviour
         AddNeighbour();
 
         ////instantiate vfx component
-        fireParticlePrefab = GameObject.Find("FireParticlePrefab");
-        GameObject particle = Instantiate(fireParticlePrefab, centrePoint, Quaternion.identity, transform);
+        //fireParticlePrefab = GameObject.Find("FireParticlePrefab");
+        //GameObject particle = Instantiate(fireParticlePrefab, centrePoint, Quaternion.identity, transform);
 
-        particle.transform.forward = Vector3.up;
+        //particle.transform.forward = Vector3.up;
         //fireVFX = GetComponentInChildren<VisualEffect>();
         fireParticle = GetComponentInChildren<ParticleSystem>();
         SparkParticle= fireParticle.gameObject.transform.GetChild(0).GetComponent<ParticleSystem>();
@@ -78,6 +78,12 @@ public class House : MonoBehaviour
         RecoverTime = gameManagement.getHouseRecoverTime();
         //putoffFire = fireVFX.GetFloat("MaxSize");
         //SetEscapePoint();
+
+        if (GetComponentInChildren<SpawnScaredVillagers>() != null)
+        {
+            GetComponentInChildren<SpawnScaredVillagers>().thisHouse = this;
+        }
+
     }
 
 

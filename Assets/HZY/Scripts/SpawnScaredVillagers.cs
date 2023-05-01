@@ -6,17 +6,18 @@ public class SpawnScaredVillagers : MonoBehaviour
 {
 
     public GameObject scaredVillager;
-    private House thisHouse;
-    private Transform escapePoint;
+    [SerializeField]public House thisHouse;
+    [SerializeField]private Transform escapePoint;
     bool isSpawn;
     private void Awake()
     {
-        thisHouse = GetComponentInParent<House>();
-        if (transform.childCount > 0)
-        {
-            if (transform.GetChild(0).CompareTag("EscapePoint"))
-                escapePoint = transform.GetChild(0);
-        }
+        escapePoint = transform.parent;
+        //thisHouse = escapePoint.parent.GetComponent<House>();
+        //if (transform.childCount > 0)
+        //{
+        //    if (transform.GetChild(0).CompareTag("EscapePoint"))
+        //        escapePoint = transform.GetChild(0);
+        //}
     }
 
     private void Update()
