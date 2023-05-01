@@ -10,12 +10,12 @@ public class FireEngine : MonoBehaviour
     public  NavMeshAgent navMeshAgent;
     FiremanScript firemanScript;
     public Vector3 firehouseDestination;
-    public Vector3 fireStationDestination;
+    public GameObject fireStationDestination;
     public GameObject firehouse;
     float stopDistance;
     GameManagement gameManagement;
     public int state = 0;//0: go to firehouse, 1:arrived , 2: back
-
+    FireStationManagement fireStationManagement;
     // Start is called before the first frame update
     void Start()
     {
@@ -27,6 +27,8 @@ public class FireEngine : MonoBehaviour
         navMeshAgent = GetComponent<NavMeshAgent>();
         navMeshAgent.speed = gameManagement.getFireEngineSpeed();
         stopDistance = gameManagement.getFireTruckStopDistance();
+        fireStationManagement = GameObject.Find("FireStationManagement").GetComponent<FireStationManagement>();
+        
     }
 
     // Update is called once per frame
@@ -55,10 +57,12 @@ public class FireEngine : MonoBehaviour
                 break;
             case 2:
                 navMeshAgent.isStopped = false;
-                navMeshAgent.SetDestination(fireStationDestination);
-                if (Vector3.Distance(transform.position, fireStationDestination) <= 1.0f)
+                navMeshAgent.SetDestination(fireStationDestination.transform.position);
+                if (Vector3.Distance(transform.position, fireStationDestination.transform.position) <= 1.0f)
                 {
+                    fireStationManagement.changeFireEngineNumber(fireStationDestination, 1);
                     Destroy(this.gameObject);
+                    
                 }
                 break;
         }
@@ -71,7 +75,7 @@ public class FireEngine : MonoBehaviour
     public void setFirehouseDestination(Vector3 thisFirehouse) {
         firehouseDestination = thisFirehouse;
     }
-    public void setFireStationDestination(Vector3 thisFireStation)
+    public void setFireStationDestination(GameObject thisFireStation)
     {
         fireStationDestination = thisFireStation;
     }

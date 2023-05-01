@@ -51,6 +51,7 @@ public class FireStationManagement : MonoBehaviour
             
 
         }
+
     }
 
     void DispatchFireEngines(GameObject firestation, GameObject firehouse) { //instantiate a fire engine which will drive to the burning house
@@ -70,9 +71,9 @@ public class FireStationManagement : MonoBehaviour
         Vector3 truckStopPosition = firehouseCenter - truckDirection * truckStoppingDistance;
 
         fireEngineScript.setFirehouseDestination(truckStopPosition);
-        fireEngineScript.setFireStationDestination(FireEngineAppear[firestation].transform.position);
+        fireEngineScript.setFireStationDestination(FireEngineAppear[firestation]);
         fireEngineScript.firehouse = firehouse;
-
+        
         gameManagement.setFireAlarm(false);
     }
 

@@ -33,7 +33,7 @@ public class PolicemanPatrolInCar : MonoBehaviour
     PolicemanInvInCar policemanInv;
     public bool backToCar = false;
 
-    public float PoliceTime;
+    float PoliceTime;
     public float thisTime;
 
     GameManagement gameManagement;

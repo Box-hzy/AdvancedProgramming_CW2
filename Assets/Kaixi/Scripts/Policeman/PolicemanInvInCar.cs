@@ -25,7 +25,7 @@ public class PolicemanInvInCar : MonoBehaviour
     public GameObject villager;
     public bool VillagerNearyby = false;
 
-    public float policeTime;
+    float policeTime;
     public float thisTime;
 
 

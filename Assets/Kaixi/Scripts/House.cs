@@ -121,25 +121,26 @@ public class House : MonoBehaviour
                 emission2.rateOverTimeMultiplier = 50;
 
             }
-
-
-            /*if (CurrentFireSize <= fireVFX.GetFloat("MaxSize"))
+            
+            if (CurrentFireSize >= 60)
             {
-                fireVFX.SetFloat("FireSize", CurrentFireSize);
-            }
-            else
-            {
-                fireVFX.SetFloat("FireSize", fireVFX.GetFloat("MaxSize"));
-                //fireVFX.SetFloat("FireSize", 50);
-            }
-
-            if (CurrentFireSize >= 15) {
                 thisSpreaTime -= Time.deltaTime;
-                if (thisSpreaTime <= 0) {
+                if (thisSpreaTime <= 0)
+                {
                     BurnNeighbour();
                 }
-                
-            }*/
+            }
+
+
+                /*if (CurrentFireSize <= fireVFX.GetFloat("MaxSize"))
+                {
+                    fireVFX.SetFloat("FireSize", CurrentFireSize);
+                }
+                else
+                {
+                    fireVFX.SetFloat("FireSize", fireVFX.GetFloat("MaxSize"));
+                    //fireVFX.SetFloat("FireSize", 50);
+                }*/
 
 
 
@@ -148,7 +149,7 @@ public class House : MonoBehaviour
 
 
 
-        }
+            }
         if (houseState == 2)
         {
 
