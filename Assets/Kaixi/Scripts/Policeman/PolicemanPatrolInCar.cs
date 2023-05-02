@@ -25,6 +25,8 @@ public class PolicemanPatrolInCar : MonoBehaviour
     public float maxPatrolDistance;
     public float viewDistance = 10f; // view distance
     public float viewAngle = 90f; // view angle
+    public float foggyViewDistance = 6f;
+    public float sunnyViewDistance = 10f;
 
     public List<Collider> targetsInViewRadius = new List<Collider>();
     public MeshFilter meshFilter;
@@ -68,10 +70,12 @@ public class PolicemanPatrolInCar : MonoBehaviour
         targetsInViewRadius = new List<Collider>(Physics.OverlapSphere(transform.position, viewDistance));
         thisTime -= Time.deltaTime;
 
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            SceneManager.LoadScene(0);
-        }
+        //if (Input.GetKeyDown(KeyCode.P))
+        //{
+        //    SceneManager.LoadScene(0);
+        //}
+
+       
 
         switch (policeState)
         {
