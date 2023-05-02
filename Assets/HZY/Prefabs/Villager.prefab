@@ -4977,8 +4977,8 @@ GameObject:
   - component: {fileID: 873819439682663408}
   - component: {fileID: 2209256580531179233}
   - component: {fileID: 5235536729934752788}
-  - component: {fileID: 5886930505803532533}
   - component: {fileID: 3581046046206743541}
+  - component: {fileID: 6077352810428249735}
   m_Layer: 11
   m_Name: Villager
   m_TagString: Untagged
@@ -5063,7 +5063,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 9194444935193498015}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.5
+  m_Radius: 0.7
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50
@@ -5076,29 +5076,6 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 8
   m_ObstacleAvoidanceType: 4
---- !u!136 &5886930505803532533
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9194444935193498015}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 1, z: 0}
 --- !u!114 &3581046046206743541
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5118,6 +5095,8 @@ MonoBehaviour:
   onLookRange: 10
   runawayRange: {x: 20, y: 100}
   hasBeenInvestigated: 0
+  previousLocation: {x: 0, y: 0, z: 0}
+  currentLocation: {x: 0, y: 0, z: 0}
   detectableLayer:
     serializedVersion: 2
     m_Bits: 3072
@@ -5126,3 +5105,26 @@ MonoBehaviour:
   firedHouse: {fileID: 0}
   distanceFromFiredHouse: 0
   detectedCollider: []
+--- !u!136 &6077352810428249735
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9194444935193498015}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}

@@ -714,7 +714,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7020966809982655678
 Transform:
   m_ObjectHideFlags: 0
@@ -773,7 +773,7 @@ MonoBehaviour:
   backToCar: 0
   villagerVector3: {x: 0, y: 0, z: 0}
   villager: {fileID: 0}
-  policeTime: 180
+  VillagerNearyby: 0
   thisTime: 0
 --- !u!195 &4090701930239782884
 NavMeshAgent:
@@ -784,10 +784,10 @@ NavMeshAgent:
   m_GameObject: {fileID: 5414844541655356484}
   m_Enabled: 1
   m_AgentTypeID: -334000983
-  m_Radius: 0.5
+  m_Radius: 0.7
   m_Speed: 3.5
   m_Acceleration: 8
-  avoidancePriority: 50
+  avoidancePriority: 48
   m_AngularSpeed: 120
   m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1

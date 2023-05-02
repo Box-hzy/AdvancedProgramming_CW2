@@ -218,9 +218,7 @@ public class Villager : VillagerBase
                 break;
             default:
                 break;
-
         }
-
     }
 
     //OnExit - excute once
@@ -260,7 +258,6 @@ public class Villager : VillagerBase
             default:
                 break;
         }
-
         previousState = currentState;
     }
 
@@ -425,8 +422,6 @@ public class Villager : VillagerBase
 
         ChangeStateAndEnter(State.Walk);
         yield break;
-
-
     }
 
 

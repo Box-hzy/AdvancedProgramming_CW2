@@ -55,7 +55,8 @@ public class House : MonoBehaviour
         
         
 
-        gameObject.AddComponent<NavMeshObstacle>().carving = true;
+        //gameObject.AddComponent<NavMeshObstacle>().carving = true;
+        gameObject.AddComponent<NavMeshObstacle>().carving = false;
         centrePoint = GetComponent<MeshRenderer>().bounds.center;
         AddNeighbour();
 

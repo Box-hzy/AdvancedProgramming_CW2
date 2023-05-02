@@ -48,7 +48,8 @@ public class SpawnScaredVillagers : MonoBehaviour
         Debug.Log("spawn scared villagers");
         for (int i = 0; i < 5; i++)
         {
-            GameObject go = Instantiate(scaredVillager, escapePoint.position, Quaternion.identity, VillagerManager.Instance.scaredVillagerParent);
+            GameObject go = Instantiate(scaredVillager, escapePoint.position, Quaternion.identity, 
+                VillagerManager.Instance.scaredVillagerParent);
             go.transform.forward = escapePoint.forward;
             yield return new WaitForSeconds(0.8f);
             //go.GetComponent<ScaredVillager>().origin = escapePoint;
